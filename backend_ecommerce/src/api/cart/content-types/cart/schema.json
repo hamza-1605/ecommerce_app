@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts",
+  "info": {
+    "singularName": "cart",
+    "pluralName": "carts",
+    "displayName": "Cart"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "cart"
+    },
+    "cartItems": {
+      "type": "component",
+      "component": "cart-item.cart-item",
+      "repeatable": true
+    },
+    "total": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+// pages/edit_product_page.dart
+import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ecommerce/features/products/presentation/widgets/product_form.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class EditProductPage extends GetView<ProductController> {
+  const EditProductPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Edit Product')),
+      body: ProductForm(
+        existingProduct: controller.selectedProduct.value,
+        onSubmit: (product) {
+          controller.updateProduct(product);
+        },
+        isSubmitting: controller.isSubmitting,
+      ),
+    );
+  }
+}

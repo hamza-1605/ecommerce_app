@@ -1,0 +1,20 @@
+class AppRoutes {
+  static const splash = '/';
+  static const home = '/home';
+
+  // static const productsList   = '/products';
+  static const productDetail = '/products/detail';
+  static const createProduct = '/products/create';
+  static const editProduct   = '/products/edit';
+
+  static const login  = '/login';
+  static const register  = '/register';
+
+  static const editProfile  = '/editprofile';
+
+  static const cart  = '/cart';
+
+  static const checkout  = '/checkout';
+  static const payment  = '/payment';
+
+}
