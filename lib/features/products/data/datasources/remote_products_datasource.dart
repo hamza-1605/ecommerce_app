@@ -82,4 +82,25 @@ class RemoteProductsDatasource {
     if(!apiResponse.success) throw Exception("Couldn't get Product");
     return apiResponse.data! ;
   }
+
+
+  // remote_products_datasource.dart
+  Future<void> updateStock({
+    required String documentId,
+    required int    newQuantity,
+  }) async {
+    final apiResponse = await apiServices.putCall<void>(
+      '${ApiConstants.productsEndpoint}/$documentId',
+      {
+        "data": {
+          "quantity": newQuantity,
+        }
+      },
+      (json) {},
+    );
+
+    if (!apiResponse.success) {
+      throw Exception(apiResponse.message);
+    }
+  }
 }

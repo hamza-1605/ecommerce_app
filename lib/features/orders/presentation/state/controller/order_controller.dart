@@ -10,6 +10,7 @@ import 'package:ecommerce/features/orders/domain/usecases/get_all_orders_usecase
 import 'package:ecommerce/features/orders/domain/usecases/update_order_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/create_order_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -108,8 +109,23 @@ class OrderController extends GetxController {
         createdAt:       DateTime.now(),
       );
 
-      print('About to call Create Usecase.');
       await createOrderUsecase.call(userId: userId, order: order);
+
+      // ✅ Deduct stock for each ordered item
+      final productController = Get.find<ProductController>();
+      for (final item in order.orderItems) {
+        final product = productController.products
+            .firstWhereOrNull((p) => p.documentId == item.productDocumentId);
+
+        if (product != null) {
+          final newQuantity = (product.quantity - item.quantity).clamp(0, product.quantity);        // ✅ never go below 0
+
+          await productController.updateStock(
+            documentId:  product.documentId!,
+            newQuantity: newQuantity,
+          );
+        }
+      }
 
       // Clear cart after successful order
       await Get.find<CartController>().clearCart();
@@ -138,43 +154,43 @@ class OrderController extends GetxController {
 
 
   // ── Stripe Payment ──────────────────────────────────
-Future<void> processStripePayment({
-  required List<CartItemEntity> cartItems,
-  required String               deliveryAddress,
-  required int                  total,
-}) async {
-  isSubmitting.value = true;
-  try {
-    // 1. Create payment intent on backend
-    final clientSecret = await paymentService.createPaymentIntent(
-      amount: total,
-    );
-    // 2. Initialize payment sheet
-    await paymentService.initPaymentSheet( clientSecret: clientSecret );
-    // 3. Present payment sheet to user
-    await paymentService.presentPaymentSheet();
-    // 4. Payment successful — place order
-    await createOrder(
-      cartItems:       cartItems,
-      deliveryAddress: deliveryAddress,
-      total:           total,
-      paymentMethod:   'card',
-    );
-  } 
-  catch (e) {
-    // User cancelled payment sheet — don't show error
-    if (e is StripeException && e.error.code == FailureCode.Canceled) return;
+  Future<void> processStripePayment({
+    required List<CartItemEntity> cartItems,
+    required String               deliveryAddress,
+    required int                  total,
+  }) async {
+    isSubmitting.value = true;
+    try {
+      // 1. Create payment intent on backend
+      final clientSecret = await paymentService.createPaymentIntent(
+        amount: total,
+      );
+      // 2. Initialize payment sheet
+      await paymentService.initPaymentSheet( clientSecret: clientSecret );
+      // 3. Present payment sheet to user
+      await paymentService.presentPaymentSheet();
+      // 4. Payment successful — place order
+      await createOrder(
+        cartItems:       cartItems,
+        deliveryAddress: deliveryAddress,
+        total:           total,
+        paymentMethod:   'card',
+      );
+    } 
+    catch (e) {
+      // User cancelled payment sheet — don't show error
+      if (e is StripeException && e.error.code == FailureCode.Canceled) return;
 
-    HelperFunctions.showSnackbar(
-      title:   'Payment Failed',
-      message: e.toString(),
-      isError: true,
-    );
-  } 
-  finally {
-    isSubmitting.value = false;
+      HelperFunctions.showSnackbar(
+        title:   'Payment Failed',
+        message: e.toString(),
+        isError: true,
+      );
+    } 
+    finally {
+      isSubmitting.value = false;
+    }
   }
-}
 
 
   // ── UPDATE ORDER ────────────────────────────────────
@@ -182,6 +198,27 @@ Future<void> processStripePayment({
     isSubmitting.value = true;
     try {
       await updateOrderUsecase.call( orderId: documentId, orderStatus: orderStatus );
+
+      if(orderStatus.toLowerCase() == 'cancelled'){
+        // ✅ Restore stock for each item
+        final productController = Get.find<ProductController>();
+        final order = orders.firstWhereOrNull((o) => o.documentId == documentId);
+
+        if (order != null) {
+          for (final item in order.orderItems) {
+            final product = productController.products
+                .firstWhereOrNull((p) => p.documentId == item.productDocumentId);
+
+            if (product != null) {
+              final restoredQuantity = product.quantity + item.quantity;  // ✅ restore
+              await productController.updateStock(
+                documentId:  product.documentId!,
+                newQuantity: restoredQuantity,
+              );
+            }
+          }
+        }
+      }
 
       final index = orders.indexWhere( (o) => o.documentId == documentId );
       if (index != -1) {
@@ -193,14 +230,14 @@ Future<void> processStripePayment({
           deliveryAddress: existingOrder.deliveryAddress,
           total:           existingOrder.total,
           paymentMethod:   existingOrder.paymentMethod,
-          orderStatus:     'cancelled',
+          orderStatus:     orderStatus,
           createdAt:       existingOrder.createdAt,
         );
         orders.refresh();
       }
       HelperFunctions.showSnackbar(
-        title:   'Cancelled',
-        message: 'Order has been cancelled',
+        title:   'Updated',
+        message: 'Order status changed to $orderStatus',
       );
     } 
     catch (e) {

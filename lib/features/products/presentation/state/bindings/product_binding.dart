@@ -6,6 +6,7 @@ import 'package:ecommerce/features/products/domain/usecases/delete_product_useca
 import 'package:ecommerce/features/products/domain/usecases/edit_product_usecase.dart';
 import 'package:ecommerce/features/products/domain/usecases/get_product_by_id_usecase.dart';
 import 'package:ecommerce/features/products/domain/usecases/get_products_usecase.dart';
+import 'package:ecommerce/features/products/domain/usecases/update_stock_usecase.dart';
 import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,7 @@ class ProductBinding extends Bindings {
     Get.lazyPut(() => AddProductUsecase( Get.find() ), fenix: true);
     Get.lazyPut(() => EditProductUsecase( Get.find() ), fenix: true);
     Get.lazyPut(() => DeleteProductUsecase( Get.find() ), fenix: true);
+    Get.lazyPut(() => UpdateStockUsecase( Get.find() ), fenix: true);
 
     // Controller
     Get.lazyPut(() => ProductController(
@@ -35,7 +37,8 @@ class ProductBinding extends Bindings {
       createProductUsecase: Get.find(),
       updateProductUsecase: Get.find(),
       deleteProductUsecase: Get.find(),
-    ), 
+      updateStockUsecase: Get.find(),
+    ),
     fenix: true);
   }
 }

@@ -1,58 +1,85 @@
-// pages/product_list_page.dart
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
-import 'package:ecommerce/features/products/presentation/widgets/product_card.dart';
+import 'package:ecommerce/features/products/presentation/widgets/product_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ProductListPage extends GetView<ProductController> {
   const ProductListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Products')),
-      
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(AppRoutes.createProduct),
-        child: const Icon(Icons.add),
-      ),
+    return Obx(() {
+      final categories = controller.categories;
+    final isAdmin = GetStorage().read('user_is_admin') ?? false;
 
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (controller.errorMessage.isNotEmpty) {
-          return Center(child: Text(controller.errorMessage.value));
-        }
-        if (controller.products.isEmpty) {
-          return const Center(child: Text('No products found.'));
-        }
-        
-        return RefreshIndicator(
-          onRefresh: controller.fetchProducts,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 14.0),
-            child: GridView.builder(
-              padding: const EdgeInsets.all(12),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.7, // controls height
+      return DefaultTabController(
+        length: categories.length,
+        child: Scaffold(
+          backgroundColor: const Color(0xFFF8F6F3),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFF8F6F3),
+            elevation: 0,
+            title: const Text(
+              'Shop',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -1,
+                color: Color(0xFF1A1A1A),
               ),
-              itemCount: controller.products.length,
-              itemBuilder: (context, index) => ProductCard(
-                product: controller.products[index],
-                onTap: () {
-                  controller.selectProduct(controller.products[index]);
-                  Get.toNamed(AppRoutes.productDetail);
-                },
+            ),
+            actions: isAdmin ? [
+              IconButton(
+                onPressed: () => Get.toNamed(AppRoutes.createProduct),
+                icon: const Icon(Icons.add, color: Color(0xFF1A1A1A)),
+              ),
+            ] : null ,
+
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(48),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TabBar(
+                  isScrollable:           true,
+                  tabAlignment:           TabAlignment.start,
+                  labelColor:             const Color(0xFF1A1A1A),
+                  unselectedLabelColor:   const Color(0xFF888888),
+                  labelStyle:             const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                  unselectedLabelStyle:   const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                  indicator: UnderlineTabIndicator(
+                    borderSide: const BorderSide(
+                      width: 2.5,
+                      color: Color(0xFF1A1A1A),
+                    ),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  onTap: (index) =>
+                      controller.selectCategory(categories[index]),
+                  tabs: categories
+                      .map((cat) => Tab(text: cat))
+                      .toList(),
+                ),
               ),
             ),
           ),
-        );
-      }),
-    );
+
+          body: TabBarView(
+            children: categories.map( (cat) =>
+              ProductGrid( category: cat ),
+            ).toList(),
+          ),
+        ),
+      );
+    });
   }
 }
+
+// ── Product Grid per tab ────────────────────────────

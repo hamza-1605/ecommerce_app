@@ -5,12 +5,15 @@ import 'package:ecommerce/features/cart/presentation/state/controller/cart_contr
 import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ProductDetailPage extends GetView<ProductController> {
   const ProductDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isAdmin = GetStorage().read('user_is_admin') ?? false;
+    print('ADMIN =================> $isAdmin');
 
     return Obx( ()  {
       final product = controller.selectedProduct.value!;
@@ -18,7 +21,7 @@ class ProductDetailPage extends GetView<ProductController> {
       return Scaffold(
         appBar: AppBar(
           title: Text(product.itemName),
-          actions: [
+          actions: isAdmin ? [
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () => Get.toNamed(AppRoutes.editProduct),
@@ -34,7 +37,7 @@ class ProductDetailPage extends GetView<ProductController> {
                   onPressed: () =>
                       controller.deleteProduct(product.documentId!),
                 )),
-          ],
+          ] : null,
         ),
 
 
@@ -173,7 +176,8 @@ class ProductDetailPage extends GetView<ProductController> {
 
 
         // Bottom Buttons
-        bottomNavigationBar: SafeArea(
+        bottomNavigationBar: !isAdmin ? 
+        SafeArea(
           bottom: true,
           top: false,
           child: Container(
@@ -237,7 +241,8 @@ class ProductDetailPage extends GetView<ProductController> {
               ],
             ),
           ),
-        ),
+        )
+        : null,
       );
     });
   }

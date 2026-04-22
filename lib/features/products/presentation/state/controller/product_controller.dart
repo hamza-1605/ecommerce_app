@@ -5,6 +5,7 @@ import 'package:ecommerce/features/products/domain/usecases/delete_product_useca
 import 'package:ecommerce/features/products/domain/usecases/edit_product_usecase.dart';
 import 'package:ecommerce/features/products/domain/usecases/get_product_by_id_usecase.dart';
 import 'package:ecommerce/features/products/domain/usecases/get_products_usecase.dart';
+import 'package:ecommerce/features/products/domain/usecases/update_stock_usecase.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
@@ -14,13 +15,15 @@ class ProductController extends GetxController {
   final EditProductUsecase updateProductUsecase;
   final DeleteProductUsecase deleteProductUsecase;
   final GetProductByIdUsecase getProductByIdUsecase;
+  final UpdateStockUsecase updateStockUsecase;
 
   ProductController({
     required this.getProductsUsecase,
     required this.createProductUsecase,
     required this.updateProductUsecase,
     required this.deleteProductUsecase,
-    required this.getProductByIdUsecase
+    required this.getProductByIdUsecase,
+    required this.updateStockUsecase,
   });
 
 
@@ -29,6 +32,7 @@ class ProductController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool isSubmitting = false.obs;   // for create/edit/delete actions
   final RxString errorMessage = ''.obs;
+  final RxString selectedCategory = 'All'.obs;
 
   // selected product for detail/edit screen
   final Rx<ProductEntity?> selectedProduct = Rx<ProductEntity?>(null);
@@ -57,6 +61,7 @@ class ProductController extends GetxController {
     }
   }
 
+
   // ── READ BY ID ───────────────────────────────────────────
   Future<void> fetchProductById( String documentId ) async {
     isLoading.value = true;
@@ -74,6 +79,7 @@ class ProductController extends GetxController {
       isLoading.value = false;
     }
   }
+
 
   // ── CREATE ─────────────────────────────────────────
   Future<void> createProduct(ProductEntity product) async {
@@ -145,5 +151,66 @@ class ProductController extends GetxController {
 
   void toggleFavorite() {
     isFavorite.value = !isFavorite.value;
+  }
+  
+  
+  // --------------------- Filtering Categories Issues -------------------------
+
+  // ── Filtered products based on selected category ──
+  List<ProductEntity> get filteredProducts {
+    if (selectedCategory.value == 'All') return products;
+    
+    return products
+        .where((p) => p.category == selectedCategory.value)
+        .toList();
+  }
+
+
+  // ── Get unique categories from fetched products ───
+  List<String> get categories {
+    final cats = products.map((p) => p.category).toSet().toList();
+    cats.sort();
+    return ['All', ...cats];    // ✅ 'All' always first
+  }
+
+
+  void selectCategory(String category) {
+    selectedCategory.value = category;
+  }
+
+  //  ---------------- Update Stock on Each Order ---------------------------
+  Future<void> updateStock({
+    required String documentId,
+    required int    newQuantity,
+  }) async {
+    try {
+      await updateStockUsecase.call(
+        documentId:  documentId,
+        newQuantity: newQuantity,
+      );
+
+      // ✅ Update locally so UI reflects immediately
+      final index = products.indexWhere((p) => p.documentId == documentId);
+      if (index != -1) {
+        final existing = products[index];
+        products[index] = ProductEntity(
+          documentId:  existing.documentId,
+          itemName:    existing.itemName,
+          category:    existing.category,
+          price:       existing.price,
+          quantity:    newQuantity,             // ✅ updated
+          description: existing.description,
+          salePercent: existing.salePercent,
+          imagesUrl:   existing.imagesUrl,
+        );
+        products.refresh();
+      }
+    } catch (e) {
+      HelperFunctions.showSnackbar(
+        title:   'Stock Update Error',
+        message: e.toString(),
+        isError: true,
+      );
+    }
   }
 }

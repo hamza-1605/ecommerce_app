@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/utils/custom_divider.dart';
 import 'package:ecommerce/core/widgets/status_badge_widget.dart';
 import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
 import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
@@ -11,7 +12,7 @@ class AdminOrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderController = Get.find<OrderController>();
-    final statuses = ['Pending', 'Processing', 'Delivered', 'Cancelled'];
+    final statuses = ['Pending', 'Processing', 'Delivered'];
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -55,7 +56,7 @@ class AdminOrderCard extends StatelessWidget {
             ),
           ),
 
-          const Divider(height: 1),
+          const CustomDivider(),
 
           // ── Items ──────────────────────────────
           Padding(
@@ -72,7 +73,7 @@ class AdminOrderCard extends StatelessWidget {
                           fontSize: 13, color: Color(0xFF555555))),
                       Text('Rs. ${item.subtotal}',
                         style: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.w600)),
+                          fontSize: 13, fontWeight: FontWeight.w500)),
                     ],
                   ),
                 ),
@@ -80,7 +81,7 @@ class AdminOrderCard extends StatelessWidget {
             ),
           ),
 
-          const Divider(height: 1),
+          const CustomDivider(),
 
           // ── Status Changer ──────────────────────
           Padding(
@@ -88,11 +89,8 @@ class AdminOrderCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Rs. ${order.total}',
-                  style: const TextStyle(
-                    fontSize: 15, fontWeight: FontWeight.w800)),
-
-                // ✅ Status dropdown
+                // Status dropdown
+                if (order.orderStatus.toLowerCase() != 'cancelled')
                 Container(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 12, vertical: 4),
@@ -109,8 +107,7 @@ class AdminOrderCard extends StatelessWidget {
                         orElse: () => statuses.first,
                       ),
                       isDense: true,
-                      icon: const Icon(Icons.keyboard_arrow_down_rounded,
-                          size: 18),
+                      icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 18),
                       items: statuses.map((status) =>
                         DropdownMenuItem(
                           value: status,
@@ -131,6 +128,15 @@ class AdminOrderCard extends StatelessWidget {
                       },
                     ),
                   ),
+                )
+                else
+                const SizedBox(),
+
+                Text('Rs. ${order.total}',
+                  style: const TextStyle(
+                    fontSize: 15, 
+                    fontWeight: FontWeight.w800
+                  )
                 ),
               ],
             ),

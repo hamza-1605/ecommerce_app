@@ -4,6 +4,7 @@ import 'package:ecommerce/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:ecommerce/features/auth/domain/usecases/login_auth_user_usecase.dart';
 import 'package:ecommerce/features/auth/domain/usecases/logout_auth_user_usecase.dart';
 import 'package:ecommerce/features/auth/domain/usecases/register_auth_user_usecase.dart';
+import 'package:ecommerce/features/home/presentation/state/controller/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -77,9 +78,11 @@ class AuthController extends GetxController {
   Future<void> logout() async {
     try {
       await logoutAuthUserUsecase.call();
-      await _clearUserData();                  
+      await _clearUserData();      
       currentUser.value = null;
       Get.offAllNamed(AppRoutes.login);       
+      final homeController = Get.find<HomeController>();
+      homeController.navigateTo(0);
     } 
     catch (e) {
       HelperFunctions.showSnackbar(

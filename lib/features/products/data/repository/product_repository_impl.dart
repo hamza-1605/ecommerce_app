@@ -57,4 +57,9 @@ class ProductRepositoryImpl implements ProductRepository {
     return await remoteProductsDatasource.readProducts();
   }
 
+
+  @override
+  Future<void> updateStock({ required String documentId, required int newQuantity}) async {
+    return await remoteProductsDatasource.updateStock(documentId: documentId, newQuantity: newQuantity);
+  }
 }

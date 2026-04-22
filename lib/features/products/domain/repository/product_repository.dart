@@ -10,4 +10,6 @@ abstract class ProductRepository {
   Future<void> editProduct({ required ProductEntity product });
 
   Future<void> deleteProduct({ required String documentId });
+  
+  Future<void> updateStock({ required String documentId, required int newQuantity });
 }

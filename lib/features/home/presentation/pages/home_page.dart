@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     final pages = [
