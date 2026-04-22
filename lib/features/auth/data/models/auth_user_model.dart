@@ -5,7 +5,8 @@ class AuthUserModel extends AuthUserEntity {
     required super.id, 
     required super.email, 
     required super.username, 
-    required super.token
+    required super.token,
+    required super.isAdmin,
   });
   
   factory AuthUserModel.fromJson(Map<String, dynamic> json) {
@@ -13,7 +14,8 @@ class AuthUserModel extends AuthUserEntity {
       id:       json['user']['id'],
       email:    json['user']['email'],
       username: json['user']['username'],
-      token:    json['jwt'],              
+      token:    json['jwt'],     
+      isAdmin:  json['user']['isAdmin'] ?? "false",
     );
   }
 }

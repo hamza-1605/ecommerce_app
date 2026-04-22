@@ -182,6 +182,7 @@ class PaymentPage extends GetView<OrderController> {
       );
     } else {
       // ── Card — Stripe payment first ──────────────
+      
       await controller.processStripePayment(
         cartItems:       cartItems,
         deliveryAddress: deliveryAddress,

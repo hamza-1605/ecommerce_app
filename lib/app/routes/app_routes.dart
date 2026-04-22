@@ -1,6 +1,7 @@
 class AppRoutes {
   static const splash = '/';
   static const home = '/home';
+  static const adminHome = '/admin';
 
   // static const productsList   = '/products';
   static const productDetail = '/products/detail';

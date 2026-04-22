@@ -6,6 +6,7 @@ import 'package:ecommerce/features/home/presentation/state/controller/home_contr
 import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
 import 'package:ecommerce/features/orders/domain/entities/order_item_entity.dart';
 import 'package:ecommerce/features/orders/domain/usecases/delete_order_usecase.dart';
+import 'package:ecommerce/features/orders/domain/usecases/get_all_orders_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/update_order_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/create_order_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/get_orders_usecase.dart';
@@ -17,7 +18,8 @@ class OrderController extends GetxController {
   final GetOrdersUsecase    getOrdersUsecase;
   final CreateOrderUsecase  createOrderUsecase;
   final UpdateOrderUsecase  updateOrderUsecase;
-  final DeleteOrderUsecase deleteOrderUsecase;
+  final DeleteOrderUsecase  deleteOrderUsecase;
+  final GetAllOrdersUsecase getAllOrdersUsecase;
   final PaymentService paymentService;
 
   OrderController({
@@ -25,6 +27,7 @@ class OrderController extends GetxController {
     required this.createOrderUsecase,
     required this.updateOrderUsecase,
     required this.deleteOrderUsecase,
+    required this.getAllOrdersUsecase,
     required this.paymentService,
   });
 
@@ -32,6 +35,7 @@ class OrderController extends GetxController {
   final RxList<OrderEntity> orders       = <OrderEntity>[].obs;
   final RxBool              isLoading    = false.obs;
   final RxBool              isSubmitting = false.obs;
+  final RxList<OrderEntity> allOrders = <OrderEntity>[].obs;
 
   int get userId => GetStorage().read('user_id');
 
@@ -40,6 +44,25 @@ class OrderController extends GetxController {
     super.onInit();
     fetchOrders();
   }
+
+  // ── FETCH ALL ORDERS (Admin) ────────────────────────
+  Future<void> fetchAllOrders() async {
+    isLoading.value = true;
+    try {
+      final result = await getAllOrdersUsecase.call();
+      allOrders.assignAll(result);
+    } 
+    catch (e) {
+      HelperFunctions.showSnackbar(
+        title:   'Error',
+        message: e.toString(),
+        isError: true,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
 
   // ── FETCH ORDERS ────────────────────────────────────
   Future<void> fetchOrders() async {
@@ -85,6 +108,7 @@ class OrderController extends GetxController {
         createdAt:       DateTime.now(),
       );
 
+      print('About to call Create Usecase.');
       await createOrderUsecase.call(userId: userId, order: order);
 
       // Clear cart after successful order

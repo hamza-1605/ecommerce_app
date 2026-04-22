@@ -2,7 +2,7 @@
 import 'package:ecommerce/core/utils/custom_divider.dart';
 import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
 import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
-import 'package:ecommerce/features/orders/presentation/widgets/status_badge_widget.dart';
+import 'package:ecommerce/core/widgets/status_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

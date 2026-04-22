@@ -8,6 +8,7 @@ class PaymentService {
   PaymentService({required this.apiServices});
 
   Future<String> createPaymentIntent({required int amount}) async {
+    print("******** Creating payment intent ********");
     final apiResponse = await apiServices.postCall<String>(
       ApiConstants.paymentIntentEndpoint,
       { 
@@ -17,6 +18,8 @@ class PaymentService {
       (json) => json['clientSecret'] as String,
     );
 
+    print("******** Processing Finished ********");
+    print('Api Response ======> ${apiResponse.errors}');
     if (apiResponse.success) {
       return apiResponse.data!;
     } 

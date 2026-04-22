@@ -87,6 +87,7 @@ class OrderRemoteDatasource {
     }
   }
 
+
   Future<void> deleteOrder({ required String documentId }) async {
     final apiResponse = await apiServices.deleteCall<void>(
       '${ApiConstants.ordersEndpoint}/$documentId',
@@ -97,4 +98,29 @@ class OrderRemoteDatasource {
       throw Exception(apiResponse.message);
     }
   }
+
+
+  // ── GET ALL ORDERS ─────────────────────────────────────
+  Future<List<OrderModel>> getAllOrders() async {
+    final apiResponse = await apiServices.getCall<List<OrderModel>>(
+      '${ApiConstants.ordersEndpoint}?populate[orderItems][populate]=product&sort=createdAt:desc',
+      (json) {
+        final List<dynamic> items = json['data'];
+        // print('ORDERS RAWWWWWWW: $items');
+        return items.map((item) { 
+          // print('PARSING ORDER: $item'); 
+          return OrderModel.fromJson(item); 
+        }).toList();
+      },
+    );
+
+    if (apiResponse.success) {
+      return apiResponse.data!;
+    } 
+    else {
+      throw Exception(apiResponse.message);
+    }
+  }
+
+
 }

@@ -27,14 +27,29 @@ class _SplashPageState extends State<SplashPage> {
       
       if (token != null && token.toString().isNotEmpty) {
         final authController = Get.find<AuthController>();      // getting logged in user
+        final isAdmin = GetStorage().read('user_is_admin') ?? false;
+        print('/***********************************************\\');
+        print('TOKEN: $token');
+        print('IS_ADMIN: $isAdmin');
+        print('IS_ADMIN TYPE: ${isAdmin.runtimeType}');
+        print('\\***********************************************/');
+
         authController.currentUser.value = AuthUserEntity(
           id:       GetStorage().read('user_id'),
           email:    GetStorage().read('user_email'),
           username: GetStorage().read('user_username'),
+          isAdmin:  isAdmin,
           token:    token,
         );
-        Get.offAllNamed(AppRoutes.home);
-      } else {
+
+        if(authController.currentUser.value!.isAdmin){
+          Get.offAllNamed(AppRoutes.adminHome);
+        }
+        else{
+          Get.offAllNamed(AppRoutes.home);
+        }
+      } 
+      else {
         GetStorage().erase();
         Get.offAllNamed(AppRoutes.login);
       }

@@ -3,11 +3,13 @@ class AuthUserEntity {
   final String email;
   final String username;
   final String token;
+  final bool isAdmin;
 
   AuthUserEntity({
     required this.id, 
     required this.email, 
     required this.username, 
-    required this.token
+    required this.token,
+    this.isAdmin = false,
   });
 }

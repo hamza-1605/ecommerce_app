@@ -41,8 +41,17 @@
       "type": "integer"
     },
     "category": {
-      "type": "string",
-      "required": true
+      "type": "enumeration",
+      "enum": [
+        "All",
+        "Bakery",
+        "Beverages",
+        "Dairy",
+        "Fruits",
+        "Snacks",
+        "Spices",
+        "Vegetables"
+      ]
     }
   }
 }

@@ -55,4 +55,9 @@ class OrderRepositoryImpl implements OrderRepository {
     );
   }
 
-}
+
+  @override
+  Future<List<OrderEntity>> getAllOrders() async {
+    return await remoteDatasource.getAllOrders();
+  }
+} 

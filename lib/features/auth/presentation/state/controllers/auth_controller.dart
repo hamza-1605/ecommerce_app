@@ -29,7 +29,11 @@ class AuthController extends GetxController {
       final user = await registerAuthUserUsecase.call(email, username, password);
       currentUser.value = user;
       await _saveUserData(user); 
-      Get.offAllNamed( AppRoutes.home );
+      if (user.isAdmin) {
+        Get.offAllNamed(AppRoutes.adminHome);
+      } else {
+        Get.offAllNamed(AppRoutes.home);
+      }
     } 
     catch (e) {
       HelperFunctions.showSnackbar(
@@ -51,7 +55,11 @@ class AuthController extends GetxController {
       final user = await loginAuthUserUsecase.call(email, password);
       currentUser.value = user;
       await _saveUserData(user);
-      Get.offAllNamed( AppRoutes.home );
+      if (user.isAdmin) {
+        Get.offAllNamed(AppRoutes.adminHome);
+      } else {
+        Get.offAllNamed(AppRoutes.home);
+      }
     } 
     catch (e) {
       HelperFunctions.showSnackbar(
@@ -89,6 +97,7 @@ class AuthController extends GetxController {
     GetStorage().write('user_id',    user.id);
     GetStorage().write('user_email',    user.email);  
     GetStorage().write('user_username', user.username);
+    GetStorage().write('user_is_admin', user.isAdmin);
   }
 
   Future<void> _clearUserData() async {
@@ -96,6 +105,7 @@ class AuthController extends GetxController {
     GetStorage().remove('user_id');
     GetStorage().remove('user_email');
     GetStorage().remove('user_username');
+    GetStorage().remove('user_is_admin');
   }
 
   String? getToken() {

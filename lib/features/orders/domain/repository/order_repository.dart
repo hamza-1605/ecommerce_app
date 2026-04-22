@@ -9,4 +9,5 @@ abstract class OrderRepository {
 
   Future<void>              deleteOrder({required String documentId});
 
+  Future<List<OrderEntity>> getAllOrders();
 }

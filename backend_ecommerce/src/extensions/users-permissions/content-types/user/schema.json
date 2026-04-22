@@ -83,6 +83,10 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "user"
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/network/payment_service.dart';
 import 'package:ecommerce/features/orders/domain/repository/order_repository.dart';
 import 'package:ecommerce/features/orders/domain/usecases/delete_order_usecase.dart';
+import 'package:ecommerce/features/orders/domain/usecases/get_all_orders_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/update_order_usecase.dart';
 import 'package:ecommerce/features/orders/domain/usecases/create_order_usecase.dart';
@@ -23,6 +24,7 @@ class OrderBinding extends Bindings {
     Get.lazyPut( () => CreateOrderUsecase(Get.find()), fenix: true);
     Get.lazyPut( () => UpdateOrderUsecase(Get.find()), fenix: true);
     Get.lazyPut( () => DeleteOrderUsecase(Get.find()), fenix: true);
+    Get.lazyPut( () => GetAllOrdersUsecase(Get.find()), fenix: true);
     Get.lazyPut( () => PaymentService(apiServices: Get.find()), fenix: true);
 
     Get.lazyPut(() => OrderController(
@@ -30,6 +32,7 @@ class OrderBinding extends Bindings {
       createOrderUsecase: Get.find(),
       updateOrderUsecase: Get.find(),
       deleteOrderUsecase: Get.find(),
+      getAllOrdersUsecase: Get.find(),
       paymentService:     Get.find(),
     ), fenix: true);
   }
