@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:ecommerce/core/network/api_services.dart';
 import 'package:ecommerce/core/utils/helper_functions.dart';
 import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
 import 'package:ecommerce/features/profile/domain/usecases/create_user_profile_usecase.dart';
@@ -85,6 +88,84 @@ class UserProfileController extends GetxController{
         message: 'Could not create profile: $e',
         isError: true,
       );
+    }
+  }
+
+
+  Future<void> uploadProfileImage(File imageFile) async {
+    isSubmitting.value = true;
+    try {
+      // 1. Upload to Strapi media library
+      final mediaId = await ApiServices().uploadImage(imageFile);
+
+      // 2. Update profile with new image id
+      final updatedProfile = UserProfileEntity(
+        documentId:   profile.value?.documentId,
+        fullName:     profile.value?.fullName,
+        phone:        profile.value?.phone,
+        address:      profile.value?.address,
+        city:         profile.value?.city,
+        country:      profile.value?.country,
+        postalCode:   profile.value?.postalCode,
+        dob:          profile.value?.dob,
+        gender:       profile.value?.gender,
+        profileImage: mediaId.toString(),     // ✅ pass media id
+      );
+
+      await updateUserProfileUsecase.call(profile: updatedProfile);
+      
+      // 3. Refetch to get full image URL
+      final userId = GetStorage().read('user_id');
+      await fetchProfile(userId: userId);
+
+      HelperFunctions.showSnackbar(
+        title:   'Success',
+        message: 'Profile photo updated',
+      );
+    } catch (e) {
+      HelperFunctions.showSnackbar(
+        title:   'Error',
+        message: e.toString(),
+        isError: true,
+      );
+    } finally {
+      isSubmitting.value = false;
+    }
+  }
+
+  Future<void> removeProfileImage() async {
+    isSubmitting.value = true;
+    try {
+      final updatedProfile = UserProfileEntity(
+        documentId:   profile.value?.documentId,
+        fullName:     profile.value?.fullName,
+        phone:        profile.value?.phone,
+        address:      profile.value?.address,
+        city:         profile.value?.city,
+        country:      profile.value?.country,
+        postalCode:   profile.value?.postalCode,
+        dob:          profile.value?.dob,
+        gender:       profile.value?.gender,
+        profileImage: null,                   // ✅ clear image
+      );
+
+      await updateUserProfileUsecase.call(profile: updatedProfile);
+
+      profile.value = null;
+      profile.value = updatedProfile;
+
+      HelperFunctions.showSnackbar(
+        title:   'Removed',
+        message: 'Profile photo removed',
+      );
+    } catch (e) {
+      HelperFunctions.showSnackbar(
+        title:   'Error',
+        message: e.toString(),
+        isError: true,
+      );
+    } finally {
+      isSubmitting.value = false;
     }
   }
 }

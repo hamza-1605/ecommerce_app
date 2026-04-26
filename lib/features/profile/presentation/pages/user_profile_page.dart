@@ -1,5 +1,7 @@
 // features/profile/presentation/pages/user_profile_page.dart
 
+import 'dart:io';
+
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
@@ -7,6 +9,7 @@ import 'package:ecommerce/features/profile/presentation/widgets/info_row.dart';
 import 'package:ecommerce/features/profile/presentation/widgets/section_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserProfilePage extends GetView<UserProfileController> {
   const UserProfilePage({super.key});
@@ -65,28 +68,67 @@ class UserProfilePage extends GetView<UserProfileController> {
                 const SizedBox(height: 32),
 
                 // ── Avatar ────────────────────────────
+                // Replace the existing avatar section in UserProfilePage
                 Center(
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        radius: 48,
-                        backgroundColor: const Color(0xFFE0E0E0),
-                        backgroundImage: profile?.profileImage != null
-                            ? NetworkImage(profile!.profileImage!)
-                            : null,
-                        child: profile?.profileImage == null
-                            ? const Icon(Icons.person_rounded, size: 48, color: Colors.white)
-                            : null,
-                      ),
+                      Obx(() {
+                        final profile = controller.profile.value;
+                        return Stack(
+                          children: [
+                            // ── Avatar ──────────────────────────
+                            CircleAvatar(
+                              radius: 52,
+                              backgroundColor: const Color(0xFFE0E0E0),
+                              backgroundImage: profile?.profileImage != null
+                                  ? NetworkImage(profile!.profileImage!)
+                                  : null,
+                              child: profile?.profileImage == null
+                                  ? const Icon(
+                                      Icons.person_rounded,
+                                      size: 52,
+                                      color: Colors.white,
+                                    )
+                                  : null,
+                            ),
+
+                            // ── Edit button ──────────────────────
+                            Positioned(
+                              bottom: 0, right: 0,
+                              child: GestureDetector(
+                                onTap: () => _showImageOptions(context),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF1A1A1A),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.camera_alt_rounded,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
+
                       const SizedBox(height: 12),
-                      Text(
-                        profile?.fullName ?? 'No name set',
+
+                      Obx(() => Text(
+                        controller.profile.value?.fullName ?? 'No name set',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                           color: Color(0xFF1A1A1A),
                         ),
-                      ),
+                      )),
                     ],
                   ),
                 ),
@@ -150,4 +192,123 @@ class UserProfilePage extends GetView<UserProfileController> {
       );
     });
   }
+
+
+  void _showImageOptions(BuildContext context) {
+    final controller = Get.find<UserProfileController>();
+    final picker     = ImagePicker();
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              // Handle bar
+              Container(
+                width: 40, height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              const Text('Profile Photo',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                )),
+
+              const SizedBox(height: 8),
+
+              // ── Upload from gallery ──────────────
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8F6F3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.photo_library_outlined,
+                      color: Color(0xFF1A1A1A)),
+                ),
+                title: const Text('Choose from Gallery',
+                  style: TextStyle(fontWeight: FontWeight.w600)),
+                onTap: () async {
+                  Get.back();
+                  final picked = await picker.pickImage(
+                    source:       ImageSource.gallery,
+                    imageQuality: 80,
+                  );
+                  if (picked != null) {
+                    await controller.uploadProfileImage(File(picked.path));
+                  }
+                },
+              ),
+
+              // ── Take photo ───────────────────────
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8F6F3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.camera_alt_outlined,
+                      color: Color(0xFF1A1A1A)),
+                ),
+                title: const Text('Take a Photo',
+                  style: TextStyle(fontWeight: FontWeight.w600)),
+                onTap: () async {
+                  Get.back();
+                  final picked = await picker.pickImage(
+                    source:       ImageSource.camera,
+                    imageQuality: 80,
+                  );
+                  if (picked != null) {
+                    await controller.uploadProfileImage(File(picked.path));
+                  }
+                },
+              ),
+
+              // ── Remove photo — only if exists ────
+              if (controller.profile.value?.profileImage != null)
+                ListTile(
+                  leading: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(Icons.delete_outline,
+                        color: Colors.red.shade400),
+                  ),
+                  title: Text('Remove Photo',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.red.shade400,
+                    )),
+                  onTap: () {
+                    Get.back();
+                    controller.removeProfileImage();
+                  },
+                ),
+
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 }

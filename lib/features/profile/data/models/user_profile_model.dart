@@ -42,6 +42,10 @@ class UserProfileModel extends UserProfileEntity {
       if (postalCode != null) 'postalCode': postalCode,
       if (dob        != null) 'dob':        dob!.toIso8601String(),
       if (gender     != null) 'gender':     gender,
+      // ✅ send as int id if it's a number string, null to clear
+      'profileImage': profileImage != null
+        ? int.tryParse(profileImage!) ?? profileImage
+        : null,
     };
     // Note: profileImage is excluded — image upload is a separate API call
   }
