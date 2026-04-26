@@ -226,7 +226,6 @@ class ProductController extends GetxController {
     }
   }
 
-
   // Upload multiple images
   Future<List<int>?> uploadProductImages(List<File> imageFiles) async {
     try {
@@ -241,6 +240,66 @@ class ProductController extends GetxController {
         isError: true,
       );
       return null;
+    }
+  }
+
+  // Delete Product Image
+  Future<void> deleteProductImage({
+    required ProductEntity product,
+    required int           mediaId,
+    required String        mediaUrl,
+  }) async {
+    isSubmitting.value = true;
+    try {
+      // 1. Remove from Strapi media library
+      await ApiServices().deleteMedia(mediaId);
+
+      // 2. Update product without that image
+      final updatedImages = (product.imagesUrl ?? [])
+          .where((img) => (img as Map)['id'] != mediaId)
+          .toList();
+
+      // 3. Get remaining image ids
+      final remainingIds = updatedImages
+          .map((img) => (img as Map)['id'] as int)
+          .toList();
+
+      // 4. Update product in Strapi
+      await updateProductUsecase.call(ProductEntity(
+        documentId:       product.documentId,
+        itemName:         product.itemName,
+        category:         product.category,
+        price:            product.price,
+        quantity:         product.quantity,
+        description:      product.description,
+        salePercent:      product.salePercent,
+        imagesUrl:        updatedImages,
+        uploadedImageIds: remainingIds,       // ✅ send remaining ids
+      ));
+
+      await fetchProducts();
+
+      // ✅ Update selectedProduct
+      final updated = products.firstWhereOrNull(
+        (p) => p.documentId == product.documentId,
+      );
+      if (updated != null) {
+        selectedProduct.value = null;
+        selectedProduct.value = updated;
+      }
+
+      HelperFunctions.showSnackbar(
+        title:   'Deleted',
+        message: 'Image removed successfully',
+      );
+    } catch (e) {
+      HelperFunctions.showSnackbar(
+        title:   'Error',
+        message: e.toString(),
+        isError: true,
+      );
+    } finally {
+      isSubmitting.value = false;
     }
   }
 }

@@ -221,10 +221,12 @@ class _ProductFormState extends State<ProductForm> {
               )),
             const SizedBox(height: 8),
       
+      
             // ── Existing Images (edit mode) ─────────
             if (widget.existingProduct?.imagesUrl != null &&
                 widget.existingProduct!.imagesUrl!.isNotEmpty) ...[
-              const Text('Current Images', style: TextStyle(fontSize: 12, color: Color(0xFF888888))),
+              const Text('Current Images',
+                style: TextStyle(fontSize: 12, color: Color(0xFF888888))),
               const SizedBox(height: 8),
               SizedBox(
                 height: 100,
@@ -232,21 +234,53 @@ class _ProductFormState extends State<ProductForm> {
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.existingProduct!.imagesUrl!.length,
                   itemBuilder: (_, i) {
-                    final img = widget.existingProduct!.imagesUrl![i];
-                    final url = ApiConstants.baseUrl + (img['url'] as String);
-                    return Container(
-                      width: 100,
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFE0E0E0)),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(url, fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.broken_image_outlined)),
-                      ),
+                    final img    = widget.existingProduct!.imagesUrl![i] as Map;
+                    final url    = ApiConstants.baseUrl + (img['url'] as String);
+                    final mediaId = img['id'] as int;
+
+                    return Stack(
+                      children: [
+                        Container(
+                          width: 100,
+                          margin: const EdgeInsets.only(right: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: const Color(0xFFE0E0E0)),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              url,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) => 
+                                  const Icon(Icons.broken_image_outlined),
+                            ),
+                          ),
+                        ),
+
+                        // ✅ Delete button
+                        Positioned(
+                          top: 4, right: 12,
+                          child: GestureDetector(
+                            onTap: () => _confirmDeleteImage(
+                              mediaId:  mediaId,
+                              mediaUrl: url,
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),
@@ -366,6 +400,46 @@ class _ProductFormState extends State<ProductForm> {
             )),
           ],
         ),
+      ),
+    );
+  }
+
+
+
+
+  void _confirmDeleteImage({
+    required int    mediaId,
+    required String mediaUrl,
+  }) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Delete Image',
+            style: TextStyle(fontWeight: FontWeight.w700)),
+        content: const Text('Remove this image from the product?'),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('Cancel',
+                style: TextStyle(color: Color(0xFF888888))),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+              Get.find<ProductController>().deleteProductImage(
+                product:  widget.existingProduct!,
+                mediaId:  mediaId,
+                mediaUrl: mediaUrl,
+              );
+            },
+            child: const Text('Delete',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w700,
+                )),
+          ),
+        ],
       ),
     );
   }

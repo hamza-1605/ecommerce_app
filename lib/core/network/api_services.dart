@@ -128,4 +128,13 @@ class ApiServices {
 
     return mediaIds;                         // ✅ list of all media ids
   }
+
+
+  // Delete Image/Media
+  Future<ApiResponse<void>> deleteMedia(int mediaId) async {
+    return handleApiCall(
+      () => _apiProvider.deleteCall('/api/upload/files/$mediaId'),
+      (json) {},
+    );
+  }
 }
