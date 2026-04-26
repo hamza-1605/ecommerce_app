@@ -36,7 +36,8 @@ class RemoteProductsDatasource {
           "quantity" : product.quantity,
           "description" : product.description,
           "salePercent" : product.salePercent,
-          "imagesUrl" : product.imagesUrl
+          if (product.uploadedImageIds != null && product.uploadedImageIds!.isNotEmpty)
+          "imagesUrl":   product.uploadedImageIds,
         }
       },
       (json) {},
@@ -45,6 +46,18 @@ class RemoteProductsDatasource {
 
 
   Future<void> updateProduct(ProductModel product) async {
+    //  Collect existing image ids from current imagesUrl
+    final existingImageIds = product.imagesUrl != null
+        ? product.imagesUrl!
+            .map((img) => (img as Map)['id'] as int)
+            .toList()
+        : <int>[];
+
+    // ✅ Merge existing + newly uploaded ids
+    final allImageIds = [
+      ...existingImageIds,
+      ...?product.uploadedImageIds,
+    ];
     await apiServices.putCall( 
       '${ApiConstants.productsEndpoint}/${product.documentId}', 
       {
@@ -55,7 +68,8 @@ class RemoteProductsDatasource {
           "quantity" : product.quantity,
           "description" : product.description ?? "",
           "salePercent" : product.salePercent,
-          "imagesUrl" : product.imagesUrl
+          if (allImageIds.isNotEmpty)
+          "imagesUrl": allImageIds,
         }
       },
       (json) {},

@@ -5,8 +5,9 @@ class ProductEntity{
   final int price;
   final int quantity;
   final String? description;
-  final List< Map<dynamic, dynamic>>? imagesUrl;
   int? salePercent;
+  final List<dynamic>? imagesUrl;          // existing images from Strapi
+  final List<int>?     uploadedImageIds;   // ✅ new — media ids after upload
 
   ProductEntity({
     this.documentId, 
@@ -15,7 +16,8 @@ class ProductEntity{
     required this.category, 
     required this.price, 
     required this.quantity, 
+    this.salePercent,
     this.imagesUrl,
-    this.salePercent
+    this.uploadedImageIds
   });
 }

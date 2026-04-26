@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:ecommerce/core/network/api_services.dart';
 import 'package:ecommerce/core/utils/helper_functions.dart';
 import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
 import 'package:ecommerce/features/products/domain/usecases/add_product_usecase.dart';
@@ -50,6 +52,8 @@ class ProductController extends GetxController {
 
     try {
       final result = await getProductsUsecase.call();
+      
+      result.sort((a, b) => a.itemName.compareTo(b.itemName));
       products.assignAll(result);
     } 
     catch (e) {
@@ -107,8 +111,16 @@ class ProductController extends GetxController {
     try {
       await updateProductUsecase.call(product);
       await fetchProducts();
-      selectedProduct.value = null;                
-      selectedProduct.value = product;                
+      
+      // Update selectedProduct with the fresh data from the refetched list
+      final updated = products.firstWhereOrNull(
+        (p) => p.documentId == product.documentId,
+      );
+
+      if (updated != null) {
+        selectedProduct.value = null;
+        selectedProduct.value = updated;
+      }             
       Get.back();                          
       HelperFunctions.showSnackbar(title: 'Success', message: 'Product Updated Successfully');
     } 
@@ -211,6 +223,24 @@ class ProductController extends GetxController {
         message: e.toString(),
         isError: true,
       );
+    }
+  }
+
+
+  // Upload multiple images
+  Future<List<int>?> uploadProductImages(List<File> imageFiles) async {
+    try {
+      final mediaIds = await ApiServices().uploadImages(imageFiles);
+      return mediaIds;
+    } 
+    catch (e) {
+      print(e.toString());
+      HelperFunctions.showSnackbar(
+        title:   'Upload Failed',
+        message: e.toString(),
+        isError: true,
+      );
+      return null;
     }
   }
 }

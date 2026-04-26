@@ -8,8 +8,9 @@ class ProductModel extends ProductEntity{
     required super.price, 
     required super.quantity, 
     super.description, 
+    super.salePercent,
     super.imagesUrl,
-    super.salePercent
+    super.uploadedImageIds, 
   });
 
 

@@ -15,8 +15,9 @@ class ProductRepositoryImpl implements ProductRepository {
       price: product.price, 
       quantity: product.quantity,
       description: product.description,
+      salePercent: product.salePercent,
       imagesUrl: product.imagesUrl,
-      salePercent: product.salePercent
+      uploadedImageIds: product.uploadedImageIds,
     );
     
     return await remoteProductsDatasource.createProduct(productModel);
@@ -32,8 +33,9 @@ class ProductRepositoryImpl implements ProductRepository {
       price: product.price, 
       quantity: product.quantity,
       description: product.description,
+      salePercent: product.salePercent,
       imagesUrl: product.imagesUrl,
-      salePercent: product.salePercent
+      uploadedImageIds: product.uploadedImageIds,
     );
 
     await remoteProductsDatasource.updateProduct( productModel );

@@ -2,6 +2,7 @@ import 'package:ecommerce/features/admin/presentation/widgets/admin_order_card.d
 import 'package:ecommerce/features/admin/presentation/widgets/dashboard_stat_card.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
+import 'package:ecommerce/features/products/presentation/pages/product_detail_page.dart';
 import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -241,22 +242,31 @@ class AdminDashboardPage extends StatelessWidget {
                     controller: scrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: products.length,
-                    itemBuilder: (_, i) => Container(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(products[i].itemName,
-                            style: const TextStyle(fontWeight: FontWeight.w600)),
-                          Text('Qty: ${products[i].quantity}',
-                            style: const TextStyle(color: Colors.red,
-                                fontWeight: FontWeight.w600)),
-                        ],
+                    itemBuilder: (_, i) => GestureDetector(
+                      onTap: () {
+                        final productController = Get.find<ProductController>();
+                        productController.selectedProduct.value = products[i];
+
+                        Get.back(); // close bottom sheet
+                        Get.to(() => const ProductDetailPage());
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(products[i].itemName,
+                              style: const TextStyle(fontWeight: FontWeight.w600)),
+                            Text('Qty: ${products[i].quantity}',
+                              style: const TextStyle(color: Colors.red,
+                                  fontWeight: FontWeight.w600)),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -13,7 +13,6 @@ class ProductDetailPage extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     final isAdmin = GetStorage().read('user_is_admin') ?? false;
-    print('ADMIN =================> $isAdmin');
 
     return Obx( ()  {
       final product = controller.selectedProduct.value!;
@@ -49,21 +48,29 @@ class ProductDetailPage extends GetView<ProductController> {
               //  IMAGE SLIDER
               SizedBox(
                 height: 400,
-                child: PageView.builder(
-                  itemCount: product.imagesUrl?.length ?? 1,
-                  itemBuilder: (context, index) {
-                    final imagePath = product.imagesUrl != null &&
-                            product.imagesUrl!.isNotEmpty
-                        ? product.imagesUrl![index]['url']
-                        : "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081";
+                child: (product.imagesUrl != null || product.imagesUrl!.isNotEmpty) 
+                ? PageView.builder(
+                    itemCount: product.imagesUrl?.length ?? 1,
+                    itemBuilder: (context, index) {
+                      final imagePath = (product.imagesUrl != null  &&  product.imagesUrl!.isNotEmpty)
+                                        ? product.imagesUrl![index]['url'] 
+                                        : null;
 
-                    return Image.network(
-                      '${ApiConstants.baseUrl}$imagePath',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    );
-                  },
-                ),
+                      return Image.network(
+                          '${ApiConstants.baseUrl}$imagePath',
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Center(
+                            child: Icon(
+                              Icons.image_not_supported_outlined,
+                              size: 80,
+                              color: Colors.grey,
+                            )
+                          ),
+                        );
+                    },
+                  )
+                  : Icon(Icons.inventory_2_outlined, size: 100, color: Colors.grey),
               ),
 
 
@@ -142,7 +149,7 @@ class ProductDetailPage extends GetView<ProductController> {
 
                     // Quantity
                     Text(
-                      "Stock: ${product.quantity}",
+                      isAdmin ? "Stock: ${product.quantity}" : "Stock: In stock.",
                       style: TextStyle(color: Colors.grey[700]),
                     ),
 
