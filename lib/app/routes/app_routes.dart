@@ -18,4 +18,5 @@ class AppRoutes {
   static const checkout  = '/checkout';
   static const payment  = '/payment';
 
+  static const wishlist  = '/wishlist';
 }

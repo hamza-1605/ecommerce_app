@@ -16,6 +16,7 @@ import 'package:ecommerce/features/products/presentation/pages/create_product_pa
 import 'package:ecommerce/features/profile/presentation/pages/edit_user_profile_page.dart';
 import 'package:ecommerce/features/products/presentation/state/bindings/product_binding.dart';
 import 'package:ecommerce/features/profile/presentation/state/bindings/user_profile_binding.dart';
+import 'package:ecommerce/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:get/get.dart';
 
 
@@ -55,5 +56,7 @@ class AppPages {
     GetPage( name: AppRoutes.checkout,   page: () => const CheckoutPage(), bindings: [OrderBinding(), UserProfileBinding() ]),
 
     GetPage( name: AppRoutes.payment,   page: () => const PaymentPage() ),
+
+    GetPage(name: AppRoutes.wishlist, page: () => const WishlistPage()),
   ];
 }

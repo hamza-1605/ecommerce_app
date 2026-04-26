@@ -3,6 +3,7 @@ import 'package:ecommerce/core/constants/api_constants.dart';
 import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ecommerce/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ecommerce/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +14,7 @@ class ProductDetailPage extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     final isAdmin = GetStorage().read('user_is_admin') ?? false;
+    final wishlistController = Get.find<WishlistController>();
 
     return Obx( ()  {
       final product = controller.selectedProduct.value!;
@@ -201,15 +203,36 @@ class ProductDetailPage extends GetView<ProductController> {
             child: Row(
               children: [
                 // Favorite
-                Obx(() => IconButton(
-                      onPressed: controller.toggleFavorite,
-                      icon: Icon(
-                        controller.isFavorite.value
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
+                Obx(() {
+                  final isWishlisted = wishlistController
+                      .isWishlisted(product.documentId ?? '');
+                  return GestureDetector(
+                    onTap: () =>
+                        wishlistController.toggleWishlist(product),
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 4,
+                          ),
+                        ],
                       ),
-                    )),
+                      child: Icon(
+                        isWishlisted
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_border_rounded,
+                        color: isWishlisted
+                            ? Colors.red
+                            : const Color(0xFF888888),
+                        size: 16,
+                      ),
+                    ),
+                  );
+                }),
           
                 const SizedBox(width: 10),
           
