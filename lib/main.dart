@@ -1,4 +1,4 @@
-import 'package:ecommerce/app/binding/app_binding.dart';
+import 'package:ecommerce/app/global_binding/app_binding.dart';
 import 'package:ecommerce/app/routes/app_pages.dart';
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Ecommerce',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.lime),
+        colorScheme: .fromSeed(seedColor: Colors.blueGrey),
         appBarTheme: AppBarThemeData(
-          backgroundColor: Colors.limeAccent
+          backgroundColor: Colors.blueGrey,
+          foregroundColor: Colors.white
         )
       ),
 

@@ -190,6 +190,7 @@ class ProductController extends GetxController {
     selectedCategory.value = category;
   }
 
+
   //  ---------------- Update Stock on Each Order ---------------------------
   Future<void> updateStock({
     required String documentId,
@@ -226,6 +227,7 @@ class ProductController extends GetxController {
     }
   }
 
+
   // Upload multiple images
   Future<List<int>?> uploadProductImages(List<File> imageFiles) async {
     try {
@@ -242,6 +244,7 @@ class ProductController extends GetxController {
       return null;
     }
   }
+
 
   // Delete Product Image
   Future<void> deleteProductImage({
@@ -292,13 +295,15 @@ class ProductController extends GetxController {
         title:   'Deleted',
         message: 'Image removed successfully',
       );
-    } catch (e) {
+    } 
+    catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
         message: e.toString(),
         isError: true,
       );
-    } finally {
+    } 
+    finally {
       isSubmitting.value = false;
     }
   }

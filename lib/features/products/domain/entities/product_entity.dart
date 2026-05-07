@@ -7,7 +7,7 @@ class ProductEntity{
   final String? description;
   int? salePercent;
   final List<dynamic>? imagesUrl;          // existing images from Strapi
-  final List<int>?     uploadedImageIds;   // ✅ new — media ids after upload
+  final List<int>?     uploadedImageIds;   // new — media ids after upload
 
   ProductEntity({
     this.documentId, 

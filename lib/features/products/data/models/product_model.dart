@@ -24,7 +24,7 @@ class ProductModel extends ProductEntity{
       salePercent: (json['salePercent']),
       quantity: json['quantity'],
       imagesUrl: json['imagesUrl'] != null 
-                ? List< Map<dynamic, dynamic>>.from( json['imagesUrl'] ) 
+                ? List<Map<dynamic, dynamic>>.from( json['imagesUrl'] ) 
                 : [],
     );
   }

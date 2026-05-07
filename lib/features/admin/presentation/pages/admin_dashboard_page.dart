@@ -1,5 +1,6 @@
 import 'package:ecommerce/features/admin/presentation/widgets/admin_order_card.dart';
 import 'package:ecommerce/features/admin/presentation/widgets/dashboard_stat_card.dart';
+import 'package:ecommerce/features/admin/presentation/widgets/refresh_button.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:ecommerce/features/products/presentation/pages/product_detail_page.dart';
@@ -15,10 +16,6 @@ class AdminDashboardPage extends StatelessWidget {
     final orderController   = Get.find<OrderController>();
     final productController = Get.find<ProductController>();
 
-    // Fetch all data on load
-    ever(orderController.allOrders, (_) {});
-    orderController.fetchAllOrders();
-
     return Scaffold(
       backgroundColor: const Color(0xFFF8F6F3),
       body: SafeArea(
@@ -27,16 +24,24 @@ class AdminDashboardPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
+      
               // ── Header ─────────────────────────────
-              const Text(
-                'Dashboard',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -1,
-                  color: Color(0xFF1A1A1A),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Dashboard',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -1,
+                      color: Color(0xFF1A1A1A),
+                    ),
+                  ),
+      
+                  
+                  RefreshButton(onTap: () => orderController.fetchAllOrders()),
+                ],
               ),
               const SizedBox(height: 8),
               Text(
@@ -46,14 +51,14 @@ class AdminDashboardPage extends StatelessWidget {
                   color: Color(0xFF888888),
                 ),
               ),
-
+      
               const SizedBox(height: 32),
-
+      
               // ── Orders Section ──────────────────────
               const Text('Orders Overview',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
-
+      
               Obx(() {
                 final orders = orderController.allOrders;
                 
@@ -109,19 +114,19 @@ class AdminDashboardPage extends StatelessWidget {
                   ],
                 );
               }),
-
+      
               const SizedBox(height: 32),
-
+      
               // ── Products Section ────────────────────
               const Text('Inventory Alerts',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
-
+      
               Obx(() {
                 final products = productController.products;
                 final outOfStock  = products.where((p) => p.quantity == 0).toList();
                 final lowStock    = products.where((p) => p.quantity > 0 && p.quantity < 20).toList();
-
+      
                 return Column(
                   children: [
                     DashboardStatCard(

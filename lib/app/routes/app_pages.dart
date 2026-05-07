@@ -1,6 +1,7 @@
 import 'package:ecommerce/app/splash_page.dart';
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/features/admin/presentation/pages/admin_home_page.dart';
+import 'package:ecommerce/features/admin/presentation/pages/manage_admins_page.dart';
 import 'package:ecommerce/features/cart/presentation/state/bindings/cart_binding.dart';
 import 'package:ecommerce/features/home/presentation/pages/home_page.dart';
 import 'package:ecommerce/features/auth/presentation/pages/login_page.dart';
@@ -58,5 +59,7 @@ class AppPages {
     GetPage( name: AppRoutes.payment,   page: () => const PaymentPage() ),
 
     GetPage(name: AppRoutes.wishlist, page: () => const WishlistPage()),
+
+    GetPage(name: AppRoutes.manageAdmins, page: () => const ManageAdminsPage() ),
   ];
 }

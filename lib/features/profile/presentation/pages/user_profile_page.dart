@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
-import 'package:ecommerce/features/profile/presentation/widgets/info_row.dart';
+import 'package:ecommerce/core/widgets/info_row.dart';
 import 'package:ecommerce/features/profile/presentation/widgets/section_container.dart';
 import 'package:ecommerce/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';

@@ -30,27 +30,21 @@ class ProductListPage extends GetView<ProductController> {
                 color: Color(0xFF1A1A1A),
               ),
             ),
-            actions: isAdmin ? [
-              IconButton(
-                onPressed: () => Get.toNamed(AppRoutes.createProduct),
-                icon: const Icon(Icons.add, color: Color(0xFF1A1A1A)),
-              ),
-            ] : null ,
 
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(48),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: TabBar(
-                  isScrollable:           true,
-                  tabAlignment:           TabAlignment.start,
-                  labelColor:             const Color(0xFF1A1A1A),
-                  unselectedLabelColor:   const Color(0xFF888888),
-                  labelStyle:             const TextStyle(
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
+                  labelColor: const Color(0xFF1A1A1A),
+                  unselectedLabelColor: const Color(0xFF888888),
+                  labelStyle: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 14,
                   ),
-                  unselectedLabelStyle:   const TextStyle(
+                  unselectedLabelStyle: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                   ),
@@ -76,6 +70,13 @@ class ProductListPage extends GetView<ProductController> {
               ProductGrid( category: cat ),
             ).toList(),
           ),
+
+          floatingActionButton: isAdmin 
+          ? FloatingActionButton(
+              onPressed: () => Get.toNamed(AppRoutes.createProduct),
+              child: Icon(Icons.add),
+            ) 
+          : null,
         ),
       );
     });

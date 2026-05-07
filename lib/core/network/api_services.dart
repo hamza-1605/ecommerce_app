@@ -137,4 +137,30 @@ class ApiServices {
       (json) {},
     );
   }
+
+
+  // Search users by email or username
+  Future<ApiResponse<List<dynamic>>> searchUsers(String query) async {
+    return handleApiCall(
+      () => _apiProvider.getCall(
+        '/api/users?filters[\$or][0][email][\$containsi]=$query'
+        '&filters[\$or][1][username][\$containsi]=$query',
+      ),
+      (json) => json as List<dynamic>,
+    );
+  }
+
+  // Update user isAdmin
+  Future<ApiResponse<void>> updateUserAdminStatus({
+    required int  userId,
+    required bool isAdmin,
+  }) async {
+    return handleApiCall(
+      () => _apiProvider.putCall(
+        '/api/users/$userId',
+        { "isAdmin": isAdmin },
+      ),
+      (json) {},
+    );
+  }
 }

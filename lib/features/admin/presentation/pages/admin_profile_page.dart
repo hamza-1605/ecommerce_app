@@ -1,4 +1,6 @@
+import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
+import 'package:ecommerce/core/widgets/info_row.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -77,12 +79,80 @@ class AdminProfilePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    _buildInfoRow(Icons.mail_outline_rounded, 'Email',
-                        auth.currentUser.value?.email ?? '-'),
-                    _buildInfoRow(Icons.person_outline_rounded, 'Username',
-                        auth.currentUser.value?.username ?? '-'),
-                    _buildInfoRow(Icons.shield_outlined, 'Role', 'Administrator'),
+                    InfoRow( 
+                      icon: Icons.mail_outline_rounded, 
+                      label: 'Email',
+                      value: auth.currentUser.value?.email ?? '-'
+                    ),
+                    InfoRow(
+                      icon: Icons.person_outline_rounded, 
+                      label: 'Username',
+                      value: auth.currentUser.value?.username ?? '-'
+                    ),
+                    InfoRow(
+                      icon: Icons.shield_outlined, 
+                      label: 'Role', 
+                      value: 'Administrator'
+                    ),
                   ],
+                ),
+              ),
+              
+              const SizedBox(height: 24),
+
+              GestureDetector(
+                onTap: () => Get.toNamed(AppRoutes.manageAdmins),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A1A1A),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(
+                          Icons.manage_accounts_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Manage Admins',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF1A1A1A),
+                              )),
+                            SizedBox(height: 2),
+                            Text('Promote or demote users',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF888888),
+                              )),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: Color(0xFF888888)),
+                    ],
+                  ),
                 ),
               ),
 
@@ -107,24 +177,6 @@ class AdminProfilePage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildInfoRow(IconData icon, String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
-        children: [
-          Icon(icon, size: 18, color: const Color(0xFF888888)),
-          const SizedBox(width: 12),
-          Text(label,
-            style: const TextStyle(fontSize: 13, color: Color(0xFF888888))),
-          const Spacer(),
-          Text(value,
-            style: const TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w600)),
-        ],
       ),
     );
   }

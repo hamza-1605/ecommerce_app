@@ -44,6 +44,7 @@ class OrderController extends GetxController {
   void onInit() {
     super.onInit();
     fetchOrders();
+    fetchAllOrders();
   }
 
   // ── FETCH ALL ORDERS (Admin) ────────────────────────
@@ -131,6 +132,7 @@ class OrderController extends GetxController {
       await Get.find<CartController>().clearCart();
       Get.back();                                   // Hide the clear cart snackbar
       await fetchOrders();
+      await fetchAllOrders();
       Get.back();
       Get.back();
       Get.find<HomeController>().navigateTo(2);

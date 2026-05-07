@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/admin/presentation/widgets/admin_order_card.dart';
+import 'package:ecommerce/features/admin/presentation/widgets/refresh_button.dart';
 import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,10 +25,8 @@ class AdminOrdersPage extends GetView<OrderController> {
                       fontSize: 32, fontWeight: FontWeight.w800,
                       letterSpacing: -1, color: Color(0xFF1A1A1A),
                     )),
-                  IconButton(
-                    onPressed: controller.fetchAllOrders,
-                    icon: const Icon(Icons.refresh_rounded),
-                  ),
+                  
+                  RefreshButton(onTap: () => controller.fetchAllOrders()),
                 ],
               ),
             ),

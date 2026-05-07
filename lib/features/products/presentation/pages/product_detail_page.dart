@@ -50,9 +50,9 @@ class ProductDetailPage extends GetView<ProductController> {
               //  IMAGE SLIDER
               SizedBox(
                 height: 400,
-                child: (product.imagesUrl != null || product.imagesUrl!.isNotEmpty) 
+                child: (product.imagesUrl != null && product.imagesUrl!.isNotEmpty) 
                 ? PageView.builder(
-                    itemCount: product.imagesUrl?.length ?? 1,
+                    itemCount: product.imagesUrl?.length,
                     itemBuilder: (context, index) {
                       final imagePath = (product.imagesUrl != null  &&  product.imagesUrl!.isNotEmpty)
                                         ? product.imagesUrl![index]['url'] 
@@ -72,7 +72,13 @@ class ProductDetailPage extends GetView<ProductController> {
                         );
                     },
                   )
-                  : Icon(Icons.inventory_2_outlined, size: 100, color: Colors.grey),
+                  : Center(
+                      child: Icon(
+                        Icons.inventory_2_outlined, 
+                        size: 100, 
+                        color: Colors.grey
+                      )
+                    ),
               ),
 
 
@@ -130,8 +136,7 @@ class ProductDetailPage extends GetView<ProductController> {
 
                         if (product.salePercent != null)
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(6),

@@ -50,8 +50,7 @@ class OrdersPage extends GetView<OrderController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.receipt_long_outlined,
-                            size: 80, color: Colors.grey.shade300),
+                        Icon(Icons.receipt_long_outlined, size: 80, color: Colors.grey.shade300),
                         const SizedBox(height: 16),
                         const Text(
                           'No orders yet',

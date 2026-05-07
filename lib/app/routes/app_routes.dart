@@ -16,7 +16,9 @@ class AppRoutes {
   static const cart  = '/cart';
 
   static const checkout  = '/checkout';
-  static const payment  = '/payment';
+  static const payment   = '/payment';
 
   static const wishlist  = '/wishlist';
+
+  static const manageAdmins  = '/admin/manage-admins'; 
 }
