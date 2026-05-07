@@ -12,9 +12,8 @@ class UserProfileRemoteDatasource {
       '${ApiConstants.profileEndpoint}?filters[user][id][\$eq]=$userId&populate=profileImage', 
       (json) {
         final List<dynamic> items = json['data'];
-
+        
         if (items.isEmpty) throw Exception('Profile not found');
-
         return UserProfileModel.fromJson(items.first);  // one profile per user
       },
     ); 
@@ -27,17 +26,20 @@ class UserProfileRemoteDatasource {
   }
   
 
-  Future<UserProfileModel> updateProfile(UserProfileModel profile) async {
-    final apiResponse = await apiServices.putCall<UserProfileModel>(
+  Future<UserProfileModel> updateProfile({
+    required UserProfileModel profile,
+    required int userId,  
+  }) async {
+    final apiResponse = await apiServices.putCall<void>(
       '${ApiConstants.profileEndpoint}/${profile.documentId}',
       { 
         "data": profile.toJson() 
       },
-      (json) => UserProfileModel.fromJson(json['data']),
+      (json) {},
     );
-
+    
     if (apiResponse.success) {
-      return apiResponse.data!;
+      return await getProfile(userId: userId);
     } else {
       throw Exception(apiResponse.message);
     }

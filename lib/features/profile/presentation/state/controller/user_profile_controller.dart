@@ -97,6 +97,10 @@ class UserProfileController extends GetxController{
     try {
       // 1. Upload to Strapi media library
       final mediaId = await ApiServices().uploadImage(imageFile);
+      
+      // 1.1 Guard against null profile
+      final currentProfile = profile.value;
+      if (currentProfile == null) return;
 
       // 2. Update profile with new image id
       final updatedProfile = UserProfileEntity(
@@ -109,10 +113,12 @@ class UserProfileController extends GetxController{
         postalCode:   profile.value?.postalCode,
         dob:          profile.value?.dob,
         gender:       profile.value?.gender,
-        profileImage: mediaId.toString(),     // ✅ pass media id
+        profileImage: mediaId.toString(),     // pass media id
       );
 
-      await updateUserProfileUsecase.call(profile: updatedProfile);
+      final result = await updateUserProfileUsecase.call(profile: updatedProfile);
+      profile.value = null;       
+      profile.value = result;       // refresh profile
       
       // 3. Refetch to get full image URL
       final userId = GetStorage().read('user_id');

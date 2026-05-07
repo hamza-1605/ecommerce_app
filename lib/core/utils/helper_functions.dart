@@ -12,7 +12,7 @@ class HelperFunctions {
     Get.snackbar(
       title, 
       message,
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
       backgroundColor: isError ? Colors.red[100] : Colors.green[100],
       icon: Icon(
         isError ? Icons.error : Icons.check_circle,

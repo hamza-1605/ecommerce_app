@@ -2,6 +2,7 @@ import 'package:ecommerce/features/profile/data/datasources/remote/user_profile_
 import 'package:ecommerce/features/profile/data/models/user_profile_model.dart';
 import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
 import 'package:ecommerce/features/profile/domain/repository/user_profile_repository.dart';
+import 'package:get_storage/get_storage.dart';
 
 class UserProfileRepositoryImpl implements UserProfileRepository {
   final UserProfileRemoteDatasource userProfileRemoteDatasource;
@@ -15,6 +16,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   
   @override
   Future<UserProfileEntity> updateProfile({required UserProfileEntity profile}) async {
+    final userId = GetStorage().read('user_id') as int;
     final profileModel = UserProfileModel(
       documentId:   profile.documentId,
       fullName:     profile.fullName,
@@ -28,7 +30,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       profileImage: profile.profileImage,
     );
 
-    return await userProfileRemoteDatasource.updateProfile( profileModel );
+    return await userProfileRemoteDatasource.updateProfile(profile: profileModel, userId: userId);
   }
   
 
