@@ -1,15 +1,14 @@
 import 'package:ecommerce/core/utils/helper_functions.dart';
 import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
 import 'package:ecommerce/features/wishlist/data/datasource/wishlist_local_datasource.dart';
-import 'package:ecommerce/features/wishlist/domain/entity/wishlist_item_entity.dart';
 import 'package:get/get.dart';
 
 class WishlistController extends GetxController {
   final WishlistLocalDatasource datasource;
   WishlistController({required this.datasource});
 
-  final RxList<WishlistItemEntity> items     = <WishlistItemEntity>[].obs;
-  final RxBool                     isLoading = false.obs;
+  final RxList<ProductEntity> items     = <ProductEntity>[].obs; 
+  final RxBool            isLoading     = false.obs;
 
   @override
   void onInit() {
@@ -23,7 +22,8 @@ class WishlistController extends GetxController {
     try {
       final result = await datasource.getWishlist();
       items.assignAll(result);
-    } finally {
+    } 
+    finally {
       isLoading.value = false;
     }
   }
@@ -35,14 +35,16 @@ class WishlistController extends GetxController {
     if (isAlready) {
       await datasource.removeFromWishlist(product.documentId!);
       items.removeWhere((i) => i.documentId == product.documentId);
+      
       HelperFunctions.showSnackbar(
         title:   'Removed',
         message: '${product.itemName} removed from favourites',
       );
-    } else {
-      final item = WishlistItemEntity.fromProduct(product);
-      await datasource.addToWishlist(item);
-      items.add(item);
+    } 
+    else {
+      await datasource.addToWishlist(product);
+      items.add(product);
+      
       HelperFunctions.showSnackbar(
         title:   'Added',
         message: '${product.itemName} added to favourites',

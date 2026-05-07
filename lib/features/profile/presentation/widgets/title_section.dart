@@ -11,10 +11,11 @@ class TitleSection extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: FontWeight.w700,
           color: Color(0xFF1A1A1A),
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }

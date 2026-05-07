@@ -205,75 +205,73 @@ class ProductDetailPage extends GetView<ProductController> {
                 )
               ],
             ),
-            child: Row(
-              children: [
-                // Favorite
-                Obx(() {
-                  final isWishlisted = wishlistController
-                      .isWishlisted(product.documentId ?? '');
-                  return GestureDetector(
-                    onTap: () =>
-                        wishlistController.toggleWishlist(product),
-                    child: Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 4,
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        isWishlisted
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  // Favorite
+                  Obx(() {
+                    final isWishlisted = wishlistController
+                        .isWishlisted(product.documentId ?? '');
+                    return GestureDetector(
+                      onTap: () => wishlistController.toggleWishlist(product),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(color: Colors.black12, spreadRadius: 0.5, blurRadius: 1)
+                          ]
+                        ),
+                        child: Icon(
+                          isWishlisted
                             ? Icons.favorite_rounded
                             : Icons.favorite_border_rounded,
-                        color: isWishlisted
+                          color: isWishlisted
                             ? Colors.red
                             : const Color(0xFF888888),
-                        size: 16,
+                          size: 24,
+                        ),
                       ),
-                    ),
-                  );
-                }),
-          
-                const SizedBox(width: 10),
-          
-
-                // Add to Cart
-                Expanded(
-                  child: Obx( () => SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton.icon(
-                      onPressed: Get.find<CartController>().isSubmitting.value
-                          ? null
-                          : () => Get.find<CartController>().addToCart(
-                                item: CartItemEntity(
-                                  documentId:        '',
-                                  productDocumentId: product.documentId!,
-                                  productName:       product.itemName,
-                                  price:             product.price.toInt(),
-                                  quantity:          1,
+                    );
+                  }),
+                        
+                  const SizedBox(width: 20),
+              
+                  // Add to Cart
+                  Expanded(
+                    child: Obx( () => SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton.icon(
+                        onPressed: Get.find<CartController>().isSubmitting.value
+                            ? null
+                            : () => Get.find<CartController>().addToCart(
+                                  item: CartItemEntity(
+                                    documentId:        '',
+                                    productDocumentId: product.documentId!,
+                                    productName:       product.itemName,
+                                    price:             product.price.toInt(),
+                                    quantity:          1,
+                                  ),
                                 ),
-                              ),
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                      label: const Text(
-                        'Add to Cart',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                        icon: const Icon(Icons.shopping_cart_outlined),
+                        label: const Text(
+                          'Add to Cart',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                        ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.limeAccent,
-                        foregroundColor: Colors.black,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      ),
-                    ),
-                  )),
-                ),
-              ],
+                    )),
+                  ),
+                ],
+              ),
             ),
           ),
         )

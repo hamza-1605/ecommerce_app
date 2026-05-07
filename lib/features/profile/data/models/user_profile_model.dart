@@ -43,8 +43,8 @@ class UserProfileModel extends UserProfileEntity {
       if (city       != null) 'city':       city,
       if (country    != null) 'country':    country,
       if (postalCode != null) 'postalCode': postalCode,
-      if (dob        != null) 'dob':        dob!.toIso8601String(),
-      if (gender     != null) 'gender':     gender,
+      'dob':        dob?.toIso8601String(), 
+      'gender':     gender,
 
       'profileImage': profileImage != null                // send as int id if it's a number string, null to clear
         ? int.tryParse(profileImage!) ?? profileImage

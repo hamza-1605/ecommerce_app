@@ -17,7 +17,7 @@ class ViewPersonalInfoPage extends GetView<UserProfileController> {
       backgroundColor: const Color(0xFFF8F6F3),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: EdgeInsets.all(24),
           child: Obx(() {
             final profile = controller.profile.value;
 
@@ -30,39 +30,16 @@ class ViewPersonalInfoPage extends GetView<UserProfileController> {
                 Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const CustomBackButton(),
-                            const SizedBox(width: 10),
-                            const Text(
-                              'View Profile',
-                              style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: -1,
-                                color: Color(0xFF1A1A1A),
-                              ),
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () => Get.toNamed(AppRoutes.editProfile),
-                          icon: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.06),
-                                  blurRadius: 8,
-                                )
-                              ],
-                            ),
-                            child: const Icon(Icons.edit_outlined, size: 18),
+                        const CustomBackButton(),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'View Profile',
+                          style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: -1,
+                            color: Color(0xFF1A1A1A),
                           ),
                         ),
                       ],
