@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
         colorScheme: .fromSeed(seedColor: Colors.blueGrey),
         appBarTheme: AppBarThemeData(
           backgroundColor: Colors.blueGrey,
-          foregroundColor: Colors.white
+          foregroundColor: Colors.white,
+          surfaceTintColor: Colors.transparent
         )
       ),
 

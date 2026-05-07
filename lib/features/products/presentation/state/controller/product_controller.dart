@@ -58,7 +58,12 @@ class ProductController extends GetxController {
     } 
     catch (e) {
       errorMessage.value = e.toString();
-      HelperFunctions.showSnackbar(title: 'Error', message: errorMessage.value, isError: true, duration: Duration(seconds: 10));
+      HelperFunctions.showSnackbar(
+        title: 'Error', 
+        message: errorMessage.value, 
+        isError: true, 
+        duration: Duration(seconds: 10)
+      );
     } 
     finally {
       isLoading.value = false;
@@ -77,7 +82,12 @@ class ProductController extends GetxController {
     } 
     catch (e) {
       errorMessage.value = e.toString();
-      HelperFunctions.showSnackbar(title: 'Error', message: errorMessage.value, isError: true, duration: Duration(seconds: 10));
+      HelperFunctions.showSnackbar(
+        title: 'Error', 
+        message: errorMessage.value, 
+        isError: true, 
+        duration: Duration(seconds: 10)
+      );
     } 
     finally {
       isLoading.value = false;
@@ -155,14 +165,6 @@ class ProductController extends GetxController {
   // ── HELPER ─────────────────────────────────────────
   void selectProduct(ProductEntity product) {
     selectedProduct.value = product;
-  }
-
-
-  
-  var isFavorite = false.obs;
-
-  void toggleFavorite() {
-    isFavorite.value = !isFavorite.value;
   }
   
   

@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/widgets/custom_back_button.dart';
 import 'package:ecommerce/features/admin/presentation/controllers/manage_admins_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,17 +18,7 @@ class ManageAdminsPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color(0xFFF8F6F3),
           elevation: 0,
-          leading: GestureDetector(
-            onTap: () => Get.back(),
-            child: Container(
-              margin: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(Icons.arrow_back_ios_new_rounded, size: 16, color: Colors.black),
-            ),
-          ),
+          leading: CustomBackButton(),
           title: const Text(
             'Manage Admins',
             style: TextStyle(

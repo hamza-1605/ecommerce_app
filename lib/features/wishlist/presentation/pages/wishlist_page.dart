@@ -1,4 +1,5 @@
 import 'package:ecommerce/core/constants/api_constants.dart';
+import 'package:ecommerce/core/widgets/custom_back_button.dart';
 import 'package:ecommerce/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,23 +14,21 @@ class WishlistPage extends GetView<WishlistController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF8F6F3),
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Get.back(),
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
-          ),
+        leadingWidth: 0,
+        title: const Row(
+          spacing: 10,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CustomBackButton(),
+            Text('My Favourites',
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFF1A1A1A),
+                letterSpacing: -1
+              )),
+          ],
         ),
-        title: const Text('My Favourites',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF1A1A1A),
-          )),
         actions: [
           Obx(() => controller.items.isNotEmpty
             ? TextButton.icon(

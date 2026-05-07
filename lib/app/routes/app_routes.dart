@@ -11,7 +11,8 @@ class AppRoutes {
   static const login  = '/login';
   static const register  = '/register';
 
-  static const editProfile  = '/editprofile';
+  static const editProfile  = '/profile/edit';
+  static const viewProfileDetails  = '/profile/view';
 
   static const cart  = '/cart';
 

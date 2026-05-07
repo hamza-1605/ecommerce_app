@@ -1,12 +1,8 @@
-// features/profile/presentation/pages/user_profile_page.dart
-
 import 'dart:io';
-
 import 'package:ecommerce/app/routes/app_routes.dart';
+import 'package:ecommerce/core/widgets/custom_outlined_button.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
-import 'package:ecommerce/core/widgets/info_row.dart';
-import 'package:ecommerce/features/profile/presentation/widgets/section_container.dart';
 import 'package:ecommerce/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,42 +30,19 @@ class UserProfilePage extends GetView<UserProfileController> {
               children: [
 
                 // ── Header ────────────────────────────
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -1,
-                        color: Color(0xFF1A1A1A),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => Get.toNamed(AppRoutes.editProfile),
-                      icon: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.06),
-                              blurRadius: 8,
-                            )
-                          ],
-                        ),
-                        child: const Icon(Icons.edit_outlined, size: 18),
-                      ),
-                    ),
-                  ],
+                const Text(
+                  'Profile',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -1,
+                    color: Color(0xFF1A1A1A),
+                  ),
                 ),
 
                 const SizedBox(height: 32),
 
                 // ── Avatar ────────────────────────────
-                // Replace the existing avatar section in UserProfilePage
                 Center(
                   child: Column(
                     children: [
@@ -136,33 +109,69 @@ class UserProfilePage extends GetView<UserProfileController> {
 
                 const SizedBox(height: 36),
 
-                // ── Info Cards ────────────────────────
-                SectionContainer(
-                  title: 'Personal Info', 
-                  rows: [
-                    InfoRow( icon: Icons.person_outline_rounded,  label: 'Gender',          value: profile?.gender  ?? '-'),
-                    InfoRow( icon: Icons.mail_outline_rounded,    label: 'Email',           value: Get.find<AuthController>().currentUser.value?.email ?? '-'),
-                    InfoRow( icon: Icons.phone_outlined,          label: 'Phone',           value: profile?.phone   ?? '-'),
-                    InfoRow( icon: Icons.cake_outlined,           label: 'Date Of Birth',   value: profile?.dob != null
-                        ? '${profile!.dob!.day}/${profile.dob!.month}/${profile.dob!.year}'
-                        : '-'
+                GestureDetector(
+                  onTap: () => Get.toNamed(
+                    AppRoutes.viewProfileDetails,
+                    arguments: profile
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
-                  ]
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Personal Info',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF1A1A1A),
+                                )),
+                              SizedBox(height: 2),
+                              // Show count
+                              Text(
+                                'View or Edit your info',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF888888),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.arrow_forward_ios_rounded,
+                            size: 14, color: Color(0xFF888888)),
+                      ],
+                    ),
+                  ),
                 ),
 
-                const SizedBox(height: 24),
-
-                SectionContainer(
-                  title: 'Address',
-                  rows: [
-                    InfoRow(icon: Icons.location_on_outlined, label: 'Address',  value: profile?.address ?? '-'),
-                    InfoRow(icon: Icons.location_city_outlined, label: 'City',  value: profile?.city ?? '-'),
-                    InfoRow(icon: Icons.map_outlined, label: 'Country',  value: profile?.country ?? '-'),
-                    InfoRow(icon: Icons.pin_outlined, label: 'Postal Code',  value: profile?.postalCode ?? '-'),
-                  ]
-                ),
-
-                // In UserProfilePage — add after the address section
+                
                 const SizedBox(height: 24),
 
                 // ── My Favourites ──────────────────────────
@@ -224,30 +233,16 @@ class UserProfilePage extends GetView<UserProfileController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 36),
+                
+                const SizedBox(height: 42),
 
                 // ── Logout Button ─────────────────────
-                SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: OutlinedButton.icon(
-                    onPressed: () => Get.find<AuthController>().logout(),
-                    icon: const Icon(Icons.logout_rounded, color: Colors.red),
-                    label: const Text(
-                      'Logout',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.red, width: 1.5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                    ),
-                  ),
-                ),
+                CustomOutlinedButton(
+                  label: "Log Out", 
+                  function: () => Get.find<AuthController>().logout(), 
+                  iconData: Icons.logout, 
+                  color: Colors.red
+                )
               ],
             ),
           ),

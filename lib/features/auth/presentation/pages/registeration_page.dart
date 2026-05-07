@@ -1,4 +1,5 @@
 import 'package:ecommerce/core/constants/app_constants.dart';
+import 'package:ecommerce/core/widgets/custom_back_button.dart';
 import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ecommerce/features/auth/presentation/widgets/build_label.dart';
 import 'package:ecommerce/features/auth/presentation/widgets/build_textfield.dart';
@@ -23,26 +24,7 @@ class RegisterationPage extends GetView<AuthController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              // ── Back Button ─────────────────────────
-              GestureDetector(
-                onTap: () => Get.back(),
-                child: Container(
-                  width: 42, height: 42,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8, offset: const Offset(0, 2),
-                      )
-                    ],
-                  ),
-                  child: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
-                ),
-              ),
-
+              CustomBackButton(),
               const SizedBox(height: 32),
 
               // ── Header ──────────────────────────────

@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/widgets/custom_back_button.dart';
 import 'package:ecommerce/features/auth/presentation/widgets/build_label.dart';
 import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
 import 'package:ecommerce/features/profile/presentation/widgets/edit_profile_field.dart';
@@ -28,22 +29,12 @@ class EditUserProfilePage extends GetView<UserProfileController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF8F6F3),
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Get.back(),
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
-          ),
-        ),
+        leading: CustomBackButton(),
         title: const Text(
           'Edit Profile',
           style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
+            fontSize: 26,
+            fontWeight: FontWeight.w800,
             color: Color(0xFF1A1A1A),
           ),
         ),
@@ -56,8 +47,8 @@ class EditUserProfilePage extends GetView<UserProfileController> {
 
             // ── Personal Info ──────────────────────
             TitleSection( title: 'Personal Info'),
-            EditProfileField(label: 'Full Name',  controller:  fullNameController,  icon: Icons.person_outline_rounded),
-            EditProfileField(label: 'Phone',      controller:  phoneController,     icon: Icons.phone_outlined, keyboard: TextInputType.phone),
+            EditProfileField(label: 'Full Name',  hintText: "Your Name",  controller:  fullNameController,  icon: Icons.person_outline_rounded),
+            EditProfileField(label: 'Phone',  hintText: "Phone No.",  controller:  phoneController,     icon: Icons.phone_outlined, keyboard: TextInputType.phone),
 
             // ── Gender ─────────────────────────────
             const SizedBox(height: 16),
@@ -135,15 +126,15 @@ class EditUserProfilePage extends GetView<UserProfileController> {
               ),
             )),
 
-            const SizedBox(height: 28),
+            const SizedBox(height: 40),
 
 
             // ── Address ────────────────────────────
             TitleSection(title: 'Address'),
-            EditProfileField(label: 'Street Address', controller: addressController,    icon: Icons.location_on_outlined),
-            EditProfileField(label: 'City',           controller: cityController,       icon: Icons.location_city_outlined),
-            EditProfileField(label: 'Country',        controller: countryController,    icon: Icons.map_outlined),
-            EditProfileField(label: 'Postal Code',    controller: postalCodeController, icon: Icons.pin_outlined, keyboard: TextInputType.number),
+            EditProfileField(label: 'Street Address',  hintText: "House 46, Street 3",  controller: addressController,    icon: Icons.location_on_outlined),
+            EditProfileField(label: 'City',  hintText: "Lahore",  controller: cityController,       icon: Icons.location_city_outlined),
+            EditProfileField(label: 'Country',  hintText: "Pakistan",  controller: countryController,    icon: Icons.map_outlined),
+            EditProfileField(label: 'Postal Code',   hintText: "54000",    controller: postalCodeController, icon: Icons.pin_outlined, keyboard: TextInputType.number),
 
 
             const SizedBox(height: 36),

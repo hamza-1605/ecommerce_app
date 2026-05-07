@@ -16,6 +16,7 @@ import 'package:ecommerce/features/products/presentation/pages/product_detail_pa
 import 'package:ecommerce/features/products/presentation/pages/create_product_page.dart';
 import 'package:ecommerce/features/profile/presentation/pages/edit_user_profile_page.dart';
 import 'package:ecommerce/features/products/presentation/state/bindings/product_binding.dart';
+import 'package:ecommerce/features/profile/presentation/pages/view_personal_info_page.dart';
 import 'package:ecommerce/features/profile/presentation/state/bindings/user_profile_binding.dart';
 import 'package:ecommerce/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:get/get.dart';
@@ -23,11 +24,16 @@ import 'package:get/get.dart';
 
 class AppPages {
   static final pages = [
+    // Splash Page
     GetPage(name: AppRoutes.splash,   page: () => const SplashPage(), binding: AuthBindings()),
 
+
+    // Auth Pages
     GetPage(name: AppRoutes.login,   page: () => const LoginPage()),
     GetPage(name: AppRoutes.register,   page: () => const RegisterationPage()),
 
+
+    // Home Page
     GetPage(
       name: AppRoutes.home,   
       page: () => const HomePage(), 
@@ -39,6 +45,8 @@ class AppPages {
         UserProfileBinding(),
       ]),
 
+
+    // Admin Panel
     GetPage(
       name: AppRoutes.adminHome,   
       page: () => const AdminHomePage(), 
@@ -46,20 +54,28 @@ class AppPages {
         ProductBinding(),
         OrderBinding(),
         UserProfileBinding(),
-      ]),
+      ]
+    ),
+    GetPage(name: AppRoutes.manageAdmins, page: () => const ManageAdminsPage() ),
+    
 
+    // Profile Relevant Pages
+    GetPage( name: AppRoutes.editProfile,   page: () => const EditUserProfilePage(), binding: UserProfileBinding() ),
+    GetPage( name: AppRoutes.viewProfileDetails,  page: () => ViewPersonalInfoPage(), binding: UserProfileBinding() ),
+    
+    
+    // Products Relevant Pages
     GetPage( name: AppRoutes.productDetail, page: () => const ProductDetailPage() ),
     GetPage( name: AppRoutes.createProduct, page: () => const CreateProductPage() ),
     GetPage( name: AppRoutes.editProduct,   page: () => const EditProductPage() ),
-
-    GetPage( name: AppRoutes.editProfile,   page: () => const EditUserProfilePage(), binding: UserProfileBinding() ),
     
-    GetPage( name: AppRoutes.checkout,   page: () => const CheckoutPage(), bindings: [OrderBinding(), UserProfileBinding() ]),
 
+    // Checkout & Payment
+    GetPage( name: AppRoutes.checkout,   page: () => const CheckoutPage(), bindings: [OrderBinding(), UserProfileBinding() ]),
     GetPage( name: AppRoutes.payment,   page: () => const PaymentPage() ),
 
+    // Wishlist
     GetPage(name: AppRoutes.wishlist, page: () => const WishlistPage()),
 
-    GetPage(name: AppRoutes.manageAdmins, page: () => const ManageAdminsPage() ),
   ];
 }

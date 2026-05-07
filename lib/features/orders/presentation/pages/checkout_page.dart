@@ -1,6 +1,7 @@
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/core/utils/custom_divider.dart';
 import 'package:ecommerce/core/utils/helper_functions.dart';
+import 'package:ecommerce/core/widgets/custom_back_button.dart';
 import 'package:ecommerce/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
@@ -41,17 +42,7 @@ class CheckoutPage extends GetView<OrderController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF8F6F3),
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Get.back(),
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
-          ),
-        ),
+        leading: CustomBackButton(),
         title: const Text(
           'Checkout',
           style: TextStyle(
