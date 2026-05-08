@@ -233,74 +233,76 @@ class _ProductFormState extends State<ProductForm> {
             const SizedBox(height: 8),
 
             // ── Existing Images (edit mode) ─────────
-            if (widget.existingProduct?.imagesUrl != null &&
-                widget.existingProduct!.imagesUrl!.isNotEmpty) ...[
-              const Text(
-                'Current Images',
-                style: TextStyle(fontSize: 12, color: Color(0xFF888888)),
-              ),
-              const SizedBox(height: 8),
+            Obx(() {
+              final productController = Get.find<ProductController>();
+              final currentProduct = widget.existingProduct?.documentId != null
+                  ? productController.products.firstWhereOrNull(
+                      (p) => p.documentId == widget.existingProduct!.documentId)
+                  : null;
 
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: widget.existingProduct!.imagesUrl!.length,
-                  itemBuilder: (_, i) {
-                    final img = widget.existingProduct!.imagesUrl![i] as Map;
-                    final url = ApiConstants.baseUrl + (img['url'] as String);
-                    final mediaId = img['id'] as int;
+              final images = currentProduct?.imagesUrl ?? widget.existingProduct?.imagesUrl ?? [];
 
-                    return Stack(
-                      children: [
-                        Container(
-                          width: 100,
-                          margin: const EdgeInsets.only(right: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: const Color(0xFFE0E0E0)),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              url,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.broken_image_outlined),
-                            ),
-                          ),
-                        ),
+              if (images.isEmpty) return const SizedBox.shrink();
 
-                        // Delete button
-                        Positioned(
-                          top: 4,
-                          right: 12,
-                          child: GestureDetector(
-                            onTap: () => _confirmDeleteImage(
-                              mediaId: mediaId,
-                              mediaUrl: url,
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Current Images',
+                    style: TextStyle(fontSize: 12, color: Color(0xFF888888))),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 100,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: images.length,
+                      itemBuilder: (_, i) {
+                        final img     = images[i] as Map;
+                        final url     = ApiConstants.baseUrl + (img['url'] as String);
+                        final mediaId = img['id'] as int;
+
+                        return Stack(
+                          children: [
+                            Container(
+                              width: 100,
+                              margin: const EdgeInsets.only(right: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: const Color(0xFFE0E0E0)),
                               ),
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 12,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(url, fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => 
+                                      const Icon(Icons.broken_image_outlined)),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
+                            Positioned(
+                              top: 4, right: 12,
+                              child: GestureDetector(
+                                onTap: () => _confirmDeleteImage(
+                                  mediaId:  mediaId,
+                                  mediaUrl: url,
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(Icons.close,
+                                      color: Colors.white, size: 12),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              );
+            }),
 
             // ── New Images Preview ──────────────────
             if (_newImages.isNotEmpty) ...[
