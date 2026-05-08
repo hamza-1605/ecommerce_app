@@ -45,7 +45,7 @@ class AdminOrdersPage extends GetView<OrderController> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     itemCount: controller.allOrders.length,
                     itemBuilder: (_, i) =>
-                        AdminOrderCard(order: controller.allOrders[i]),
+                        AdminOrderCard(orderDocumentId: controller.allOrders[i].documentId),
                   ),
                 );
               }),

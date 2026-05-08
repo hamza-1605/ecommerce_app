@@ -199,7 +199,7 @@ class AdminDashboardPage extends StatelessWidget {
                     controller: scrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: filtered.length,
-                    itemBuilder: (_, i) => AdminOrderCard(order: filtered[i]),
+                    itemBuilder: (_, i) => AdminOrderCard(orderDocumentId: filtered[i].documentId),
                   ),
             ),
           ],

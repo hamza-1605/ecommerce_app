@@ -102,7 +102,7 @@ class OrderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Cancel only when pending
-                if (order.orderStatus == 'pending')
+                if (order.orderStatus.toLowerCase() == 'pending')
                   TextButton.icon(
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.red[50],
@@ -116,7 +116,7 @@ class OrderCard extends StatelessWidget {
                   )
 
                 // Delete only when cancelled
-                else if (order.orderStatus == 'cancelled')
+                else if (order.orderStatus.toLowerCase() == 'cancelled')
                   TextButton.icon(
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.red,

@@ -112,7 +112,7 @@ class OrderController extends GetxController {
 
       await createOrderUsecase.call(userId: userId, order: order);
 
-      // ✅ Deduct stock for each ordered item
+      // Deduct stock for each ordered item
       final productController = Get.find<ProductController>();
       for (final item in order.orderItems) {
         final product = productController.products
@@ -199,44 +199,54 @@ class OrderController extends GetxController {
   Future<void> updateOrder({required String documentId, required String orderStatus}) async {
     isSubmitting.value = true;
     try {
-      await updateOrderUsecase.call( orderId: documentId, orderStatus: orderStatus );
+      await updateOrderUsecase.call(orderId: documentId, orderStatus: orderStatus);
 
-      if(orderStatus.toLowerCase() == 'cancelled'){
-        // ✅ Restore stock for each item
+      // Restoring stock only if cancelled
+      if (orderStatus.toLowerCase() == 'cancelled') {
         final productController = Get.find<ProductController>();
-        final order = orders.firstWhereOrNull((o) => o.documentId == documentId);
+        final order = orders.firstWhereOrNull((o) => o.documentId == documentId)
+                  ?? allOrders.firstWhereOrNull((o) => o.documentId == documentId);
 
         if (order != null) {
           for (final item in order.orderItems) {
             final product = productController.products
                 .firstWhereOrNull((p) => p.documentId == item.productDocumentId);
-
             if (product != null) {
-              final restoredQuantity = product.quantity + item.quantity;  // ✅ restore
               await productController.updateStock(
                 documentId:  product.documentId!,
-                newQuantity: restoredQuantity,
+                newQuantity: product.quantity + item.quantity,
               );
             }
           }
         }
       }
 
-      final index = orders.indexWhere( (o) => o.documentId == documentId );
-      if (index != -1) {
-        final existingOrder = orders[index];
-
-        orders[index] = OrderEntity(
-          documentId:      existingOrder.documentId,
-          orderItems:      existingOrder.orderItems,     
-          deliveryAddress: existingOrder.deliveryAddress,
-          total:           existingOrder.total,
-          paymentMethod:   existingOrder.paymentMethod,
-          orderStatus:     orderStatus,
-          createdAt:       existingOrder.createdAt,
-        );
-        orders.refresh();
+      // Helper to update an order in a list
+      void updateInList(RxList<OrderEntity> list,String listName) {
+        final index = list.indexWhere((o) => o.documentId == documentId);
+        print('$listName — index found: $index');   // ✅
+ 
+        if (index != -1) {
+          final existing = list[index];
+          list[index] = OrderEntity(
+            documentId:      existing.documentId,
+            orderItems:      existing.orderItems,
+            deliveryAddress: existing.deliveryAddress,
+            total:           existing.total,
+            orderStatus:     orderStatus,       // updated status
+            paymentMethod:   existing.paymentMethod,
+            createdAt:       existing.createdAt,
+          );
+        }
       }
+
+      // Update in both lists
+      updateInList(orders, 'USER ORDERS');
+      updateInList(allOrders, 'ALL ORDERS');
+
+      orders.refresh();
+      allOrders.refresh();
+
       HelperFunctions.showSnackbar(
         title:   'Updated',
         message: 'Order status changed to $orderStatus',

@@ -8,6 +8,10 @@ class OrdersPage extends GetView<OrderController> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchOrders();
+    });
+
     return Scaffold(
       backgroundColor: const Color(0xFFF8F6F3),
       body: SafeArea(
