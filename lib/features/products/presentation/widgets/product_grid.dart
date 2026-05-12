@@ -16,10 +16,10 @@ class ProductGrid extends GetView<ProductController> {
       }
 
       final products = category == 'All'
-          ? controller.products
-          : controller.products
-              .where((p) => p.category == category)
-              .toList();
+                        ? controller.filteredProducts
+                        : controller.filteredProducts
+                            .where( (p) => p.category == category)
+                            .toList();
 
       if (products.isEmpty) {
         return Center(

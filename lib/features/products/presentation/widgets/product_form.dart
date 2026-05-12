@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:ecommerce/core/constants/api_constants.dart';
 import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
 import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
-import 'package:ecommerce/features/products/presentation/widgets/product_textfield.dart';
+import 'package:ecommerce/features/products/presentation/widgets/product_editing_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

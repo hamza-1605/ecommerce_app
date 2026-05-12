@@ -8,6 +8,7 @@ import 'package:ecommerce/features/products/domain/usecases/edit_product_usecase
 import 'package:ecommerce/features/products/domain/usecases/get_product_by_id_usecase.dart';
 import 'package:ecommerce/features/products/domain/usecases/get_products_usecase.dart';
 import 'package:ecommerce/features/products/domain/usecases/update_stock_usecase.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
@@ -38,6 +39,20 @@ class ProductController extends GetxController {
 
   // selected product for detail/edit screen
   final Rx<ProductEntity?> selectedProduct = Rx<ProductEntity?>(null);
+
+  final sortOption = ''.obs;
+  final searchQuery = ''.obs;
+
+
+  final TextEditingController searchTextController = TextEditingController();
+  final FocusNode searchFocusNode = FocusNode();
+
+  @override
+  void onClose() {
+    searchTextController.dispose();
+    searchFocusNode.dispose();
+    super.onClose();
+  }  
 
   @override
   void onInit() {
@@ -170,13 +185,50 @@ class ProductController extends GetxController {
   
   // --------------------- Filtering Categories Issues -------------------------
 
-  // ── Filtered products based on selected category ──
+  // ── Filtered products based on Category & Search ──
   List<ProductEntity> get filteredProducts {
-    if (selectedCategory.value == 'All') return products;
-    
-    return products
-        .where((p) => p.category == selectedCategory.value)
-        .toList();
+    List<ProductEntity> result = List.from(products);
+
+    // ── CATEGORY FILTER ─────────────────────
+    if (selectedCategory.value != 'All') {
+      result = result
+          .where( (p) => p.category == selectedCategory.value )
+          .toList();
+    }
+
+    // ── SEARCH FILTER ───────────────────────
+    if (searchQuery.value.isNotEmpty) {
+      result = result.where( (p) {
+        return p.itemName
+                .toLowerCase()
+                .contains(searchQuery.value.toLowerCase()) ||
+              (p.description ?? "")
+                .toLowerCase()
+                .contains(searchQuery);
+
+      }).toList();
+    }
+
+    // ── SORTING ─────────────────────────────
+    switch (sortOption.value) {
+      case 'price_low_high':
+        result.sort((a, b) => a.price.compareTo(b.price));
+        break;
+
+      case 'price_high_low':
+        result.sort((a, b) => b.price.compareTo(a.price));
+        break;
+
+      case 'name_az':
+        result.sort((a, b) => a.itemName.compareTo(b.itemName));
+        break;
+
+      default:
+        result.sort((a, b) => a.itemName.compareTo(b.itemName));
+        break;
+    }
+
+    return result;
   }
 
 
@@ -309,4 +361,16 @@ class ProductController extends GetxController {
       isSubmitting.value = false;
     }
   }
+
+
+
+  // ----- Filtering and Sorting ---------------------------------------------
+  void searchProducts(String query) {
+    searchQuery.value = query;
+  }
+
+  void sortProducts(String option) {
+    sortOption.value = option;
+  }
+
 }
