@@ -1,4 +1,6 @@
-import 'package:ecommerce/app/splash_page.dart';
+import 'package:ecommerce/features/auth/presentation/pages/forgot_password_page.dart';
+import 'package:ecommerce/features/auth/presentation/pages/reset_password_page.dart';
+import 'package:ecommerce/features/home/presentation/pages/splash_page.dart';
 import 'package:ecommerce/app/routes/app_routes.dart';
 import 'package:ecommerce/features/admin/presentation/pages/admin_home_page.dart';
 import 'package:ecommerce/features/admin/presentation/pages/manage_admins_page.dart';
@@ -31,6 +33,9 @@ class AppPages {
     // Auth Pages
     GetPage(name: AppRoutes.login,   page: () => const LoginPage()),
     GetPage(name: AppRoutes.register,   page: () => const RegisterationPage()),
+    GetPage(name: AppRoutes.forgotPassword, page: () => const ForgotPasswordPage()),
+    GetPage(name: AppRoutes.resetPassword, page: () => const ResetPasswordPage()),
+
 
 
     // Home Page

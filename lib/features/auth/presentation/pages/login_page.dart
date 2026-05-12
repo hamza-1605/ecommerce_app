@@ -61,24 +61,44 @@ class LoginPage extends GetView<AuthController> {
               // ── Password Field ──────────────────────
               LabelText(text: 'Password'),
               const SizedBox(height: 8),
-              Obx(() => BuildTextfield(
-                controller: passwordController,
-                hint: '••••••••',
-                obscure: obscurePassword.value,
-                prefixIconData: Icons.lock_outline_rounded,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    obscurePassword.value
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    color: const Color(0xFF888888),
-                    size: 20,
+              Obx(() => GestureDetector(
+                child: BuildTextfield(
+                  controller: passwordController,
+                  hint: '••••••••',
+                  obscure: obscurePassword.value,
+                  prefixIconData: Icons.lock_outline_rounded,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscurePassword.value
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: const Color(0xFF888888),
+                      size: 20,
+                    ),
+                    onPressed: () => obscurePassword.value = !obscurePassword.value,
                   ),
-                  onPressed: () => obscurePassword.value = !obscurePassword.value,
                 ),
               )),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
+              // Forgot Password
+              GestureDetector(
+                onTap: () => Get.toNamed(AppRoutes.forgotPassword),
+                child: const Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: Color.fromARGB(157, 26, 26, 26),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      decoration: TextDecoration.underline
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 35),
 
               // ── Login Button ────────────────────────
               Obx(() => SizedBox(

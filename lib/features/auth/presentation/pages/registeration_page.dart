@@ -20,7 +20,7 @@ class RegisterationPage extends GetView<AuthController> {
       backgroundColor: const Color(0xFFF8F6F3),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 48),
+          padding: const EdgeInsets.all(28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,7 +29,7 @@ class RegisterationPage extends GetView<AuthController> {
 
               // ── Header ──────────────────────────────
               const Text(
-                'Create\nAccount.',
+                'Create Account.',
                 style: TextStyle(
                   fontSize: 42,
                   fontWeight: FontWeight.w800,

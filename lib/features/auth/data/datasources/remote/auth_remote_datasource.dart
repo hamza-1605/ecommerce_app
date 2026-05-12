@@ -6,6 +6,7 @@ class AuthRemoteDatasource {
   final ApiServices apiServices;
   AuthRemoteDatasource(this.apiServices);
 
+  // Login
   Future<AuthUserModel> login({required String email, required String password}) async {
     final apiResponse = await apiServices.postCall(
       ApiConstants.loginEndpoint, 
@@ -24,7 +25,7 @@ class AuthRemoteDatasource {
     }
   }
 
-
+  // Registeration
   Future<AuthUserModel> register({required String username, required String email, required String password}) async {
     final apiResponse = await apiServices.postCall(
       ApiConstants.registerEndpoint, 
@@ -47,6 +48,44 @@ class AuthRemoteDatasource {
 
   Future<void> logout() async{
     return ;
+  }
+
+
+  // Forget Password
+  Future<void> forgotPassword({required String email}) async {
+    final apiResponse = await apiServices.postCall<void>(
+      '/api/auth/forgot-password',
+      { "email": email },
+      (json) {},
+      requireAuth: false,
+    );
+
+    if (!apiResponse.success) {
+      throw Exception(apiResponse.message);
+    }
+  }
+
+  
+  // Reset Password
+  Future<void> resetPassword({
+    required String code,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    final apiResponse = await apiServices.postCall<void>(
+      '/api/auth/reset-password',
+      {
+        "code":                 code,
+        "password":             password,
+        "passwordConfirmation": passwordConfirmation,
+      },
+      (json) {},
+      requireAuth: false,               // no token needed
+    );
+
+    if (!apiResponse.success) {
+      throw Exception(apiResponse.message);
+    }
   }
 
 }
