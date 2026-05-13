@@ -1,10 +1,14 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/constants/app_constants.dart';
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/widgets/branding/app_logo.dart';
+import 'package:ekart/core/widgets/branding/app_text.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
-import 'package:ekart/features/auth/presentation/widgets/build_label.dart';
+import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
 import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class LoginPage extends GetView<AuthController> {
   const LoginPage({super.key});
@@ -24,27 +28,32 @@ class LoginPage extends GetView<AuthController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
-              const Text(
-                'Welcome\nBack.',
-                style: TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.w800,
-                  height: 1.1,
-                  color: Color(0xFF1A1A1A),
-                  letterSpacing: -1,
-                ),
+              // Header ----- Logo
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppLogo(),
+                      AppText(),
+                      // const SizedBox(height: 15),
+                      const Text(
+                        loginMessage,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFF888888),
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(height: 12),
-              const Text(
-                loginMessage,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color(0xFF888888),
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+              
 
-              const SizedBox(height: 52),
+              const SizedBox(height: 30),
 
               // ── Email Field ─────────────────────────
               LabelText(text: 'Email'),
@@ -89,10 +98,11 @@ class LoginPage extends GetView<AuthController> {
                   child: Text(
                     'Forgot Password?',
                     style: TextStyle(
-                      color: Color.fromARGB(157, 26, 26, 26),
+                      color: Color.fromARGB(125, 0, 0, 0),
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline
+                      decoration: TextDecoration.underline,
+                      decorationColor: Color.fromARGB(125, 0, 0, 0),
                     ),
                   ),
                 ),
@@ -103,39 +113,29 @@ class LoginPage extends GetView<AuthController> {
               // ── Login Button ────────────────────────
               Obx(() => SizedBox(
                 width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
+                height: 60,
+                child: GradientElevatedButton(
                   onPressed: controller.isLoading.value
-                      ? null
-                      : () => controller.loginUser(
-                            email:    emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1A1A1A),
-                    foregroundColor: Colors.white,
-                    disabledBackgroundColor: const Color(0xFF888888),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-
+                    ? null
+                    : () => controller.loginUser(
+                        email:    emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      ), 
                   child: controller.isLoading.value
-                      ? const SizedBox(
-                          width: 22, height: 22,
-                          child: CircularProgressIndicator(
-                            color: Colors.white, strokeWidth: 2.5,
-                          ),
-                        )
-                      : const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.3,
-                          ),
+                    ? const SizedBox(
+                        width: 22, height: 22,
+                        child: CircularProgressIndicator(
+                          color: Colors.white, strokeWidth: 2.5,
                         ),
+                      )
+                    : const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
                 ),
               )),
 
@@ -154,10 +154,11 @@ class LoginPage extends GetView<AuthController> {
                     child: const Text(
                       'Register',
                       style: TextStyle(
-                        color: Color(0xFF1A1A1A),
+                        color: AppColors.appMainColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         decoration: TextDecoration.underline,
+                        decorationColor: AppColors.appMainColor,
                       ),
                     ),
                   ),

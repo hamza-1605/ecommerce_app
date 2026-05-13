@@ -1,7 +1,9 @@
 import 'package:ekart/core/constants/app_constants.dart';
+import 'package:ekart/core/widgets/branding/app_logo.dart';
+import 'package:ekart/core/widgets/branding/app_text.dart';
 import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
-import 'package:ekart/features/auth/presentation/widgets/build_label.dart';
+import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
 import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +26,22 @@ class RegisterationPage extends GetView<AuthController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomBackButton(),
+              Row(
+                spacing: 15,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomBackButton(),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 10,
+                    children: [
+                      AppLogo(width: 35),
+                      AppText(fontSize: 22, fontWeight: FontWeight.w700,),
+                    ],
+                  ),
+                  SizedBox(width: 30),
+                ],
+              ),
               const SizedBox(height: 32),
 
               // ── Header ──────────────────────────────

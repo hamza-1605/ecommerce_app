@@ -1,8 +1,12 @@
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/utils/helper_functions.dart';
 import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
+import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
+import 'package:ekart/features/profile/presentation/widgets/label_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class ForgotPasswordPage extends GetView<AuthController> {
   const ForgotPasswordPage({super.key});
@@ -27,34 +31,22 @@ class ForgotPasswordPage extends GetView<AuthController> {
         
                   // ── Header ──────────────────────────
                   const Text(
-                    'Forgot\nPassword?',
-                    style: TextStyle(
-                      fontSize: 42,
-                      fontWeight: FontWeight.w800,
-                      height: 1.1,
-                      color: Color(0xFF1A1A1A),
-                      letterSpacing: -1,
-                    ),
+                    'Forgot Password?',
+                    style: AppTextStyles.authPageHeading
                   ),
+                  
                   const SizedBox(height: 12),
                   const Text(
                     'Enter your registered email and we\'ll send you a reset link.',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF888888),
-                    ),
+                    style: AppTextStyles.authPageInstruction
                   ),
             
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 30),
             
                   // ── Email Field ─────────────────────
-                  const Text('Email',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF1A1A1A),
-                      letterSpacing: 0.3,
-                    )),
+                  LabelText(
+                    text: 'Email',
+                  ),
                   const SizedBox(height: 8),
                   Container(
                     decoration: BoxDecoration(
@@ -68,29 +60,11 @@ class ForgotPasswordPage extends GetView<AuthController> {
                         ),
                       ],
                     ),
-                    child: TextField(
-                      controller:   emailController,
+                    child: BuildTextfield(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
-                      style: const TextStyle(fontSize: 15),
-                      decoration: InputDecoration(
-                        hintText:  'you@example.com',
-                        hintStyle: const TextStyle(
-                          color: Color(0xFFBBBBBB),
-                          fontSize: 15,
-                        ),
-                        prefixIcon: const Icon(Icons.mail_outline_rounded,
-                            color: Color(0xFF888888), size: 20),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide:   BorderSide.none,
-                        ),
-                        filled:         true,
-                        fillColor:      Colors.white,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical:   18,
-                        ),
-                      ),
+                      hint: 'you@example.com',
+                      prefixIconData: Icons.mail_outline_rounded,
                     ),
                   ),
             
@@ -100,43 +74,35 @@ class ForgotPasswordPage extends GetView<AuthController> {
                   Obx(() => SizedBox(
                     width: double.infinity,
                     height: 56,
-                    child: ElevatedButton(
+                    child: GradientElevatedButton(
                       onPressed: controller.isLoading.value
-                          ? null
-                          : () {
-                              if (emailController.text.trim().isEmpty) {
-                                HelperFunctions.showSnackbar(
-                                  title:   'Email Required',
-                                  message: 'Please enter your email address',
-                                  isError: true,
-                                );
-                                return;
-                              }
-                              controller.forgotPassword(
-                                email: emailController.text.trim(),
+                        ? null
+                        : () {
+                            if (emailController.text.trim().isEmpty) {
+                              HelperFunctions.showSnackbar(
+                                title:   'Email Required',
+                                message: 'Please enter your email address',
+                                isError: true,
                               );
-                            },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1A1A1A),
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
+                              return;
+                            }
+                            controller.forgotPassword(
+                              email: emailController.text.trim(),
+                            );
+                          }, 
                       child: controller.isLoading.value
-                          ? const SizedBox(
-                              width: 22, height: 22,
-                              child: CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2.5),
-                            )
-                          : const Text(
-                              'Send Reset Link',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                        ? const SizedBox(
+                            width: 22, height: 22,
+                            child: CircularProgressIndicator(
+                              color: Colors.white, strokeWidth: 2.5),
+                          )
+                        : const Text(
+                            'Send Reset Link',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
+                          ),
                     ),
                   )),
                 ],

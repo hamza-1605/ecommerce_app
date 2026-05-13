@@ -1,7 +1,9 @@
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/utils/helper_functions.dart';
 import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
-import 'package:ekart/features/auth/presentation/widgets/build_label.dart';
+import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
+import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,21 +34,13 @@ class ResetPasswordPage extends GetView<AuthController> {
                 // ── Header ──────────────────────────
                 const Text(
                   'Reset\nPassword.',
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.w800,
-                    height: 1.1,
-                    color: Color(0xFF1A1A1A),
-                    letterSpacing: -1,
-                  ),
+                  style: AppTextStyles.authPageHeading
                 ),
+                
                 const SizedBox(height: 12),
                 const Text(
                   'Enter the code from your email and your new password.',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xFF888888),
-                  ),
+                  style: AppTextStyles.authPageInstruction
                 ),
           
                 const SizedBox(height: 40),
@@ -54,10 +48,10 @@ class ResetPasswordPage extends GetView<AuthController> {
                 // ── Code Field ──────────────────────
                 LabelText(text: 'Reset Code'),
                 const SizedBox(height: 8),
-                _buildTextField(
-                  controller:  codeController,
-                  hint:        'Paste code from email',
-                  prefixIcon:  Icons.key_outlined,
+                BuildTextfield(
+                  controller: codeController,
+                  hint: 'Paste code from email',
+                  prefixIconData: Icons.key_outlined,
                 ),
           
                 const SizedBox(height: 24),
@@ -65,21 +59,20 @@ class ResetPasswordPage extends GetView<AuthController> {
                 // ── New Password ────────────────────
                 LabelText(text: 'New Password'),
                 const SizedBox(height: 8),
-                Obx(() => _buildTextField(
+                Obx(() => BuildTextfield(
                   controller: passwordController,
-                  hint:       '••••••••',
-                  prefixIcon: Icons.lock_outline_rounded,
-                  obscure:    obscurePassword.value,
+                  hint: '••••••••',
+                  prefixIconData: Icons.lock_outline_rounded,
+                  obscure: obscurePassword.value,
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscurePassword.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
                       color: const Color(0xFF888888),
                       size: 20,
                     ),
-                    onPressed: () =>
-                        obscurePassword.value = !obscurePassword.value,
+                    onPressed: () => obscurePassword.value = !obscurePassword.value,
                   ),
                 )),
           
@@ -88,11 +81,11 @@ class ResetPasswordPage extends GetView<AuthController> {
                 // ── Confirm Password ────────────────
                 LabelText(text: 'Confirm Password'),
                 const SizedBox(height: 8),
-                Obx(() => _buildTextField(
+                Obx(() => BuildTextfield(
                   controller: confirmPasswordController,
-                  hint:       '••••••••',
-                  prefixIcon: Icons.lock_outline_rounded,
-                  obscure:    obscureConfirm.value,
+                  hint: '••••••••',
+                  prefixIconData: Icons.lock_outline_rounded,
+                  obscure: obscureConfirm.value,
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscureConfirm.value
@@ -101,8 +94,7 @@ class ResetPasswordPage extends GetView<AuthController> {
                       color: const Color(0xFF888888),
                       size: 20,
                     ),
-                    onPressed: () =>
-                        obscureConfirm.value = !obscureConfirm.value,
+                    onPressed: () => obscureConfirm.value = !obscureConfirm.value,
                   ),
                 )),
           
@@ -174,49 +166,6 @@ class ResetPasswordPage extends GetView<AuthController> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String                hint,
-    required IconData              prefixIcon,
-    bool                           obscure    = false,
-    Widget?                        suffixIcon,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: TextField(
-        controller:  controller,
-        obscureText: obscure,
-        style: const TextStyle(fontSize: 15, color: Color(0xFF1A1A1A)),
-        decoration: InputDecoration(
-          hintText:   hint,
-          hintStyle:  const TextStyle(
-            color: Color(0xFFBBBBBB), fontSize: 15),
-          prefixIcon: Icon(prefixIcon,
-              color: const Color(0xFF888888), size: 20),
-          suffixIcon: suffixIcon,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
-            borderSide:   BorderSide.none,
-          ),
-          filled:         true,
-          fillColor:      Colors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16, vertical: 18),
         ),
       ),
     );

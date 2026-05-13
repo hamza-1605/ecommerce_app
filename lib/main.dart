@@ -1,6 +1,7 @@
 import 'package:ekart/app/global_binding/app_binding.dart';
 import 'package:ekart/app/routes/app_pages.dart';
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -26,15 +27,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'ekart',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.blueGrey),
-        appBarTheme: AppBarThemeData(
-          backgroundColor: Colors.blueGrey,
-          foregroundColor: Colors.white,
-          surfaceTintColor: Colors.transparent
-        )
-      ),
-
+      theme: AppThemes.lightMode,
       initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
     );

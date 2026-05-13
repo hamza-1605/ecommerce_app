@@ -36,19 +36,11 @@ class BuildTextfield extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscure,
-      style: const TextStyle(fontSize: 15, color: Color(0xFF1A1A1A)),
+      style: const TextStyle(fontSize: 15),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(color: Color(0xFFBBBBBB), fontSize: 15),
-        prefixIcon: Icon(prefixIconData, color: const Color(0xFF888888), size: 20),
+        prefixIcon: Icon(prefixIconData),
         suffixIcon: suffixIcon,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide.none,
-        ),
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
       ),
     ),
   );
