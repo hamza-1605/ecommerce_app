@@ -1,7 +1,7 @@
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/features/profile/data/models/user_profile_model.dart';
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/features/profile/data/models/user_profile_model.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
 
 class UserProfileRemoteDatasource {
   final ApiServices apiServices;

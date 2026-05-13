@@ -1,6 +1,6 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/features/auth/domain/entities/auth_user_entity.dart';
-import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/features/auth/domain/entities/auth_user_entity.dart';
+import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

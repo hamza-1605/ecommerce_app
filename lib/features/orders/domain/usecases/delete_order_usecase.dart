@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/orders/domain/repository/order_repository.dart';
+import 'package:ekart/features/orders/domain/repository/order_repository.dart';
 
 class DeleteOrderUsecase {
   final OrderRepository repository;

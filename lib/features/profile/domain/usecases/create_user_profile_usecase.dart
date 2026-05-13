@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
-import 'package:ecommerce/features/profile/domain/repository/user_profile_repository.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/features/profile/domain/repository/user_profile_repository.dart';
 
 class CreateUserProfileUsecase {
   final UserProfileRepository repository;

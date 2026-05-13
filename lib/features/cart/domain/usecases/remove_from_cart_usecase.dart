@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/cart/domain/entities/cart_entity.dart';
-import 'package:ecommerce/features/cart/domain/repository/cart_repository.dart';
+import 'package:ekart/features/cart/domain/entities/cart_entity.dart';
+import 'package:ekart/features/cart/domain/repository/cart_repository.dart';
 
 class RemoveFromCartUsecase {
   final CartRepository repository;

@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/orders/data/models/order_item_model.dart';
-import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
+import 'package:ekart/features/orders/data/models/order_item_model.dart';
+import 'package:ekart/features/orders/domain/entities/order_entity.dart';
 
 class OrderModel extends OrderEntity {
   OrderModel({

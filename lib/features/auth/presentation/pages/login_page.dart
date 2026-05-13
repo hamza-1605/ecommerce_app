@@ -1,8 +1,8 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/core/constants/app_constants.dart';
-import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
-import 'package:ecommerce/features/auth/presentation/widgets/build_label.dart';
-import 'package:ecommerce/features/auth/presentation/widgets/build_textfield.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/constants/app_constants.dart';
+import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
+import 'package:ekart/features/auth/presentation/widgets/build_label.dart';
+import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,11 +1,11 @@
-import 'package:ecommerce/core/widgets/custom_back_button.dart';
-import 'package:ecommerce/features/auth/presentation/widgets/build_label.dart';
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
-import 'package:ecommerce/features/profile/presentation/widgets/edit_profile_field.dart';
-import 'package:ecommerce/features/profile/presentation/widgets/title_section.dart';
+import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/features/auth/presentation/widgets/build_label.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/features/profile/presentation/widgets/edit_profile_field.dart';
+import 'package:ekart/features/profile/presentation/widgets/title_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
+import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 
 class EditUserProfilePage extends GetView<UserProfileController> {
   const EditUserProfilePage({super.key});

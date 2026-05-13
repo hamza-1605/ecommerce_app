@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
+import 'package:ekart/features/products/domain/entities/product_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WishlistLocalDatasource {

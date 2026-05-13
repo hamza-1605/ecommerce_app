@@ -1,10 +1,10 @@
-import 'package:ecommerce/features/admin/presentation/widgets/admin_order_card.dart';
-import 'package:ecommerce/features/admin/presentation/widgets/dashboard_stat_card.dart';
-import 'package:ecommerce/features/admin/presentation/widgets/refresh_button.dart';
-import 'package:ecommerce/features/auth/presentation/state/controllers/auth_controller.dart';
-import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
-import 'package:ecommerce/features/products/presentation/pages/product_detail_page.dart';
-import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ekart/features/admin/presentation/widgets/admin_order_card.dart';
+import 'package:ekart/features/admin/presentation/widgets/dashboard_stat_card.dart';
+import 'package:ekart/features/admin/presentation/widgets/refresh_button.dart';
+import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
+import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
+import 'package:ekart/features/products/presentation/pages/product_detail_page.dart';
+import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

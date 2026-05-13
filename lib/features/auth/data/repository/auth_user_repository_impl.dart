@@ -1,6 +1,6 @@
-import 'package:ecommerce/features/auth/data/datasources/remote/auth_remote_datasource.dart';
-import 'package:ecommerce/features/auth/domain/entities/auth_user_entity.dart';
-import 'package:ecommerce/features/auth/domain/repository/auth_user_repository.dart';
+import 'package:ekart/features/auth/data/datasources/remote/auth_remote_datasource.dart';
+import 'package:ekart/features/auth/domain/entities/auth_user_entity.dart';
+import 'package:ekart/features/auth/domain/repository/auth_user_repository.dart';
 
 class AuthUserRepositoryImpl implements AuthUserRepository {
   final AuthRemoteDatasource authRemoteDatasource;

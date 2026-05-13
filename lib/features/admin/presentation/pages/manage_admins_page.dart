@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/widgets/custom_back_button.dart';
-import 'package:ecommerce/features/admin/presentation/controllers/manage_admins_controller.dart';
+import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/features/admin/presentation/controllers/manage_admins_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

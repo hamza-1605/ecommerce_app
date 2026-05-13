@@ -1,6 +1,6 @@
-import 'package:ecommerce/core/widgets/custom_back_button.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
-import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
+import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

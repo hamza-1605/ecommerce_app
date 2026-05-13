@@ -1,12 +1,12 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/features/auth/domain/entities/auth_user_entity.dart';
-import 'package:ecommerce/features/auth/domain/usecases/forgot_password_usecase.dart';
-import 'package:ecommerce/features/auth/domain/usecases/login_auth_user_usecase.dart';
-import 'package:ecommerce/features/auth/domain/usecases/logout_auth_user_usecase.dart';
-import 'package:ecommerce/features/auth/domain/usecases/register_auth_user_usecase.dart';
-import 'package:ecommerce/features/auth/domain/usecases/reset_password_usecase.dart';
-import 'package:ecommerce/features/home/presentation/state/controller/home_controller.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/features/auth/domain/entities/auth_user_entity.dart';
+import 'package:ekart/features/auth/domain/usecases/forgot_password_usecase.dart';
+import 'package:ekart/features/auth/domain/usecases/login_auth_user_usecase.dart';
+import 'package:ekart/features/auth/domain/usecases/logout_auth_user_usecase.dart';
+import 'package:ekart/features/auth/domain/usecases/register_auth_user_usecase.dart';
+import 'package:ekart/features/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:ekart/features/home/presentation/state/controller/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

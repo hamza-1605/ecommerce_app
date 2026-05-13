@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/cart/domain/entities/cart_entity.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:ekart/features/cart/domain/entities/cart_entity.dart';
+import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 
 abstract class CartRepository {
   Future<CartEntity> getCart({ required int userId });

@@ -1,6 +1,6 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
-import 'package:ecommerce/features/products/presentation/widgets/product_card.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ekart/features/products/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

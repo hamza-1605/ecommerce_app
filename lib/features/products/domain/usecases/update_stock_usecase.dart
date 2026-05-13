@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/products/domain/repository/product_repository.dart';
+import 'package:ekart/features/products/domain/repository/product_repository.dart';
 
 class UpdateStockUsecase {
   final ProductRepository repository;

@@ -1,10 +1,10 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/core/utils/custom_divider.dart';
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/core/widgets/custom_back_button.dart';
-import 'package:ecommerce/features/cart/presentation/state/controller/cart_controller.dart';
-import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
-import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/utils/custom_divider.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
+import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
+import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/auth/domain/repository/auth_user_repository.dart';
+import 'package:ekart/features/auth/domain/repository/auth_user_repository.dart';
 
 class LogoutAuthUserUsecase {
   final AuthUserRepository authUserRepository;

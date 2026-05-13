@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
 
 class UserProfileModel extends UserProfileEntity {
 

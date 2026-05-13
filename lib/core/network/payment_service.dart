@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/network/api_services.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/network/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 

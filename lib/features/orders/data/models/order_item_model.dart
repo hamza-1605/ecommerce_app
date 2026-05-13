@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/orders/domain/entities/order_item_entity.dart';
+import 'package:ekart/features/orders/domain/entities/order_item_entity.dart';
 
 class OrderItemModel extends OrderItemEntity {
   OrderItemModel({

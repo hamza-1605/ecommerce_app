@@ -1,4 +1,4 @@
-# ecommerce
+# ekart
 
 A new Flutter project.
 

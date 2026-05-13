@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/home/presentation/state/controller/home_controller.dart';
+import 'package:ekart/features/home/presentation/state/controller/home_controller.dart';
 import 'package:get/get.dart';
 
 class HomeBinding extends Bindings{

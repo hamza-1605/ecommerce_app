@@ -1,3 +1,0 @@
-//     View Orders Navigation in Profile
-
-//     Update UI for long address field     ======>     in View Profile section

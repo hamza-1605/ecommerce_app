@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/features/orders/data/models/order_item_model.dart';
-import 'package:ecommerce/features/orders/data/models/order_model.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/features/orders/data/models/order_item_model.dart';
+import 'package:ekart/features/orders/data/models/order_model.dart';
 
 class OrderRemoteDatasource {
   final ApiServices apiServices;

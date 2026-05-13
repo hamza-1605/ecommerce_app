@@ -1,10 +1,10 @@
-import 'package:ecommerce/features/profile/data/datasources/remote/user_profile_remote_datasource.dart';
-import 'package:ecommerce/features/profile/data/repository/user_profile_repository_impl.dart';
-import 'package:ecommerce/features/profile/domain/repository/user_profile_repository.dart';
-import 'package:ecommerce/features/profile/domain/usecases/create_user_profile_usecase.dart';
-import 'package:ecommerce/features/profile/domain/usecases/get_user_profile_usecase.dart';
-import 'package:ecommerce/features/profile/domain/usecases/update_user_profile_usecase.dart';
-import 'package:ecommerce/features/profile/presentation/state/controller/user_profile_controller.dart';
+import 'package:ekart/features/profile/data/datasources/remote/user_profile_remote_datasource.dart';
+import 'package:ekart/features/profile/data/repository/user_profile_repository_impl.dart';
+import 'package:ekart/features/profile/domain/repository/user_profile_repository.dart';
+import 'package:ekart/features/profile/domain/usecases/create_user_profile_usecase.dart';
+import 'package:ekart/features/profile/domain/usecases/get_user_profile_usecase.dart';
+import 'package:ekart/features/profile/domain/usecases/update_user_profile_usecase.dart';
+import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 import 'package:get/get.dart';
 
 class UserProfileBinding extends Bindings{

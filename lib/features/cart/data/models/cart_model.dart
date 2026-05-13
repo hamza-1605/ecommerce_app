@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/cart/data/models/cart_item_model.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_entity.dart';
+import 'package:ekart/features/cart/data/models/cart_item_model.dart';
+import 'package:ekart/features/cart/domain/entities/cart_entity.dart';
 
 class CartModel extends CartEntity {
   CartModel({

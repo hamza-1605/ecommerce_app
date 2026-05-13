@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
-import 'package:ecommerce/features/profile/domain/usecases/create_user_profile_usecase.dart';
-import 'package:ecommerce/features/profile/domain/usecases/get_user_profile_usecase.dart';
-import 'package:ecommerce/features/profile/domain/usecases/update_user_profile_usecase.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/features/profile/domain/usecases/create_user_profile_usecase.dart';
+import 'package:ekart/features/profile/domain/usecases/get_user_profile_usecase.dart';
+import 'package:ekart/features/profile/domain/usecases/update_user_profile_usecase.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

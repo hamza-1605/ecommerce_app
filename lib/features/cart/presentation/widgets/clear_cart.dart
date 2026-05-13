@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/cart/presentation/state/controller/cart_controller.dart';
+import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

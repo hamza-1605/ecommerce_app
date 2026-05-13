@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 
 class CartItemModel extends CartItemEntity {
   CartItemModel({

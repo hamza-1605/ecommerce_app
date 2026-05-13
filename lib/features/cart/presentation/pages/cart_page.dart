@@ -1,7 +1,7 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/features/cart/presentation/state/controller/cart_controller.dart';
-import 'package:ecommerce/features/cart/presentation/widgets/cart_item_card.dart';
-import 'package:ecommerce/features/cart/presentation/widgets/clear_cart.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
+import 'package:ekart/features/cart/presentation/widgets/cart_item_card.dart';
+import 'package:ekart/features/cart/presentation/widgets/clear_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

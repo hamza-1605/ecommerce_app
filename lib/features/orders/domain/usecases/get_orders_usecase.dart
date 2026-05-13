@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
-import 'package:ecommerce/features/orders/domain/repository/order_repository.dart';
+import 'package:ekart/features/orders/domain/entities/order_entity.dart';
+import 'package:ekart/features/orders/domain/repository/order_repository.dart';
 
 class GetOrdersUsecase {
   final OrderRepository orderRepository;

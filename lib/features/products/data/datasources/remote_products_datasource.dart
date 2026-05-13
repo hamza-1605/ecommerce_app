@@ -1,6 +1,6 @@
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/features/products/data/models/product_model.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/features/products/data/models/product_model.dart';
 
 
 class RemoteProductsDatasource {

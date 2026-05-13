@@ -1,6 +1,6 @@
-import 'package:ecommerce/features/admin/presentation/widgets/admin_order_card.dart';
-import 'package:ecommerce/features/admin/presentation/widgets/refresh_button.dart';
-import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
+import 'package:ekart/features/admin/presentation/widgets/admin_order_card.dart';
+import 'package:ekart/features/admin/presentation/widgets/refresh_button.dart';
+import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

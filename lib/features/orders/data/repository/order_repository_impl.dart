@@ -1,8 +1,8 @@
-import 'package:ecommerce/features/orders/data/datasources/orders_remote_datasource.dart';
-import 'package:ecommerce/features/orders/data/models/order_item_model.dart';
-import 'package:ecommerce/features/orders/data/models/order_model.dart';
-import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
-import 'package:ecommerce/features/orders/domain/repository/order_repository.dart';
+import 'package:ekart/features/orders/data/datasources/orders_remote_datasource.dart';
+import 'package:ekart/features/orders/data/models/order_item_model.dart';
+import 'package:ekart/features/orders/data/models/order_model.dart';
+import 'package:ekart/features/orders/domain/entities/order_entity.dart';
+import 'package:ekart/features/orders/domain/repository/order_repository.dart';
 
 class OrderRepositoryImpl implements OrderRepository {
   final OrderRemoteDatasource remoteDatasource;

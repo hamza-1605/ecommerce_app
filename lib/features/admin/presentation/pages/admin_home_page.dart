@@ -1,8 +1,8 @@
-import 'package:ecommerce/features/admin/presentation/pages/admin_dashboard_page.dart';
-import 'package:ecommerce/features/admin/presentation/pages/admin_orders_page.dart';
-import 'package:ecommerce/features/admin/presentation/pages/admin_products_page.dart';
-import 'package:ecommerce/features/admin/presentation/pages/admin_profile_page.dart';
-import 'package:ecommerce/features/home/presentation/state/controller/home_controller.dart';
+import 'package:ekart/features/admin/presentation/pages/admin_dashboard_page.dart';
+import 'package:ekart/features/admin/presentation/pages/admin_orders_page.dart';
+import 'package:ekart/features/admin/presentation/pages/admin_products_page.dart';
+import 'package:ekart/features/admin/presentation/pages/admin_profile_page.dart';
+import 'package:ekart/features/home/presentation/state/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,8 +15,8 @@ class AdminHomePage extends StatelessWidget {
 
     final pages = [
       const AdminDashboardPage(),
-      const AdminOrdersPage(),
       const AdminProductsPage(),
+      const AdminOrdersPage(),
       const AdminProfilePage(),
     ];
 
@@ -34,14 +34,14 @@ class AdminHomePage extends StatelessWidget {
             label:        'Dashboard',
           ),
           NavigationDestination(
-            icon:         Icon(Icons.receipt_long_outlined),
-            selectedIcon: Icon(Icons.receipt_long, color: Colors.white),
-            label:        'Orders',
-          ),
-          NavigationDestination(
             icon:         Icon(Icons.inventory_2_outlined),
             selectedIcon: Icon(Icons.inventory_2, color: Colors.white),
             label:        'Products',
+          ),
+          NavigationDestination(
+            icon:         Icon(Icons.receipt_long_outlined),
+            selectedIcon: Icon(Icons.receipt_long, color: Colors.white),
+            label:        'Orders',
           ),
           NavigationDestination(
             icon:         Icon(Icons.person_outline_rounded),

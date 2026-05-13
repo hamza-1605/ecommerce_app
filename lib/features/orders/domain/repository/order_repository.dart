@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
+import 'package:ekart/features/orders/domain/entities/order_entity.dart';
 
 abstract class OrderRepository {
   Future<List<OrderEntity>> getOrders({ required int userId });

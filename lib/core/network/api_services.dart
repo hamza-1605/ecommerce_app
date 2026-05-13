@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/network/api_provider.dart';
-import 'package:ecommerce/core/network/response_model.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/network/api_provider.dart';
+import 'package:ekart/core/network/response_model.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';

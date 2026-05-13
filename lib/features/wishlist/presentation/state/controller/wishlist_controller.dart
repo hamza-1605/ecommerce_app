@@ -1,6 +1,6 @@
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
-import 'package:ecommerce/features/wishlist/data/datasource/wishlist_local_datasource.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/features/products/domain/entities/product_entity.dart';
+import 'package:ekart/features/wishlist/data/datasource/wishlist_local_datasource.dart';
 import 'package:get/get.dart';
 
 class WishlistController extends GetxController {

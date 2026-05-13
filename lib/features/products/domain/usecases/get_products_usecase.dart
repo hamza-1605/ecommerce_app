@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
-import 'package:ecommerce/features/products/domain/repository/product_repository.dart';
+import 'package:ekart/features/products/domain/entities/product_entity.dart';
+import 'package:ekart/features/products/domain/repository/product_repository.dart';
 
 class GetProductsUsecase {
   ProductRepository productRepository;

@@ -1,6 +1,6 @@
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/features/auth/data/models/auth_user_model.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/features/auth/data/models/auth_user_model.dart';
 
 class AuthRemoteDatasource {
   final ApiServices apiServices;

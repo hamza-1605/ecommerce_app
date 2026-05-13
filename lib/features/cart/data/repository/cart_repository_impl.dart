@@ -1,8 +1,8 @@
-import 'package:ecommerce/features/cart/data/datasources/cart_remote_datasource.dart';
-import 'package:ecommerce/features/cart/data/models/cart_item_model.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_entity.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
-import 'package:ecommerce/features/cart/domain/repository/cart_repository.dart';
+import 'package:ekart/features/cart/data/datasources/cart_remote_datasource.dart';
+import 'package:ekart/features/cart/data/models/cart_item_model.dart';
+import 'package:ekart/features/cart/domain/entities/cart_entity.dart';
+import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:ekart/features/cart/domain/repository/cart_repository.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CartRepositoryImpl implements CartRepository{

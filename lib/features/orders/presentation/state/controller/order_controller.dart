@@ -1,16 +1,16 @@
-import 'package:ecommerce/core/network/payment_service.dart';
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
-import 'package:ecommerce/features/cart/presentation/state/controller/cart_controller.dart';
-import 'package:ecommerce/features/home/presentation/state/controller/home_controller.dart';
-import 'package:ecommerce/features/orders/domain/entities/order_entity.dart';
-import 'package:ecommerce/features/orders/domain/entities/order_item_entity.dart';
-import 'package:ecommerce/features/orders/domain/usecases/delete_order_usecase.dart';
-import 'package:ecommerce/features/orders/domain/usecases/get_all_orders_usecase.dart';
-import 'package:ecommerce/features/orders/domain/usecases/update_order_usecase.dart';
-import 'package:ecommerce/features/orders/domain/usecases/create_order_usecase.dart';
-import 'package:ecommerce/features/orders/domain/usecases/get_orders_usecase.dart';
-import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ekart/core/network/payment_service.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
+import 'package:ekart/features/home/presentation/state/controller/home_controller.dart';
+import 'package:ekart/features/orders/domain/entities/order_entity.dart';
+import 'package:ekart/features/orders/domain/entities/order_item_entity.dart';
+import 'package:ekart/features/orders/domain/usecases/delete_order_usecase.dart';
+import 'package:ekart/features/orders/domain/usecases/get_all_orders_usecase.dart';
+import 'package:ekart/features/orders/domain/usecases/update_order_usecase.dart';
+import 'package:ekart/features/orders/domain/usecases/create_order_usecase.dart';
+import 'package:ekart/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -96,13 +96,13 @@ class OrderController extends GetxController {
     isSubmitting.value = true;
     try {
       final order = OrderEntity(
-        documentId:      '',
-        orderItems:      cartItems.map( (item) => OrderItemEntity(
-                                          productDocumentId: item.productDocumentId,
-                                          productName:       item.productName,
-                                          price:             item.price,
-                                          quantity:          item.quantity,
-                                      )).toList(),
+        documentId:  '',
+        orderItems:  cartItems.map( (item) => OrderItemEntity(
+                                      productDocumentId: item.productDocumentId,
+                                      productName:       item.productName,
+                                      price:             item.price,
+                                      quantity:          item.quantity,
+                                  )).toList(),
         deliveryAddress: deliveryAddress,
         total:           total,
         orderStatus:     'pending',

@@ -1,5 +1,5 @@
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/core/utils/helper_functions.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

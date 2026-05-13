@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
+import 'package:ekart/features/products/domain/entities/product_entity.dart';
 
 abstract class ProductRepository {
   Future<List<ProductEntity>> getProducts();

@@ -1,13 +1,13 @@
 import 'dart:io';
-import 'package:ecommerce/core/network/api_services.dart';
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/features/products/domain/entities/product_entity.dart';
-import 'package:ecommerce/features/products/domain/usecases/add_product_usecase.dart';
-import 'package:ecommerce/features/products/domain/usecases/delete_product_usecase.dart';
-import 'package:ecommerce/features/products/domain/usecases/edit_product_usecase.dart';
-import 'package:ecommerce/features/products/domain/usecases/get_product_by_id_usecase.dart';
-import 'package:ecommerce/features/products/domain/usecases/get_products_usecase.dart';
-import 'package:ecommerce/features/products/domain/usecases/update_stock_usecase.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/features/products/domain/entities/product_entity.dart';
+import 'package:ekart/features/products/domain/usecases/add_product_usecase.dart';
+import 'package:ekart/features/products/domain/usecases/delete_product_usecase.dart';
+import 'package:ekart/features/products/domain/usecases/edit_product_usecase.dart';
+import 'package:ekart/features/products/domain/usecases/get_product_by_id_usecase.dart';
+import 'package:ekart/features/products/domain/usecases/get_products_usecase.dart';
+import 'package:ekart/features/products/domain/usecases/update_stock_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

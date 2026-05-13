@@ -1,8 +1,8 @@
-import 'package:ecommerce/app/routes/app_routes.dart';
-import 'package:ecommerce/core/constants/api_constants.dart';
-import 'package:ecommerce/core/widgets/custom_back_button.dart';
-import 'package:ecommerce/features/products/presentation/state/controller/product_controller.dart';
-import 'package:ecommerce/features/wishlist/presentation/state/controller/wishlist_controller.dart';
+import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ekart/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

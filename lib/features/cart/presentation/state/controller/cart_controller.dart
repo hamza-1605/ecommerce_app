@@ -1,13 +1,13 @@
-import 'package:ecommerce/core/utils/helper_functions.dart';
-import 'package:ecommerce/features/cart/data/models/cart_item_model.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_entity.dart';
-import 'package:ecommerce/features/cart/domain/entities/cart_item_entity.dart';
-import 'package:ecommerce/features/cart/domain/usecases/add_to_cart_usecase.dart';
-import 'package:ecommerce/features/cart/domain/usecases/clear_cart_usecase.dart';
-import 'package:ecommerce/features/cart/domain/usecases/create_cart_usecase.dart';
-import 'package:ecommerce/features/cart/domain/usecases/get_cart_usecase.dart';
-import 'package:ecommerce/features/cart/domain/usecases/remove_from_cart_usecase.dart';
-import 'package:ecommerce/features/cart/domain/usecases/update_cart_usecase.dart';
+import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/features/cart/data/models/cart_item_model.dart';
+import 'package:ekart/features/cart/domain/entities/cart_entity.dart';
+import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:ekart/features/cart/domain/usecases/add_to_cart_usecase.dart';
+import 'package:ekart/features/cart/domain/usecases/clear_cart_usecase.dart';
+import 'package:ekart/features/cart/domain/usecases/create_cart_usecase.dart';
+import 'package:ekart/features/cart/domain/usecases/get_cart_usecase.dart';
+import 'package:ekart/features/cart/domain/usecases/remove_from_cart_usecase.dart';
+import 'package:ekart/features/cart/domain/usecases/update_cart_usecase.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

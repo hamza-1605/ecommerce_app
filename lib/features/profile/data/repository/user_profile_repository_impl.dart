@@ -1,7 +1,7 @@
-import 'package:ecommerce/features/profile/data/datasources/remote/user_profile_remote_datasource.dart';
-import 'package:ecommerce/features/profile/data/models/user_profile_model.dart';
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
-import 'package:ecommerce/features/profile/domain/repository/user_profile_repository.dart';
+import 'package:ekart/features/profile/data/datasources/remote/user_profile_remote_datasource.dart';
+import 'package:ekart/features/profile/data/models/user_profile_model.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/features/profile/domain/repository/user_profile_repository.dart';
 import 'package:get_storage/get_storage.dart';
 
 class UserProfileRepositoryImpl implements UserProfileRepository {

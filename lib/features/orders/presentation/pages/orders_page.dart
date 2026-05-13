@@ -1,5 +1,5 @@
-import 'package:ecommerce/features/orders/presentation/state/controller/order_controller.dart';
-import 'package:ecommerce/features/orders/presentation/widgets/order_card_widget.dart';
+import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
+import 'package:ekart/features/orders/presentation/widgets/order_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

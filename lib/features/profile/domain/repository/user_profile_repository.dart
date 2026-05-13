@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
 
 abstract class UserProfileRepository {
   

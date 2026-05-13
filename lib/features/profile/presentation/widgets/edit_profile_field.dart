@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/auth/presentation/widgets/build_label.dart';
+import 'package:ekart/features/auth/presentation/widgets/build_label.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileField extends StatelessWidget {

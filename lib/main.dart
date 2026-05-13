@@ -1,6 +1,6 @@
-import 'package:ecommerce/app/global_binding/app_binding.dart';
-import 'package:ecommerce/app/routes/app_pages.dart';
-import 'package:ecommerce/app/routes/app_routes.dart';
+import 'package:ekart/app/global_binding/app_binding.dart';
+import 'package:ekart/app/routes/app_pages.dart';
+import 'package:ekart/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
-      title: 'Ecommerce',
+      title: 'ekart',
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.blueGrey),
         appBarTheme: AppBarThemeData(

@@ -1,8 +1,8 @@
-import 'package:ecommerce/features/cart/presentation/pages/cart_page.dart';
-import 'package:ecommerce/features/home/presentation/state/controller/home_controller.dart';
-import 'package:ecommerce/features/orders/presentation/pages/orders_page.dart';
-import 'package:ecommerce/features/products/presentation/pages/product_list_page.dart';
-import 'package:ecommerce/features/profile/presentation/pages/user_profile_page.dart';
+import 'package:ekart/features/cart/presentation/pages/cart_page.dart';
+import 'package:ekart/features/home/presentation/state/controller/home_controller.dart';
+import 'package:ekart/features/orders/presentation/pages/orders_page.dart';
+import 'package:ekart/features/products/presentation/pages/product_list_page.dart';
+import 'package:ekart/features/profile/presentation/pages/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
