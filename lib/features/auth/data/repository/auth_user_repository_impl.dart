@@ -24,12 +24,6 @@ class AuthUserRepositoryImpl implements AuthUserRepository {
     );
   }
 
-
-  @override
-  Future<void> logout() async {
-    await authRemoteDatasource.logout();
-  }
-
   @override
   Future<void> forgotPassword({required String email}) async {
     return await authRemoteDatasource.forgotPassword(email: email);

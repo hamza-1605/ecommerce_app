@@ -46,11 +46,6 @@ class AuthRemoteDatasource {
   }
 
 
-  Future<void> logout() async{
-    return ;
-  }
-
-
   // Forget Password
   Future<void> forgotPassword({required String email}) async {
     final apiResponse = await apiServices.postCall<void>(

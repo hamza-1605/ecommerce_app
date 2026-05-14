@@ -4,7 +4,6 @@ import 'package:ekart/core/utils/validators.dart';
 import 'package:ekart/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:ekart/features/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:ekart/features/auth/domain/usecases/login_auth_user_usecase.dart';
-import 'package:ekart/features/auth/domain/usecases/logout_auth_user_usecase.dart';
 import 'package:ekart/features/auth/domain/usecases/register_auth_user_usecase.dart';
 import 'package:ekart/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:ekart/features/home/presentation/state/controller/home_controller.dart';
@@ -14,14 +13,12 @@ import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController {
   final LoginAuthUserUsecase loginAuthUserUsecase;
-  final LogoutAuthUserUsecase logoutAuthUserUsecase;
   final RegisterAuthUserUsecase registerAuthUserUsecase;
   final ForgotPasswordUsecase forgotPasswordUsecase;
   final ResetPasswordUsecase resetPasswordUsecase;
 
   AuthController(
     this.loginAuthUserUsecase, 
-    this.logoutAuthUserUsecase, 
     this.registerAuthUserUsecase,
     this.forgotPasswordUsecase,
     this.resetPasswordUsecase
