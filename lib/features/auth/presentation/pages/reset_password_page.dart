@@ -1,11 +1,13 @@
+import 'package:ekart/core/constants/app_constants.dart';
 import 'package:ekart/core/themes/app_text_styles.dart';
-import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
 import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class ResetPasswordPage extends GetView<AuthController> {
   const ResetPasswordPage({super.key});
@@ -33,14 +35,14 @@ class ResetPasswordPage extends GetView<AuthController> {
           
                 // ── Header ──────────────────────────
                 const Text(
-                  'Reset\nPassword.',
+                  resetPasswordTitle,
                   style: AppTextStyles.authPageHeading
                 ),
-                
+
                 const SizedBox(height: 12),
                 const Text(
-                  'Enter the code from your email and your new password.',
-                  style: AppTextStyles.authPageInstruction
+                  resetPasswordMessage,
+                  style: AppTextStyles.authPageMessage
                 ),
           
                 const SizedBox(height: 40),
@@ -104,63 +106,20 @@ class ResetPasswordPage extends GetView<AuthController> {
                 Obx(() => SizedBox(
                   width: double.infinity,
                   height: 56,
-                  child: ElevatedButton(
+                  child: GradientElevatedButton(
                     onPressed: controller.isLoading.value
-                        ? null
-                        : () {
-                            // Validate fields
-                            if (codeController.text.trim().isEmpty) {
-                              HelperFunctions.showSnackbar(
-                                title:   'Code Required',
-                                message: 'Please enter the reset code from your email',
-                                isError: true,
-                              );
-                              return;
-                            }
-                            if (passwordController.text.trim().length < 6) {
-                              HelperFunctions.showSnackbar(
-                                title:   'Weak Password',
-                                message: 'Password must be at least 6 characters',
-                                isError: true,
-                              );
-                              return;
-                            }
-                            if (passwordController.text.trim() !=
-                                confirmPasswordController.text.trim()) {
-                              HelperFunctions.showSnackbar(
-                                title:   'Passwords Mismatch',
-                                message: 'Passwords do not match',
-                                isError: true,
-                              );
-                              return;
-                            }
-                            controller.resetPassword(
-                              code:                 codeController.text.trim(),
-                              password:             passwordController.text.trim(),
-                              passwordConfirmation: confirmPasswordController.text.trim(),
-                            );
-                          },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1A1A1A),
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                      ? null
+                      : () => controller.resetPassword(
+                        code: codeController.text,
+                        password: passwordController.text,
+                        passwordConfirmation: confirmPasswordController.text,
                       ),
-                    ),
                     child: controller.isLoading.value
-                        ? const SizedBox(
-                            width: 22, height: 22,
-                            child: CircularProgressIndicator(
-                              color: Colors.white, strokeWidth: 2.5),
-                          )
-                        : const Text(
-                            'Reset Password',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                      ? const ButtonLoader()
+                      : const Text(
+                          'Reset Password',
+                          style: AppTextStyles.authButtonText,
+                        ),
                   ),
                 )),
               ],

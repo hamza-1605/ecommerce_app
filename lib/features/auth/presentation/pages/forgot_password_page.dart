@@ -1,5 +1,6 @@
+import 'package:ekart/core/constants/app_constants.dart';
 import 'package:ekart/core/themes/app_text_styles.dart';
-import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
@@ -31,14 +32,14 @@ class ForgotPasswordPage extends GetView<AuthController> {
         
                   // ── Header ──────────────────────────
                   const Text(
-                    'Forgot Password?',
+                    forgotPasswordTitle ,
                     style: AppTextStyles.authPageHeading
                   ),
                   
                   const SizedBox(height: 12),
                   const Text(
-                    'Enter your registered email and we\'ll send you a reset link.',
-                    style: AppTextStyles.authPageInstruction
+                    forgotPasswordMessage,
+                    style: AppTextStyles.authPageMessage
                   ),
             
                   const SizedBox(height: 30),
@@ -77,31 +78,12 @@ class ForgotPasswordPage extends GetView<AuthController> {
                     child: GradientElevatedButton(
                       onPressed: controller.isLoading.value
                         ? null
-                        : () {
-                            if (emailController.text.trim().isEmpty) {
-                              HelperFunctions.showSnackbar(
-                                title:   'Email Required',
-                                message: 'Please enter your email address',
-                                isError: true,
-                              );
-                              return;
-                            }
-                            controller.forgotPassword(
-                              email: emailController.text.trim(),
-                            );
-                          }, 
+                        : () => controller.forgotPassword(email: emailController.text),
                       child: controller.isLoading.value
-                        ? const SizedBox(
-                            width: 22, height: 22,
-                            child: CircularProgressIndicator(
-                              color: Colors.white, strokeWidth: 2.5),
-                          )
+                        ? const ButtonLoader()
                         : const Text(
                             'Send Reset Link',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: AppTextStyles.authButtonText,
                           ),
                     ),
                   )),

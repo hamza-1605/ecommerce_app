@@ -1,4 +1,6 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/widgets/branding/app_text.dart';
 import 'package:ekart/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
@@ -60,11 +62,14 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Icon(
-          Icons.shopping_cart,
-          color: Colors.black,
-          size: 100,
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AppText(color: AppColors.appMainColor),
+          ],
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
@@ -35,6 +36,7 @@ class AppThemes {
         style: GradientElevatedButton.styleFrom(
           shape: RoundedRectangleBorder( borderRadius: BorderRadiusGeometry.circular(16)),
           foregroundColor: Colors.white,
+          textStyle: AppTextStyles.authButtonText,
           backgroundGradient: const LinearGradient(
             colors: [
               AppColors.appMainColor, 

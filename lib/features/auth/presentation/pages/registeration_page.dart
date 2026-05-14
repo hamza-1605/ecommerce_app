@@ -1,12 +1,14 @@
 import 'package:ekart/core/constants/app_constants.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/widgets/branding/app_logo.dart';
 import 'package:ekart/core/widgets/branding/app_text.dart';
-import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
 import 'package:ekart/features/auth/presentation/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class RegisterationPage extends GetView<AuthController> {
   const RegisterationPage({super.key});
@@ -21,124 +23,104 @@ class RegisterationPage extends GetView<AuthController> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F6F3),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(28),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                spacing: 15,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomBackButton(),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 10,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(28),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  spacing: 10,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppLogo(width: 44),
+                    AppText(fontSize: 24, fontWeight: FontWeight.w700),
+                  ],
+                ),
+
+                const SizedBox(height: 30),
+          
+                // ── Header ──────────────────────────────
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      AppLogo(width: 35),
-                      AppText(fontSize: 22, fontWeight: FontWeight.w700,),
-                    ],
+                      const Text(
+                        'Create Account',
+                        style: AppTextStyles.authPageHeading
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        signUpMessage,
+                        style: AppTextStyles.authPageMessage,
+                      ),
+                    ]
                   ),
-                  SizedBox(width: 30),
-                ],
-              ),
-              const SizedBox(height: 32),
-
-              // ── Header ──────────────────────────────
-              const Text(
-                'Create Account.',
-                style: TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.w800,
-                  height: 1.1,
-                  color: Color(0xFF1A1A1A),
-                  letterSpacing: -1,
                 ),
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                signUpMessage,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color(0xFF888888),
+          
+                const SizedBox(height: 30),
+          
+                // ── Username ─────────────────────────────
+                LabelText(text: 'Username'),
+                const SizedBox(height: 8),
+                BuildTextfield(
+                  controller: usernameController,
+                  hint: 'johndoe',
+                  prefixIconData: Icons.person_outline_rounded,
                 ),
-              ),
-
-              const SizedBox(height: 48),
-
-              // ── Username ─────────────────────────────
-              LabelText(text: 'Username'),
-              const SizedBox(height: 8),
-              BuildTextfield(
-                controller: usernameController,
-                hint: 'johndoe',
-                prefixIconData: Icons.person_outline_rounded,
-              ),
-
-              const SizedBox(height: 24),
-
-              // ── Email ────────────────────────────────
-              LabelText(text: 'Email'),
-              const SizedBox(height: 8),
-              BuildTextfield(
-                controller: emailController,
-                hint: 'you@example.com',
-                keyboardType: TextInputType.emailAddress,
-                prefixIconData: Icons.mail_outline_rounded,
-              ),
-
-              const SizedBox(height: 24),
-
-              // ── Password ─────────────────────────────
-              LabelText(text: 'Password'),
-              const SizedBox(height: 8),
-              Obx(() => BuildTextfield(
-                controller: passwordController,
-                hint: '••••••••',
-                obscure: obscurePassword.value,
-                prefixIconData: Icons.lock_outline_rounded,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    obscurePassword.value
+          
+                const SizedBox(height: 24),
+          
+                // ── Email ────────────────────────────────
+                LabelText(text: 'Email'),
+                const SizedBox(height: 8),
+                BuildTextfield(
+                  controller: emailController,
+                  hint: 'you@example.com',
+                  keyboardType: TextInputType.emailAddress,
+                  prefixIconData: Icons.mail_outline_rounded,
+                ),
+          
+                const SizedBox(height: 24),
+          
+                // ── Password ─────────────────────────────
+                LabelText(text: 'Password'),
+                const SizedBox(height: 8),
+                Obx(() => BuildTextfield(
+                  controller: passwordController,
+                  hint: '••••••••',
+                  obscure: obscurePassword.value,
+                  prefixIconData: Icons.lock_outline_rounded,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscurePassword.value
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
-                    color: const Color(0xFF888888),
-                    size: 20,
+                      size: 20,
+                    ),
+                    onPressed: () => obscurePassword.value = !obscurePassword.value,
                   ),
-                  onPressed: () => obscurePassword.value = !obscurePassword.value,
-                ),
-              )),
-
-              const SizedBox(height: 40),
-
-              // ── Register Button ──────────────────────
-              Obx(() => SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: controller.isLoading.value
+                )),
+          
+                const SizedBox(height: 40),
+          
+                // ── Register Button ──────────────────────
+                Obx(() => SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: GradientElevatedButton(
+                    onPressed: controller.isLoading.value
                       ? null
                       : () => controller.registerUser(
-                            username: usernameController.text.trim(),
-                            email:    emailController.text.trim(),
-                            password: passwordController.text.trim(),
+                            username: usernameController.text,
+                            email:    emailController.text,
+                            password: passwordController.text,
                           ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1A1A1A),
-                    foregroundColor: Colors.white,
-                    disabledBackgroundColor: const Color(0xFF888888),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: controller.isLoading.value
-                      ? const SizedBox(
-                          width: 22, height: 22,
-                          child: CircularProgressIndicator(
-                            color: Colors.white, strokeWidth: 2.5,
-                          ),
-                        )
+                    child: controller.isLoading.value
+                      ? const ButtonLoader()
                       : const Text(
                           'Create Account',
                           style: TextStyle(
@@ -147,34 +129,30 @@ class RegisterationPage extends GetView<AuthController> {
                             letterSpacing: 0.3,
                           ),
                         ),
-                ),
-              )),
-
-              const SizedBox(height: 32),
-
-              // ── Login Link ───────────────────────────
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    haveAccount,
-                    style: TextStyle(color: Color(0xFF888888), fontSize: 14),
                   ),
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: Color(0xFF1A1A1A),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.underline,
+                )),
+          
+                const SizedBox(height: 32),
+          
+                // ── Login Link ───────────────────────────
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      haveAccount,
+                      style: TextStyle(color: Color(0xFF888888), fontSize: 14),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: const Text(
+                        'Sign In',
+                        style: AppTextStyles.authBottomLink
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

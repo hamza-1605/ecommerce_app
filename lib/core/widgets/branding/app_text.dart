@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppText extends StatelessWidget {
-  const AppText({super.key, this.fontSize, this.fontWeight});
+  const AppText({super.key, this.fontSize, this.fontWeight, this.color});
   final double? fontSize;
   final FontWeight? fontWeight;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class AppText extends StatelessWidget {
         fontSize: fontSize ?? 40,
         fontWeight: fontWeight ?? FontWeight.w800,
         height: 1.4,
-        color: Color(0xFF1A1A1A),
+        color: color ?? Colors.black,
         letterSpacing: -1,
       ),
     );
