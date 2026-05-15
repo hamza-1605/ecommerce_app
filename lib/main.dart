@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
       theme: AppThemes.lightMode,
       initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
+      defaultTransition: Transition.cupertino,
+      transitionDuration: Duration(milliseconds: 1000),
     );
   }
 }

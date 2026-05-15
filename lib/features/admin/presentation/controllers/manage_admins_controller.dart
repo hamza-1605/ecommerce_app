@@ -37,7 +37,7 @@ class ManageAdminsController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 
@@ -82,7 +82,7 @@ class ManageAdminsController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 

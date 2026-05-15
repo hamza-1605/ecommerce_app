@@ -57,7 +57,7 @@ class OrderController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } finally {
@@ -76,7 +76,7 @@ class OrderController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title: 'Fetching Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 
@@ -145,7 +145,7 @@ class OrderController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 
@@ -185,7 +185,7 @@ class OrderController extends GetxController {
 
       HelperFunctions.showSnackbar(
         title:   'Payment Failed',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 
@@ -255,7 +255,7 @@ class OrderController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 
@@ -281,7 +281,7 @@ class OrderController extends GetxController {
       print(e);
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 

@@ -77,7 +77,7 @@ class AuthController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title: "Registeration Failed", 
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     }
@@ -111,8 +111,6 @@ class AuthController extends GetxController {
 
     try {
       final user = await loginAuthUserUsecase.call(email, password);
-      final homeController = Get.find<HomeController>();
-      homeController.navigateTo(0);
       currentUser.value = user;
       await _saveUserData(user);
       HelperFunctions.showSnackbar(
@@ -129,7 +127,7 @@ class AuthController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title: "Login Failed", 
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     }
@@ -141,6 +139,8 @@ class AuthController extends GetxController {
 
   Future<void> logout() async {
     try {
+      final homeController = Get.find<HomeController>();
+      homeController.navigateTo(0);
       await _clearUserData();      
       currentUser.value = null;
       HelperFunctions.showSnackbar(
@@ -153,7 +153,7 @@ class AuthController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title: 'Error', 
-        message: e.toString(), 
+        message: HelperFunctions().msg(e), 
         isError: true
       );
     }
@@ -184,7 +184,7 @@ class AuthController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 
@@ -229,7 +229,7 @@ class AuthController extends GetxController {
     } catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } finally {

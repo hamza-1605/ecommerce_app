@@ -72,10 +72,9 @@ class ProductController extends GetxController {
       products.assignAll(result);
     } 
     catch (e) {
-      errorMessage.value = e.toString();
       HelperFunctions.showSnackbar(
         title: 'Error', 
-        message: errorMessage.value, 
+        message: HelperFunctions().msg(e), 
         isError: true, 
         duration: Duration(seconds: 10)
       );
@@ -96,10 +95,9 @@ class ProductController extends GetxController {
       selectedProduct.value = result;
     } 
     catch (e) {
-      errorMessage.value = e.toString();
       HelperFunctions.showSnackbar(
         title: 'Error', 
-        message: errorMessage.value, 
+        message: HelperFunctions().msg(e), 
         isError: true, 
         duration: Duration(seconds: 10)
       );
@@ -121,7 +119,7 @@ class ProductController extends GetxController {
       HelperFunctions.showSnackbar(title: "Success", message: "Product Created Successfully!", duration: Duration(seconds: 5));
     } 
     catch (e) {
-      HelperFunctions.showSnackbar(title: 'Error', message: e.toString(), isError: true, duration: Duration(seconds: 10));
+      HelperFunctions.showSnackbar(title: 'Error', message: HelperFunctions().msg(e), isError: true, duration: Duration(seconds: 10));
     } 
     finally {
       isSubmitting.value = false;
@@ -150,7 +148,7 @@ class ProductController extends GetxController {
       HelperFunctions.showSnackbar(title: 'Success', message: 'Product Updated Successfully');
     } 
     catch (e) {
-      HelperFunctions.showSnackbar(title: 'Error', message: e.toString(), isError: true, duration: Duration(seconds: 10));
+      HelperFunctions.showSnackbar(title: 'Error', message: HelperFunctions().msg(e), isError: true, duration: Duration(seconds: 10));
     } 
     finally {
       isSubmitting.value = false;
@@ -169,7 +167,7 @@ class ProductController extends GetxController {
       HelperFunctions.showSnackbar(title: 'Success', message: 'Product deleted successfully');
     } 
     catch (e) {
-      HelperFunctions.showSnackbar(title: 'Error', message: e.toString(), isError: true, duration: Duration(seconds: 8));
+      HelperFunctions.showSnackbar(title: 'Error', message: HelperFunctions().msg(e), isError: true, duration: Duration(seconds: 8));
     } 
     finally {
       isSubmitting.value = false;
@@ -275,7 +273,7 @@ class ProductController extends GetxController {
     } catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Stock Update Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     }
@@ -289,10 +287,9 @@ class ProductController extends GetxController {
       return mediaIds;
     } 
     catch (e) {
-      print(e.toString());
       HelperFunctions.showSnackbar(
         title:   'Upload Failed',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
       return null;
@@ -353,7 +350,7 @@ class ProductController extends GetxController {
     catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } 

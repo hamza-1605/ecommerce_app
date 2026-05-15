@@ -37,11 +37,12 @@ class UserProfileController extends GetxController{
     } 
     catch (e) {
        if (e.toString().contains('Profile not found')) {
-        await _createEmptyProfile(userId: userId);           // ✅ auto-create
-      } else {
+        await _createEmptyProfile(userId: userId);
+      } 
+      else {
         HelperFunctions.showSnackbar(
           title: 'Error',
-          message: e.toString(),
+          message: HelperFunctions().msg(e),
           isError: true,
         );
       }
@@ -68,7 +69,7 @@ class UserProfileController extends GetxController{
     catch (e) {
       HelperFunctions.showSnackbar(
         title: 'Error', 
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true
       );
     }
@@ -131,7 +132,7 @@ class UserProfileController extends GetxController{
     } catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } finally {
@@ -167,7 +168,7 @@ class UserProfileController extends GetxController{
     } catch (e) {
       HelperFunctions.showSnackbar(
         title:   'Error',
-        message: e.toString(),
+        message: HelperFunctions().msg(e),
         isError: true,
       );
     } finally {

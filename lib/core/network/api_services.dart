@@ -25,13 +25,13 @@ class ApiServices {
       }
       else{
         return ApiResponse.failure(
-          message: 'Request failed with code: ${response.statusCode}',
+          message: _friendlyHttpError(response.statusCode),
           statusCode: response.statusCode,
         );
       }
     } 
     catch (e) {
-      return ApiResponse.failure(message: 'Unexpected Error Occurred: $e');
+      return ApiResponse.failure(message: _friendlyExceptionError(e));
     }
   }
 
@@ -48,6 +48,7 @@ class ApiServices {
     );
   }
 
+
   // specific POST call
   Future<ApiResponse<T>> postCall<T> (
     String endPoint,
@@ -61,6 +62,7 @@ class ApiServices {
     );
   }
 
+
   // specific PUT call
   Future<ApiResponse> putCall<T> (
     String endPoint,
@@ -72,6 +74,7 @@ class ApiServices {
       fromJson,
     );
   }
+
 
   // specific DELETE call
   Future<ApiResponse<T>> deleteCall<T> (
@@ -114,7 +117,6 @@ class ApiServices {
       throw Exception('Image upload failed with status: ${response.statusCode}');
     }
   }
-
 
 
   // Multiple Images
@@ -162,5 +164,28 @@ class ApiServices {
       ),
       (json) {},
     );
+  }
+
+
+  String _friendlyHttpError(int statusCode) {
+    switch (statusCode) {
+      case 400: return 'Invalid request. Please check your details.';
+      case 401: return 'Incorrect email or password.';
+      case 403: return 'You don\'t have permission to do this.';
+      case 404: return 'The requested resource was not found.';
+      case 409: return 'An account with this email/username already exists.';
+      case 422: return 'Invalid data provided. Please try again.';
+      case 429: return 'Too many attempts. Please wait and try again.';
+      case 500: return 'Internal Server error. Please try again.';
+      case 503: return 'Server error. Please try again later.';
+      default:  return 'Something went wrong. Please try again.';
+    }
+  }
+
+  String _friendlyExceptionError(Object e) {
+    if (e is SocketException) return 'No internet connection. Please check your network.';
+    if (e is HttpException)   return 'Unable to reach the server. Please try again.';
+    if (e is FormatException) return 'Unexpected response from server.';
+    return 'Something went wrong. Please try again.';
   }
 }

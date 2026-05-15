@@ -43,8 +43,6 @@ class HelperFunctions {
 
 
 // ------------------------------ CheckOut Builders -----------------------------------
-
-
   String buildAddressFromProfile(UserProfileEntity? profile) {
     if (profile == null) return '';
     
@@ -97,4 +95,8 @@ class HelperFunctions {
       ],
     );
   }
+  
+
+  // Display Error Messages in Snackbars
+  String msg(Object e) => e.toString().replaceFirst('Exception: ', '');
 }

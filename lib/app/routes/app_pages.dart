@@ -41,7 +41,7 @@ class AppPages {
     // Home Page
     GetPage(
       name: AppRoutes.home,   
-      page: () => const HomePage(), 
+      page: () => const HomePage(),
       bindings: [
         HomeBinding(),
         ProductBinding(), 
