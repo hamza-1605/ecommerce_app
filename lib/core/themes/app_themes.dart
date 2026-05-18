@@ -5,14 +5,50 @@ import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class AppThemes {
   static ThemeData lightMode = ThemeData(
-    colorScheme: .fromSeed(seedColor: Colors.blueGrey),
-    
     appBarTheme: AppBarThemeData(
-      backgroundColor: Colors.blueGrey,
-      foregroundColor: Colors.white,
-      surfaceTintColor: Colors.transparent
+      elevation: 0,
+      backgroundColor: AppColors.appMainColor,
+      foregroundColor: Colors.black,
+      surfaceTintColor: Colors.transparent,
     ),
 
+    tabBarTheme: TabBarThemeData(
+      tabAlignment: TabAlignment.start,
+      labelColor: Colors.white,
+      unselectedLabelColor: Colors.black,
+      indicatorColor: Colors.white
+    ),
+
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: AppColors.bottomNavbar,
+      elevation: 0,
+      indicatorColor: Colors.black,
+
+      iconTheme: WidgetStateProperty.resolveWith( (states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(
+            size: 24,
+            color: Colors.white
+          );
+        }
+        return const IconThemeData(
+          size: 22,
+          color: Colors.black
+        );
+      }),
+
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            fontWeight: FontWeight.w700,
+          );
+        }
+        return const TextStyle(
+          color: Colors.black
+        );
+      }),      
+    ),
 
 
     inputDecorationTheme: InputDecorationThemeData(
@@ -27,6 +63,7 @@ class AppThemes {
       fillColor: Colors.white,
       contentPadding: const EdgeInsets.all(18),
     ),
+
 
 
 

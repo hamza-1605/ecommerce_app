@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AppColors {
   static const appMainColor       = Color.fromARGB(255, 255, 95, 0);
@@ -6,5 +6,7 @@ class AppColors {
 
   static const hintTextColor      = Color.fromARGB(255, 187, 187, 187);
   static const fadedIconColor     = Color.fromARGB(255, 136, 136, 136);
+
+  static const bottomNavbar       = Color.fromARGB(255, 255, 244, 236);
 
 }

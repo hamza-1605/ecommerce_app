@@ -26,8 +26,7 @@ class ProductGrid extends GetView<ProductController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.inventory_2_outlined,
-                  size: 64, color: Colors.grey.shade300),
+              Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey.shade300),
               const SizedBox(height: 12),
               Text(
                 'No $category products found',
