@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/widgets/custom_outlined_button.dart';
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 import 'package:ekart/features/wishlist/presentation/state/controller/wishlist_controller.dart';
@@ -13,247 +14,238 @@ class UserProfilePage extends GetView<UserProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Obx(() {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F6F3),
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, 85.0), 
+        child: CustomizedAppbar(
+          title: "My Profile", 
+          actionsNeeded: false,
+        ),
+      ),
+      
+      body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
       
         final profile = controller.profile.value;
-      
-        return Scaffold(
-          backgroundColor: const Color(0xFFF8F6F3),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // ── Header ────────────────────────────
-                  const Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
-                      color: Color(0xFF1A1A1A),
-                    ),
-                  ),
-      
-                  const SizedBox(height: 32),
-      
-                  // ── Avatar ────────────────────────────
-                  Center(
-                    child: Column(
-                      children: [
-                        Obx(() {
-                          final profile = controller.profile.value;
-                          return Stack(
-                            alignment: AlignmentGeometry.center,
-                            children: [
-                              // ── Avatar ──────────────────────────
-                              CircleAvatar(
-                                radius: 54,
-                                backgroundColor: Colors.black,
-                              ),
-                              CircleAvatar(
-                                radius: 52,
-                                backgroundColor: const Color(0xFFE0E0E0),
-                                backgroundImage: profile?.profileImage != null
-                                    ? NetworkImage(profile!.profileImage!)
-                                    : null,
-                                child: profile?.profileImage == null
-                                    ? const Icon(
-                                        Icons.person_rounded,
-                                        size: 52,
-                                        color: Colors.white,
-                                      )
-                                    : null,
-                              ),
-      
-                              // ── Edit button ──────────────────────
-                              Positioned(
-                                bottom: 0, right: 0,
-                                child: GestureDetector(
-                                  onTap: () => _showImageOptions(context),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF1A1A1A),
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 2,
-                                      ),
-                                    ),
-                                    child: const Icon(
-                                      Icons.camera_alt_rounded,
+        
+        return SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ── Avatar ────────────────────────────
+                Center(
+                  child: Column(
+                    children: [
+                      Obx(() {
+                        final profile = controller.profile.value;
+                        return Stack(
+                          alignment: AlignmentGeometry.center,
+                          children: [
+                            // ── Avatar ──────────────────────────
+                            CircleAvatar(
+                              radius: 54,
+                              backgroundColor: Colors.black,
+                            ),
+                            CircleAvatar(
+                              radius: 52,
+                              backgroundColor: const Color(0xFFE0E0E0),
+                              backgroundImage: profile?.profileImage != null
+                                  ? NetworkImage(profile!.profileImage!)
+                                  : null,
+                              child: profile?.profileImage == null
+                                  ? const Icon(
+                                      Icons.person_rounded,
+                                      size: 52,
                                       color: Colors.white,
-                                      size: 14,
+                                    )
+                                  : null,
+                            ),
+                
+                            // ── Edit button ──────────────────────
+                            Positioned(
+                              bottom: 0, right: 0,
+                              child: GestureDetector(
+                                onTap: () => _showImageOptions(context),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF1A1A1A),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
                                     ),
                                   ),
+                                  child: const Icon(
+                                    Icons.camera_alt_rounded,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
+                
+                      const SizedBox(height: 12),
+                
+                      Obx(() => Text(
+                        controller.profile.value?.fullName ?? 'No name set',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF1A1A1A),
+                        ),
+                      )),
+                    ],
+                  ),
+                ),
+                
+                const SizedBox(height: 36),
+                
+                GestureDetector(
+                  onTap: () => Get.toNamed(
+                    AppRoutes.viewProfileDetails,
+                    arguments: profile
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Personal Info',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF1A1A1A),
+                                )),
+                              SizedBox(height: 2),
+                              // Show count
+                              Text(
+                                'View or Edit your info',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF888888),
                                 ),
                               ),
                             ],
-                          );
-                        }),
-      
-                        const SizedBox(height: 12),
-      
-                        Obx(() => Text(
-                          controller.profile.value?.fullName ?? 'No name set',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF1A1A1A),
                           ),
-                        )),
+                        ),
+                        const Icon(Icons.arrow_forward_ios_rounded,
+                            size: 14, color: Color(0xFF888888)),
                       ],
                     ),
                   ),
-      
-                  const SizedBox(height: 36),
-      
-                  GestureDetector(
-                    onTap: () => Get.toNamed(
-                      AppRoutes.viewProfileDetails,
-                      arguments: profile
+                ),
+                
+                
+                const SizedBox(height: 24),
+                
+                // ── My Favourites ──────────────────────────
+                GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.wishlist),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade50,
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Icon(
-                              Icons.person,
-                              color: Colors.black,
-                              size: 20,
-                            ),
+                          child: Icon(
+                            Icons.favorite_rounded,
+                            color: Colors.red.shade400,
+                            size: 20,
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Personal Info',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF1A1A1A),
-                                  )),
-                                SizedBox(height: 2),
-                                // Show count
-                                Text(
-                                  'View or Edit your info',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF888888),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Icon(Icons.arrow_forward_ios_rounded,
-                              size: 14, color: Color(0xFF888888)),
-                        ],
-                      ),
-                    ),
-                  ),
-      
-                  
-                  const SizedBox(height: 24),
-      
-                  // ── My Favourites ──────────────────────────
-                  GestureDetector(
-                    onTap: () => Get.toNamed(AppRoutes.wishlist),
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.red.shade50,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Icon(
-                              Icons.favorite_rounded,
-                              color: Colors.red.shade400,
-                              size: 20,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('My Favourites',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF1A1A1A),
-                                  )),
-                                SizedBox(height: 2),
-                                // ✅ Show count
-                                Obx( () => Text(
-                                  '${Get.find<WishlistController>().items.length} items',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF888888),
-                                  ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('My Favourites',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF1A1A1A),
                                 )),
-                              ],
-                            ),
+                              SizedBox(height: 2),
+                              // ✅ Show count
+                              Obx( () => Text(
+                                '${Get.find<WishlistController>().items.length} items',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF888888),
+                                ),
+                              )),
+                            ],
                           ),
-                          const Icon(Icons.arrow_forward_ios_rounded,
-                              size: 14, color: Color(0xFF888888)),
-                        ],
-                      ),
+                        ),
+                        const Icon(Icons.arrow_forward_ios_rounded,
+                            size: 14, color: Color(0xFF888888)),
+                      ],
                     ),
                   ),
-                  
-                  const SizedBox(height: 42),
-      
-                  // ── Logout Button ─────────────────────
-                  CustomOutlinedButton(
-                    label: "Log Out", 
-                    function: () => Get.find<AuthController>().logout(), 
-                    iconData: Icons.logout, 
-                    color: Colors.red
-                  )
-                ],
-              ),
+                ),
+                
+                const SizedBox(height: 42),
+                
+                // ── Logout Button ─────────────────────
+                CustomOutlinedButton(
+                  label: "Log Out", 
+                  function: () => Get.find<AuthController>().logout(), 
+                  iconData: Icons.logout, 
+                  color: Colors.red
+                )
+              ],
             ),
-          ),
-        );
-      }),
+          );
+        })
     );
   }
 

@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 
 class OrderCard extends StatelessWidget {
   final OrderEntity order;
-  const OrderCard({super.key, required this.order});
+  final int index;
+  const OrderCard({super.key, required this.order, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class OrderCard extends StatelessWidget {
                     const Icon(Icons.receipt_long_outlined, color: Colors.white, size: 16),
                     const SizedBox(width: 7),
                     Text(
-                      'Order #${order.documentId.substring(0, 8).toUpperCase()}',
+                      '$index) Order #${order.documentId.substring(0, 8).toUpperCase()}',
                       style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,

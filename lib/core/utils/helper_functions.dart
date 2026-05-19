@@ -18,6 +18,7 @@ class HelperFunctions {
         isError ? Icons.error : Icons.check_circle,
         color: isError ? Colors.red[700] : Colors.green[700],
       ),
+      dismissDirection: DismissDirection.vertical,
       margin: EdgeInsets.all(15.0),
       borderRadius: 15,
       duration: duration,

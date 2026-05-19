@@ -1,5 +1,6 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
@@ -34,24 +35,7 @@ class ProductDetailPage extends GetView<ProductController> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: GestureDetector(
-            onTap: () => Get.back(),
-            child: Container(
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.07),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: const Icon(Icons.arrow_back, color: Color(0xFF1A1A1A), size: 20),
-            ),
-          ),
+          leading: CustomBackButton(),
           actions: isAdmin
             ? [
                 IconButton(

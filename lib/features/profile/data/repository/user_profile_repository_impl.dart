@@ -27,7 +27,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       postalCode:   profile.postalCode,
       dob:          profile.dob,
       gender:       profile.gender,
-      profileImage: profile.profileImage,
+      profileImage: null, 
     );
 
     return await userProfileRemoteDatasource.updateProfile(profile: profileModel, userId: userId);

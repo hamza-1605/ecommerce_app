@@ -169,7 +169,7 @@ class ApiServices {
 
   String _friendlyHttpError(int statusCode) {
     switch (statusCode) {
-      case 400: return 'Invalid request. Please check your details.';
+      case 400: return 'Invalid request. Please check your data.';
       case 401: return 'Incorrect email or password.';
       case 403: return 'You don\'t have permission to do this.';
       case 404: return 'The requested resource was not found.';

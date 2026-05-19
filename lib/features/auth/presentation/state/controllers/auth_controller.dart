@@ -139,8 +139,6 @@ class AuthController extends GetxController {
 
   Future<void> logout() async {
     try {
-      final homeController = Get.find<HomeController>();
-      homeController.navigateTo(0);
       await _clearUserData();      
       currentUser.value = null;
       HelperFunctions.showSnackbar(
@@ -149,6 +147,8 @@ class AuthController extends GetxController {
         isError: false
       );
       await Get.offAllNamed(AppRoutes.login);
+      final homeController = Get.find<HomeController>();
+      homeController.navigateTo(0);
     } 
     catch (e) {
       HelperFunctions.showSnackbar(

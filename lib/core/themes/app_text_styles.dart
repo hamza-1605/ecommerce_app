@@ -43,4 +43,19 @@ class AppTextStyles {
     decorationColor: AppColors.appMainColor,
   );
 
+  static const TextStyle appbar = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w800,
+    letterSpacing: -1,
+    color: Colors.white,
+  );
+
+
+
+
+  static const TextStyle whiteButtonText = TextStyle(
+    color: Colors.white, 
+    fontWeight: FontWeight.w600,
+    fontSize: 16
+  );
 }

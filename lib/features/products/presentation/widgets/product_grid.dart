@@ -22,21 +22,24 @@ class ProductGrid extends GetView<ProductController> {
                             .toList();
 
       if (products.isEmpty) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey.shade300),
-              const SizedBox(height: 12),
-              Text(
-                'No $category products found',
-                style: const TextStyle(
-                  color: Color(0xFF888888),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+        return RefreshIndicator(
+          onRefresh: controller.fetchProducts,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey.shade300),
+                const SizedBox(height: 12),
+                Text(
+                  'No $category products found',
+                  style: const TextStyle(
+                    color: Color(0xFF888888),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       }

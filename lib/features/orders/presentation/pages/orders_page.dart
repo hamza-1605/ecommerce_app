@@ -1,3 +1,5 @@
+import 'package:ekart/core/widgets/blur_button.dart';
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:ekart/features/orders/presentation/widgets/order_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,34 +16,21 @@ class OrdersPage extends GetView<OrderController> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F6F3),
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, 85.0), 
+        child: CustomizedAppbar(
+          title: "My Orders", 
+          actionsNeeded: false,
+          anyWidget: BlurButton(
+            buttonIconData: Icons.refresh_outlined, 
+            onPressed: () => controller.fetchOrders(),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            // ── Header ──────────────────────────────
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'My Orders',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
-                      color: Color(0xFF1A1A1A),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: controller.fetchOrders,
-                    icon: const Icon(Icons.refresh_rounded),
-                  ),
-                ],
-              ),
-            ),
-
             // ── Orders List ─────────────────────────
             Expanded(
               child: Obx(() {
@@ -77,11 +66,11 @@ class OrdersPage extends GetView<OrderController> {
                 return RefreshIndicator(
                   onRefresh: controller.fetchOrders,
                   child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     itemCount: controller.orders.length,
-                    itemBuilder: (_, i) {
-                      final order = controller.orders[i];
-                      return OrderCard(order: order);
+                    itemBuilder: (_, index) {
+                      final order = controller.orders[index];
+                      return OrderCard(order: order, index: index+1);
                     },
                   ),
                 );

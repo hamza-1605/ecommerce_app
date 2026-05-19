@@ -30,6 +30,10 @@ class UserProfileRemoteDatasource {
     required UserProfileModel profile,
     required int userId,  
   }) async {
+    print("=== UPDATE PROFILE DEBUG ===");
+    print("documentId: ${profile.documentId}");
+    print("payload: ${{ "data": profile.toJson() }}");  // 👈 add this
+
     final apiResponse = await apiServices.putCall<void>(
       '${ApiConstants.profileEndpoint}/${profile.documentId}',
       { 
