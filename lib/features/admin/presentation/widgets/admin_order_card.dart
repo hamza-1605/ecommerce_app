@@ -166,7 +166,7 @@ class AdminOrderCard extends StatelessWidget {
 
     showDialog(
       context: context,
-      barrierColor: Colors.black54,
+      barrierColor: const Color.fromARGB(200, 0, 0, 0),
       builder: (_) => Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
@@ -175,11 +175,3 @@ class AdminOrderCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
