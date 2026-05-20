@@ -14,7 +14,7 @@ class OrdersPage extends GetView<OrderController> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F6F3),
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 85.0), 
+        preferredSize: Size(double.infinity, 70.0), 
         child: CustomizedAppbar( 
           title: "My Orders",
           anyWidget: BlurButton(

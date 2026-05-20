@@ -15,7 +15,7 @@ class WishlistPage extends GetView<WishlistController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 85), 
+        preferredSize: Size(double.infinity, 70), 
         child: CustomizedAppbar(title: "My Favourites", backButton: true),
       ),
       

@@ -10,6 +10,7 @@ class OrderModel extends OrderEntity {
     required super.paymentMethod,
     required super.orderStatus,
     required super.createdAt,
+    super.user
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +26,7 @@ class OrderModel extends OrderEntity {
       paymentMethod:   json['paymentMethod'] ?? '',
       orderStatus:     json['orderStatus'].toString().toLowerCase(),
       createdAt:       DateTime.parse( json['createdAt'] ),
+      user:            json['user'] as Map<String, dynamic>?, 
     );
   }
 

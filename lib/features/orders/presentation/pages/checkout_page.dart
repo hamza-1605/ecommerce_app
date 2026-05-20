@@ -46,7 +46,7 @@ class CheckoutPage extends GetView<OrderController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 85), 
+        preferredSize: Size(double.infinity, 70), 
         child: CustomizedAppbar(title: "Checkout", backButton: true)
       ),
       

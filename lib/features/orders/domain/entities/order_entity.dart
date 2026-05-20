@@ -8,6 +8,7 @@ class OrderEntity {
   final String paymentMethod;
   final String orderStatus;
   final DateTime createdAt;
+  final Map<String, dynamic>? user;
 
   OrderEntity({
     required this.documentId,
@@ -17,5 +18,6 @@ class OrderEntity {
     required this.paymentMethod,
     required this.orderStatus,
     required this.createdAt,
+    this.user
   });
 }

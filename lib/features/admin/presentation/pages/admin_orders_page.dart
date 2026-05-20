@@ -1,7 +1,9 @@
+import 'package:ekart/core/widgets/blur_button.dart';
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/admin/presentation/widgets/admin_order_card.dart';
-import 'package:ekart/features/admin/presentation/widgets/refresh_button.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AdminOrdersPage extends GetView<OrderController> {
@@ -10,49 +12,59 @@ class AdminOrdersPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F6F3),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('All Orders',
-                    style: TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.w800,
-                      letterSpacing: -1, color: Color(0xFF1A1A1A),
-                    )),
-                  
-                  RefreshButton(onTap: () => controller.fetchAllOrders()),
-                ],
-              ),
-            ),
-
-            Expanded(
-              child: Obx(() {
-                if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (controller.allOrders.isEmpty) {
-                  return const Center(child: Text('No orders yet'));
-                }
-                return RefreshIndicator(
-                  onRefresh: controller.fetchAllOrders,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    itemCount: controller.allOrders.length,
-                    itemBuilder: (_, i) =>
-                        AdminOrderCard(orderDocumentId: controller.allOrders[i].documentId),
-                  ),
-                );
-              }),
-            ),
-          ],
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, 70), 
+        child: CustomizedAppbar(
+          title: "All Orders", 
+          anyWidget: BlurButton( 
+            buttonIconData: Icons.refresh_rounded, 
+            onPressed: () => controller.fetchAllOrders() 
+          ),
         ),
       ),
+      
+      body: Stack( 
+        fit: StackFit.expand,
+        alignment: AlignmentGeometry.center,
+        children: [
+          Opacity(
+            opacity: 0.4,
+            child: SvgPicture.asset(
+              'assets/svg/ecommerce_wallpaper.svg',
+              fit: BoxFit.cover,
+              alignment: AlignmentGeometry.center,
+            ),
+          ),
+          
+          Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              
+              Expanded(
+                child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (controller.allOrders.isEmpty) {
+                    return const Center(child: Text('No orders yet'));
+                  }
+                  return RefreshIndicator(
+                    onRefresh: controller.fetchAllOrders,
+                    child: ListView.builder(
+                      // padding: const EdgeInsets.symmetric(horizontal: 24),
+                      itemCount: controller.allOrders.length,
+                      itemBuilder: (_, i) =>
+                          AdminOrderCard(orderDocumentId: controller.allOrders[i].documentId),
+                    ),
+                  );
+                }),
+              ),
+            ],
+          ),
+        ),
+      ])
     );
   }
 }

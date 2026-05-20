@@ -25,7 +25,7 @@ class PaymentPage extends GetView<OrderController> {
     return Scaffold(
 
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 85.0), 
+        preferredSize: Size(double.infinity, 70.0), 
         child: CustomizedAppbar(title: "Payment", backButton: true),
       ),
       

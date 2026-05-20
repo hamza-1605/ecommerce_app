@@ -42,25 +42,45 @@ class AdminOrderCard extends StatelessWidget {
               color: Color(0xFF1A1A1A),
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(          // 👈 was Row before
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.receipt_long_outlined, color: Colors.white, size: 16),
-                    const SizedBox(width: 7),
+                    Row(
+                      children: [
+                        const Icon(Icons.receipt_long_outlined, color: Colors.white, size: 16),
+                        const SizedBox(width: 7),
+                        Text(
+                          'Order #${order.documentId.substring(0, 8).toUpperCase()}',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                    StatusBadge(status: order.orderStatus),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    const Icon(Icons.person_outline_rounded, color: Color(0xFFAAAAAA), size: 14),
+                    const SizedBox(width: 6),
                     Text(
-                      'Order #${order.documentId.substring(0, 8).toUpperCase()}',
+                      '${order.user?['username'] ?? 'Unknown'} · #${order.user?['id'] ?? '—'}',
                       style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        letterSpacing: 0.3,
+                        fontSize: 12,
+                        color: Color(0xFFAAAAAA),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
-                StatusBadge(status: order.orderStatus),
               ],
             ),
           ),

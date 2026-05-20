@@ -17,7 +17,7 @@ class CartPage extends GetView<CartController> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F6F3),
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 85.0), 
+        preferredSize: Size(double.infinity, 70.0), 
         child: CustomizedAppbar(title: "My Cart"),
       ), 
       
@@ -90,7 +90,7 @@ class CartPage extends GetView<CartController> {
         
                 // ── Summary & Checkout ──────────────
                 Container(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
@@ -118,7 +118,7 @@ class CartPage extends GetView<CartController> {
                           Text(
                             'Rs. ${controller.cartTotal}',
                             style: const TextStyle(
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.w800,
                               color: Color(0xFF1A1A1A),
                             ),

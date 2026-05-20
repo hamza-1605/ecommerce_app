@@ -35,7 +35,7 @@ class ProductDetailPage extends GetView<ProductController> {
 
         // ── AppBar ────────────────────────────────────────────────
         appBar: PreferredSize(
-          preferredSize: Size(double.infinity, 85.0), 
+          preferredSize: Size(double.infinity, 70.0), 
           child: CustomizedAppbar(
             title: product.itemName,
             backButton: true,

@@ -1,11 +1,13 @@
+import 'package:ekart/core/widgets/blur_button.dart';
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/admin/presentation/widgets/admin_order_card.dart';
 import 'package:ekart/features/admin/presentation/widgets/dashboard_stat_card.dart';
-import 'package:ekart/features/admin/presentation/widgets/refresh_button.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:ekart/features/products/presentation/pages/product_detail_page.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AdminDashboardPage extends StatelessWidget {
@@ -17,33 +19,39 @@ class AdminDashboardPage extends StatelessWidget {
     final productController = Get.find<ProductController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F6F3),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, 70), 
+        child: CustomizedAppbar(
+          title: "Dashboard", 
+          backButton: false, 
+          anyWidget: BlurButton(
+            buttonIconData: Icons.refresh, 
+            onPressed: (){
+              orderController.fetchAllOrders();
+              productController.fetchProducts();
+            } 
+          ),
+        ),
+      ),
+      
+      body: Stack( 
+        fit: StackFit.expand,
+        alignment: AlignmentGeometry.center,
+        children: [
+          Opacity(
+            opacity: 0.4,
+            child: SvgPicture.asset(
+              'assets/svg/ecommerce_wallpaper.svg',
+              fit: BoxFit.cover,
+              alignment: AlignmentGeometry.center,
+            ),
+          ),
+          
+          SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-      
-              // ── Header ─────────────────────────────
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Dashboard',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
-                      color: Color(0xFF1A1A1A),
-                    ),
-                  ),
-      
-                  
-                  RefreshButton(onTap: () => orderController.fetchAllOrders()),
-                ],
-              ),
-              const SizedBox(height: 8),
               Text(
                 'Welcome, ${Get.find<AuthController>().currentUser.value?.username}',
                 style: const TextStyle(
@@ -51,14 +59,14 @@ class AdminDashboardPage extends StatelessWidget {
                   color: Color(0xFF888888),
                 ),
               ),
-      
+              
               const SizedBox(height: 32),
-      
+              
               // ── Orders Section ──────────────────────
               const Text('Orders Overview',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
-      
+              
               Obx(() {
                 final orders = orderController.allOrders;
                 
@@ -114,19 +122,19 @@ class AdminDashboardPage extends StatelessWidget {
                   ],
                 );
               }),
-      
+              
               const SizedBox(height: 32),
-      
+              
               // ── Products Section ────────────────────
               const Text('Inventory Alerts',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
-      
+              
               Obx(() {
                 final products = productController.products;
                 final outOfStock  = products.where((p) => p.quantity == 0).toList();
                 final lowStock    = products.where((p) => p.quantity > 0 && p.quantity < 20).toList();
-      
+              
                 return Column(
                   children: [
                     DashboardStatCard(
@@ -152,7 +160,7 @@ class AdminDashboardPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ])
     );
   }
 

@@ -73,7 +73,7 @@ class _EditUserProfileViewState extends State<_EditUserProfileView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 85.0), 
+        preferredSize: Size(double.infinity, 70.0), 
         child: CustomizedAppbar(title: "Edit Profile", backButton: true),
       ),
 
