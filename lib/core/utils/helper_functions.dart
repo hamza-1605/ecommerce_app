@@ -66,7 +66,7 @@ class HelperFunctions {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w700,
-          color: Color(0xFF1A1A1A),
+          color: Colors.black,
         ),
       ),
     );

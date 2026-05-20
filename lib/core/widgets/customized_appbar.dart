@@ -4,14 +4,9 @@ import 'package:ekart/core/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
 
 class CustomizedAppbar extends StatelessWidget {
-  const CustomizedAppbar({super.key, required this.title, required this.actionsNeeded, this.buttonText, this.iconData, this.onPressed, this.anyWidget, this.backButton = false, this.actionColor = Colors.red});
+  const CustomizedAppbar({super.key, required this.title, this.anyWidget, this.backButton = false});
   final bool backButton;
   final String title;
-  final bool actionsNeeded;
-  final String? buttonText;
-  final IconData? iconData;
-  final Color? actionColor;
-  final VoidCallback? onPressed;
   final Widget? anyWidget;
 
 
@@ -27,31 +22,7 @@ class CustomizedAppbar extends StatelessWidget {
         style: AppTextStyles.appbar,
       ),
     
-      actions: actionsNeeded ? [
-        ElevatedButton.icon(
-            onPressed: onPressed, 
-            icon: Icon(
-              iconData, 
-              size: 18,
-              color: actionColor
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              elevation: 0,
-            ),
-            label: Text(
-              buttonText ?? "",
-              style: TextStyle(
-                color: actionColor
-              ),
-            )
-          ),
-    
-          SizedBox(
-            width: 10,
-          ),
-      ] : 
-        anyWidget != null ? [
+      actions: anyWidget != null ? [
           anyWidget!,
           SizedBox( width: 15 ),
         ] : null,

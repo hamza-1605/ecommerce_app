@@ -22,28 +22,28 @@ class ResetPasswordPage extends GetView<AuthController> {
     final obscureConfirm            = true.obs;
 
     return AuthLayout(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(28),
+      child: Padding(
+        padding: const EdgeInsets.all(28.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomBackButton(),
             SizedBox(height: 20),
-      
+              
             // ── Header ──────────────────────────
             const Text(
               resetPasswordTitle,
               style: AppTextStyles.authPageHeading
             ),
-      
+              
             const SizedBox(height: 12),
             const Text(
               resetPasswordMessage,
               style: AppTextStyles.authPageMessage
             ),
-      
+              
             const SizedBox(height: 40),
-      
+              
             // ── Code Field ──────────────────────
             LabelText(text: 'Reset Code'),
             const SizedBox(height: 8),
@@ -52,9 +52,9 @@ class ResetPasswordPage extends GetView<AuthController> {
               hint: 'Paste code from email',
               prefixIconData: Icons.key_outlined,
             ),
-      
+              
             const SizedBox(height: 24),
-      
+              
             // ── New Password ────────────────────
             LabelText(text: 'New Password'),
             const SizedBox(height: 8),
@@ -74,9 +74,9 @@ class ResetPasswordPage extends GetView<AuthController> {
                 onPressed: () => obscurePassword.value = !obscurePassword.value,
               ),
             )),
-      
+              
             const SizedBox(height: 24),
-      
+              
             // ── Confirm Password ────────────────
             LabelText(text: 'Confirm Password'),
             const SizedBox(height: 8),
@@ -96,9 +96,9 @@ class ResetPasswordPage extends GetView<AuthController> {
                 onPressed: () => obscureConfirm.value = !obscureConfirm.value,
               ),
             )),
-      
+              
             const SizedBox(height: 40),
-      
+              
             // ── Submit Button ───────────────────
             Obx(() => SizedBox(
               width: double.infinity,
@@ -113,10 +113,7 @@ class ResetPasswordPage extends GetView<AuthController> {
                   ),
                 child: controller.isLoading.value
                   ? const ButtonLoader()
-                  : const Text(
-                      'Reset Password',
-                      style: AppTextStyles.authButtonText,
-                    ),
+                  : const Text('Reset Password'),
               ),
             )),
           ],

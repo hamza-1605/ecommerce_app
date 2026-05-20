@@ -22,8 +22,8 @@ class LoginPage extends GetView<AuthController> {
     final obscurePassword    = true.obs;
 
     return AuthLayout(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 48),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 28.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,9 +48,9 @@ class LoginPage extends GetView<AuthController> {
               ],
             ),
             
-      
+              
             const SizedBox(height: 30),
-      
+              
             // ── Email Field ─────────────────────────
             LabelText(text: 'Email'),
             const SizedBox(height: 8),
@@ -60,9 +60,9 @@ class LoginPage extends GetView<AuthController> {
               keyboardType: TextInputType.emailAddress,
               prefixIconData: Icons.mail_outline_rounded,
             ),
-      
+              
             const SizedBox(height: 24),
-      
+              
             // ── Password Field ──────────────────────
             LabelText(text: 'Password'),
             const SizedBox(height: 8),
@@ -84,7 +84,7 @@ class LoginPage extends GetView<AuthController> {
                 ),
               ),
             )),
-      
+              
             const SizedBox(height: 20),
             // Forgot Password
             GestureDetector(
@@ -97,9 +97,9 @@ class LoginPage extends GetView<AuthController> {
                 ),
               ),
             ),
-      
+              
             const SizedBox(height: 35),
-      
+              
             // ── Login Button ────────────────────────
             Obx(() => SizedBox(
               width: double.infinity,
@@ -116,9 +116,9 @@ class LoginPage extends GetView<AuthController> {
                   : const Text('Sign In'),
               ),
             )),
-      
+              
             const SizedBox(height: 32),
-      
+              
             // ── Register Link ───────────────────────
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -7,27 +7,33 @@ class AuthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+    return Scaffold(      
       backgroundColor: const Color(0xFFF8F6F3),
-      body: SafeArea(
-        child: Stack( 
-          fit: StackFit.expand,
-          alignment: AlignmentGeometry.center,
-          children: [
-            Opacity(
-              opacity: 0.5,
-              child: SvgPicture.asset(
-                'assets/svg/ecommerce_wallpaper.svg',
-                fit: BoxFit.cover,
-                alignment: AlignmentGeometry.center,
-              ),
+      resizeToAvoidBottomInset: false,
+      body: Stack( 
+        fit: StackFit.expand,
+        alignment: AlignmentGeometry.center,
+        children: [
+          Opacity(
+            opacity: 0.4,
+            child: SvgPicture.asset(
+              'assets/svg/ecommerce_wallpaper.svg',
+              fit: BoxFit.cover,
+              alignment: AlignmentGeometry.center,
             ),
-            GestureDetector(
+          ),
+          SafeArea(
+            child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
-              child: child
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: bottomInset),
+                child: child
+              )
             ),
-          ]
-        )
+          ),
+        ]
       )
     );
   }

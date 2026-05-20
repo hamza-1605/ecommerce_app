@@ -1,8 +1,12 @@
-import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/widgets/button_loader.dart';
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class PaymentPage extends GetView<OrderController> {
   const PaymentPage({super.key});
@@ -19,101 +23,108 @@ class PaymentPage extends GetView<OrderController> {
     final selectedMethod  = 'cod'.obs;              // default to COD
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F6F3),
-      
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF8F6F3),
-        elevation: 0,
-        leading: CustomBackButton(),
-        title: const Text(
-          'Payment',
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF1A1A1A),
-          ),
-        ),
+
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, 85.0), 
+        child: CustomizedAppbar(title: "Payment", backButton: true),
       ),
       
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            // ── Amount Summary ──────────────────────
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Total Amount',
-                    style: TextStyle(
-                      color: Colors.white60,
-                      fontSize: 13,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Rs. $total',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
-                    ),
-                  ),
-                ],
-              ),
+      body: Stack( 
+        fit: StackFit.expand,
+        alignment: AlignmentGeometry.center,
+        children: [
+          Opacity(
+            opacity: 0.4,
+            child: SvgPicture.asset(
+              'assets/svg/ecommerce_wallpaper.svg',
+              fit: BoxFit.cover,
+              alignment: AlignmentGeometry.center,
             ),
+          ),
+          
+          SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-            const SizedBox(height: 32),
-
-            // ── Payment Method Selection ────────────
-            const Text(
-              'Select Payment Method',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF1A1A1A),
+              // ── Amount Summary ──────────────────────
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: AppColors.appMainColor,
+                    width: 2
+                  )
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Total Amount',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Rs. $total',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 36,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            const SizedBox(height: 16),
+              const SizedBox(height: 32),
 
-            // COD Option
-            Obx(() => _PaymentOptionCard(
-              icon:       Icons.money_rounded,
-              title:      'Cash on Delivery',
-              subtitle:   'Pay when your order arrives',
-              isSelected: selectedMethod.value == 'cod',
-              onTap:      () => selectedMethod.value = 'cod',
-            )),
+              // ── Payment Method Selection ────────────
+              const Text(
+                'Select Payment Method',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF1A1A1A),
+                ),
+              ),
 
-            const SizedBox(height: 12),
+              const SizedBox(height: 16),
 
-            // Card Option
-            Obx(() => _PaymentOptionCard(
-              icon:       Icons.credit_card_rounded,
-              title:      'Card Payment',
-              subtitle:   'Pay securely via Stripe',
-              isSelected: selectedMethod.value == 'card',
-              onTap:      () => selectedMethod.value = 'card',
-            )),
+              // COD Option
+              Obx(() => _PaymentOptionCard(
+                icon:       Icons.money_rounded,
+                title:      'Cash on Delivery',
+                subtitle:   'Pay when your order arrives',
+                isSelected: selectedMethod.value == 'cod',
+                onTap:      () => selectedMethod.value = 'cod',
+              )),
 
-            const SizedBox(height: 36),
+              const SizedBox(height: 12),
 
-            // ── Confirm Button ──────────────────────
-            Obx(() => SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                onPressed: controller.isSubmitting.value
+              // Card Option
+              Obx(() => _PaymentOptionCard(
+                icon:       Icons.credit_card_rounded,
+                title:      'Card Payment',
+                subtitle:   'Pay securely via Stripe',
+                isSelected: selectedMethod.value == 'card',
+                onTap:      () => selectedMethod.value = 'card',
+              )),
+
+              const SizedBox(height: 36),
+
+              // ── Confirm Button ──────────────────────
+              Obx(() => SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: GradientElevatedButton(
+                  onPressed: controller.isSubmitting.value
                     ? null
                     : () => _handlePayment(
                           context:         context,
@@ -122,35 +133,18 @@ class PaymentPage extends GetView<OrderController> {
                           deliveryAddress: deliveryAddress,
                           total:           total,
                         ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A1A1A),
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: controller.isSubmitting.value
-                    ? const SizedBox(
-                        width: 22, height: 22,
-                        child: CircularProgressIndicator(
-                          color: Colors.white, strokeWidth: 2.5,
-                        ),
-                      )
-                    : Text(
-                        selectedMethod.value == 'cod'
-                            ? 'Place Order'
-                            : 'Pay & Place Order',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                  child: controller.isSubmitting.value
+                    ? const ButtonLoader()
+                    : Text( selectedMethod.value == 'cod'
+                        ? 'Place Order'
+                        : 'Pay & Place Order',
                       ),
-              ),
-            )),
-          ],
+                ),
+              )),
+            ],
+          ),
         ),
-      ),
+      ])
     );
   }
 
@@ -210,7 +204,7 @@ class _PaymentOptionCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? const Color(0xFF1A1A1A) : Colors.transparent,
+            color: isSelected ? AppColors.appMainColor : Colors.transparent,
             width: 2,
           ),
           boxShadow: [
@@ -227,7 +221,7 @@ class _PaymentOptionCard extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFF1A1A1A)
+                    ? AppColors.appMainColor
                     : const Color(0xFFF8F6F3),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -266,7 +260,7 @@ class _PaymentOptionCard extends StatelessWidget {
             if (isSelected)
               const Icon(
                 Icons.check_circle_rounded,
-                color: Color(0xFF1A1A1A),
+                color: AppColors.appMainColor,
               ),
           ],
         ),

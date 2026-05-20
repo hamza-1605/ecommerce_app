@@ -22,8 +22,8 @@ class RegisterationPage extends GetView<AuthController> {
     final obscurePassword    = true.obs;
 
     return AuthLayout(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(28),
+      child: Padding(
+        padding: const EdgeInsets.all(28.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,9 +35,9 @@ class RegisterationPage extends GetView<AuthController> {
                 AppText(fontSize: 24, fontWeight: FontWeight.w700),
               ],
             ),
-      
+              
             const SizedBox(height: 50),
-      
+              
             // ── Header ──────────────────────────────
             SizedBox(
               width: double.infinity,
@@ -57,9 +57,9 @@ class RegisterationPage extends GetView<AuthController> {
                 ]
               ),
             ),
-      
+              
             const SizedBox(height: 30),
-      
+              
             // ── Username ─────────────────────────────
             LabelText(text: 'Username'),
             const SizedBox(height: 8),
@@ -68,9 +68,9 @@ class RegisterationPage extends GetView<AuthController> {
               hint: 'johndoe',
               prefixIconData: Icons.person_outline_rounded,
             ),
-      
+              
             const SizedBox(height: 24),
-      
+              
             // ── Email ────────────────────────────────
             LabelText(text: 'Email'),
             const SizedBox(height: 8),
@@ -80,9 +80,9 @@ class RegisterationPage extends GetView<AuthController> {
               keyboardType: TextInputType.emailAddress,
               prefixIconData: Icons.mail_outline_rounded,
             ),
-      
+              
             const SizedBox(height: 24),
-      
+              
             // ── Password ─────────────────────────────
             LabelText(text: 'Password'),
             const SizedBox(height: 8),
@@ -101,9 +101,9 @@ class RegisterationPage extends GetView<AuthController> {
                 onPressed: () => obscurePassword.value = !obscurePassword.value,
               ),
             )),
-      
+              
             const SizedBox(height: 40),
-      
+              
             // ── Register Button ──────────────────────
             Obx(() => SizedBox(
               width: double.infinity,
@@ -128,9 +128,9 @@ class RegisterationPage extends GetView<AuthController> {
                     ),
               ),
             )),
-      
+              
             const SizedBox(height: 32),
-      
+              
             // ── Login Link ───────────────────────────
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

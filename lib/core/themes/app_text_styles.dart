@@ -24,9 +24,9 @@ class AppTextStyles {
     decorationColor: Color.fromARGB(125, 0, 0, 0),
   );
 
-  static const TextStyle authButtonText = TextStyle(
+  static const TextStyle gradientButtonText = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     letterSpacing: 0.3,
   );
 

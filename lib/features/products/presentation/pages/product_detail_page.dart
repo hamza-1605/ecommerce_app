@@ -1,11 +1,13 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/constants/api_constants.dart';
-import 'package:ekart/core/widgets/custom_back_button.dart';
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
+import 'package:ekart/features/products/presentation/widgets/edit_delete_product_button.dart';
 import 'package:ekart/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -32,57 +34,19 @@ class ProductDetailPage extends GetView<ProductController> {
         backgroundColor: const Color(0xFFF8F6F3),
 
         // ── AppBar ────────────────────────────────────────────────
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: CustomBackButton(),
-          actions: isAdmin
-            ? [
-                IconButton(
-                  icon: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.07),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(Icons.edit_outlined, color: Color(0xFF1A1A1A), size: 18),
-                  ),
-                  onPressed: () => Get.toNamed(AppRoutes.editProduct),
-                ),
-                Obx(() => IconButton(
-                      icon: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.07),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: controller.isSubmitting.value
-                            ? const SizedBox(
-                                width: 18,
-                                height: 18,
-                                child: CircularProgressIndicator(strokeWidth: 2),
-                              )
-                            : const Icon(Icons.delete_outline, color: Color(0xFFE53935), size: 18),
-                      ),
-                      onPressed: () => controller.deleteProduct(product.documentId!),
-                    )),
-                const SizedBox(width: 10),
-              ]
-            : null,
+        appBar: PreferredSize(
+          preferredSize: Size(double.infinity, 85.0), 
+          child: CustomizedAppbar(
+            title: product.itemName,
+            backButton: true,
+            anyWidget: isAdmin
+              ? Obx(() => AdminActionsMenu(
+                  onEdit: () => Get.toNamed(AppRoutes.editProduct),
+                  onDelete: () => controller.deleteProduct(product.documentId!),
+                  isDeleting: controller.isSubmitting.value,
+                ))
+              : null,
+          )
         ),
 
         body: SafeArea(
@@ -179,165 +143,175 @@ class ProductDetailPage extends GetView<ProductController> {
                 ),
           
                 // ── Content Card ───────────────────────────────────
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF8F6F3),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-          
-                        // Category chip
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF1A1A1A).withValues(alpha: 0.07),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            product.category.toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF555555),
-                              letterSpacing: 0.8,
+                Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Opacity(
+                        opacity: 0.2,
+                        child: SvgPicture.asset(
+                          'assets/svg/ecommerce_wallpaper.svg',
+                          fit: BoxFit.cover,
+                          alignment: AlignmentGeometry.center,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+              
+                            // Category chip
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF1A1A1A).withValues(alpha: 0.07),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                product.category.toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF555555),
+                                  letterSpacing: 0.8,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-          
-                        const SizedBox(height: 10),
-          
-                        // Product name
-                        Text(
-                          product.itemName,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFF1A1A1A),
-                            letterSpacing: -0.5,
-                            height: 1.2,
-                          ),
-                        ),
-          
-                        const SizedBox(height: 14),
-          
-                        // Price section
-                        if (hasSale) ...[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
+              
+                            const SizedBox(height: 10),
+              
+                            // Product name
+                            Text(
+                              product.itemName,
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xFF1A1A1A),
+                                letterSpacing: -0.5,
+                                height: 1.2,
+                              ),
+                            ),
+              
+                            const SizedBox(height: 14),
+              
+                            // Price section
+                            if (hasSale) ...[
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'Rs. ${discountedPrice.toInt()}',
+                                    style: const TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w800,
+                                      color: Color(0xFF1A1A1A),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 3),
+                                    child: Text(
+                                      'Rs. ${originalPrice.toInt()}',
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFFAAAAAA),
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor: Color(0xFFAAAAAA),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
                               Text(
-                                'Rs. ${discountedPrice.toInt()}',
+                                'You save Rs. ${(originalPrice - discountedPrice).toInt()}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFE53935),
+                                ),
+                              ),
+                            ] else ...[
+                              Text(
+                                'Rs. ${originalPrice.toInt()}',
                                 style: const TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.w800,
                                   color: Color(0xFF1A1A1A),
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 3),
-                                child: Text(
-                                  'Rs. ${originalPrice.toInt()}',
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFFAAAAAA),
-                                    decoration: TextDecoration.lineThrough,
-                                    decorationColor: Color(0xFFAAAAAA),
+                            ],
+              
+                            const SizedBox(height: 16),
+              
+                            // Stock status
+                            Row(
+                              children: [
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: product.quantity > 0
+                                        ? const Color(0xFF4CAF50)
+                                        : const Color(0xFFE53935),
+                                    shape: BoxShape.circle,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'You save Rs. ${(originalPrice - discountedPrice).toInt()}',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFFE53935),
+                                const SizedBox(width: 6),
+                                Text(
+                                  isAdmin
+                                      ? 'Stock: ${product.quantity} units'
+                                      : product.quantity > 0
+                                          ? 'In Stock'
+                                          : 'Out of Stock',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ] else ...[
-                          Text(
-                            'Rs. ${originalPrice.toInt()}',
-                            style: const TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.w800,
-                              color: Color(0xFF1A1A1A),
-                            ),
-                          ),
-                        ],
-          
-                        const SizedBox(height: 16),
-          
-                        // Stock status
-                        Row(
-                          children: [
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: product.quantity > 0
-                                    ? const Color(0xFF4CAF50)
-                                    : const Color(0xFFE53935),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              isAdmin
-                                  ? 'Stock: ${product.quantity} units'
-                                  : product.quantity > 0
-                                      ? 'In Stock'
-                                      : 'Out of Stock',
+              
+                            const SizedBox(height: 24),
+              
+                            // Divider
+                            const Divider(color: Color(0xFFEAE8E5), thickness: 1),
+              
+                            const SizedBox(height: 20),
+              
+                            // Description
+                            const Text(
+                              'Description',
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[600],
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xFF1A1A1A),
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+              
+                            const SizedBox(height: 8),
+              
+                            Text(
+                              (product.description == null || product.description!.isEmpty)
+                                  ? 'No description available.'
+                                  : product.description!,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF666666),
+                                height: 1.6,
                               ),
                             ),
                           ],
                         ),
-          
-                        const SizedBox(height: 24),
-          
-                        // Divider
-                        const Divider(color: Color(0xFFEAE8E5), thickness: 1),
-          
-                        const SizedBox(height: 20),
-          
-                        // Description
-                        const Text(
-                          'Description',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFF1A1A1A),
-                            letterSpacing: -0.3,
-                          ),
-                        ),
-          
-                        const SizedBox(height: 8),
-          
-                        Text(
-                          (product.description == null || product.description!.isEmpty)
-                              ? 'No description available.'
-                              : product.description!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF666666),
-                            height: 1.6,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  ])
               ],
             ),
           ),
