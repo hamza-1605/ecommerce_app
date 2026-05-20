@@ -1,23 +1,22 @@
 import 'package:ekart/core/widgets/status_badge_widget.dart';
+import 'package:ekart/features/admin/presentation/widgets/admin_orders/receipt_sheet.dart';
+import 'package:ekart/features/orders/domain/entities/order_entity.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AdminOrderCard extends StatelessWidget {
   final String orderDocumentId;
-  const AdminOrderCard({super.key, required this.orderDocumentId});
+  final int index;
+  const AdminOrderCard({super.key, required this.orderDocumentId, required this.index});
 
   @override
   Widget build(BuildContext context) {
     final orderController = Get.find<OrderController>();
-    final statuses = ['Pending', 'Processing', 'Delivered'];
-
     final order = orderController.allOrders
         .firstWhereOrNull((o) => o.documentId == orderDocumentId);
 
     if (order == null) return const SizedBox.shrink();
-
-    final status = order.orderStatus.toLowerCase();
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -42,7 +41,7 @@ class AdminOrderCard extends StatelessWidget {
               color: Color(0xFF1A1A1A),
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            child: Column(          // 👈 was Row before
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -53,13 +52,8 @@ class AdminOrderCard extends StatelessWidget {
                         const Icon(Icons.receipt_long_outlined, color: Colors.white, size: 16),
                         const SizedBox(width: 7),
                         Text(
-                          'Order #${order.documentId.substring(0, 8).toUpperCase()}',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            letterSpacing: 0.3,
-                          ),
+                          '$index) Order #${order.documentId.substring(0, 8).toUpperCase()}',
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: 0.3),
                         ),
                       ],
                     ),
@@ -73,11 +67,7 @@ class AdminOrderCard extends StatelessWidget {
                     const SizedBox(width: 6),
                     Text(
                       '${order.user?['username'] ?? 'Unknown'} · #${order.user?['id'] ?? '—'}',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFFAAAAAA),
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: const TextStyle(fontSize: 12, color: Color(0xFFAAAAAA), fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -85,12 +75,11 @@ class AdminOrderCard extends StatelessWidget {
             ),
           ),
 
-          // ── Date + Payment Method ───────────────
+          // ── Date + Payment ──────────────────────
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             child: Row(
               children: [
-                // Date
                 Expanded(
                   child: Row(
                     children: [
@@ -98,103 +87,24 @@ class AdminOrderCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         '${order.createdAt.day}/${order.createdAt.month}/${order.createdAt.year}',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF888888),
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: const TextStyle(fontSize: 12, color: Color(0xFF888888), fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
-
-                // Payment Method
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF2F0ED),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  decoration: BoxDecoration(color: const Color(0xFFF2F0ED), borderRadius: BorderRadius.circular(8)),
                   child: Row(
                     children: [
-                      Icon(
-                        order.paymentMethod == 'cod'
-                        ? Icons.payments_outlined
-                        : Icons.payment_outlined ,
-                        size: 13,
-                        color: const Color(0xFF555555),
-                      ),
+                      Icon(order.paymentMethod == 'cod' ? Icons.payments_outlined : Icons.payment_outlined, size: 13, color: const Color(0xFF555555)),
                       const SizedBox(width: 5),
-                      Text(
-                        order.paymentMethod == 'cod'
-                        ? "COD"
-                        : "Card",
-                        style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF555555),
-                        ),
-                      ),
+                      Text(order.paymentMethod == 'cod' ? 'COD' : 'Card',
+                          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF555555))),
                     ],
                   ),
                 ),
               ],
-            ),
-          ),
-
-          const Divider(height: 1, color: Color(0xFFF0EEEB)),
-
-          // ── Order Items ─────────────────────────
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-            child: Column(
-              children: order.orderItems.map((item) =>
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Quantity badge
-                      Container(
-                        width: 22,
-                        height: 22,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF2F0ED),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${item.quantity}',
-                          style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF1A1A1A),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          item.productName,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Color(0xFF444444),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Rs. ${item.subtotal}',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF1A1A1A),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ).toList(),
             ),
           ),
 
@@ -207,93 +117,39 @@ class AdminOrderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
 
-                // Status dropdown (hidden when cancelled)
-                if (status != 'cancelled')
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                // View Order button
+                GestureDetector(
+                  onTap: () => _showReceiptSheet(context, order, orderController),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF2F0ED),
+                      color: const Color(0xFF1A1A1A),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: statuses.firstWhere(
-                          (s) => s.toLowerCase() == status,
-                          orElse: () => statuses.first,
-                        ),
-                        isDense: true,
-                        icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 18),
-                        items: statuses.map((s) =>
-                          DropdownMenuItem(
-                            value: s,
-                            child: Text(
-                              s,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF1A1A1A),
-                              ),
-                            ),
-                          ),
-                        ).toList(),
-                        onChanged: (newStatus) {
-                          if (newStatus != null &&
-                              newStatus.toLowerCase() != status) {
-                            orderController.updateOrder(
-                              documentId: order.documentId,
-                              orderStatus: newStatus,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  )
-                else
-                  // Cancelled label
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFEBEE),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Text(
-                      'Cancelled',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFFE53935),
-                      ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.receipt_outlined, color: Colors.white, size: 15),
+                        SizedBox(width: 6),
+                        Text('View order', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
+                      ],
                     ),
                   ),
+                ),
 
                 // Total
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Icon(Icons.local_shipping_outlined, size: 13, color: Color(0xFF888888)),
                         SizedBox(width: 4),
-                        Text(
-                          'Free Shipping',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF888888),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text('Free Shipping', style: TextStyle(fontSize: 12, color: Color(0xFF888888), fontWeight: FontWeight.w500)),
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      'Rs. ${order.total}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        color: Color(0xFF1A1A1A),
-                        letterSpacing: -0.5,
-                      ),
-                    ),
+                    Text('Rs. ${order.total}',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF1A1A1A), letterSpacing: -0.5)),
                   ],
                 ),
               ],
@@ -303,4 +159,27 @@ class AdminOrderCard extends StatelessWidget {
       ),
     );
   }
+
+  void _showReceiptSheet(BuildContext context, OrderEntity order, OrderController orderController) {
+    final statuses = ['Pending', 'Processing', 'Delivered'];
+    final status = order.orderStatus.toLowerCase();
+
+    showDialog(
+      context: context,
+      barrierColor: Colors.black54,
+      builder: (_) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+        child: ReceiptSheet(order: order, statuses: statuses, status: status, orderController: orderController),
+      ),
+    );
+  }
 }
+
+
+
+
+
+
+
+

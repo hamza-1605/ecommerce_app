@@ -52,11 +52,11 @@ class AdminOrdersPage extends GetView<OrderController> {
                   }
                   return RefreshIndicator(
                     onRefresh: controller.fetchAllOrders,
-                    child: ListView.builder(
-                      // padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => SizedBox(height: 10),
                       itemCount: controller.allOrders.length,
                       itemBuilder: (_, i) =>
-                          AdminOrderCard(orderDocumentId: controller.allOrders[i].documentId),
+                          AdminOrderCard(orderDocumentId: controller.allOrders[i].documentId, index: i+1),
                     ),
                   );
                 }),

@@ -11,7 +11,7 @@ class OrderRemoteDatasource {
   // ── GET ORDERS ─────────────────────────────────────
   Future<List<OrderModel>> getOrders({required int userId}) async {
     final apiResponse = await apiServices.getCall<List<OrderModel>>(
-      '${ApiConstants.ordersEndpoint}?filters[user][id][\$eq]=$userId&populate[orderItems][populate]=product&populate=user&sort=createdAt:desc',
+      '${ApiConstants.ordersEndpoint}?filters[user][id][\$eq]=$userId&populate[orderItems][populate]=product&populate[user]=true&sort=createdAt:desc',
       (json) {
         final List<dynamic> items = json['data'];
         return items.map((item) { 
@@ -101,7 +101,7 @@ class OrderRemoteDatasource {
   // ── GET ALL ORDERS ─────────────────────────────────────
   Future<List<OrderModel>> getAllOrders() async {
     final apiResponse = await apiServices.getCall<List<OrderModel>>(
-      '${ApiConstants.ordersEndpoint}?populate[orderItems][populate]=product&populate=user&sort=createdAt:desc',
+      '${ApiConstants.ordersEndpoint}?populate[orderItems][populate]=product&populate[user]=true&sort=createdAt:desc',
       (json) {
         final List<dynamic> items = json['data'];
         return items.map((item) {
