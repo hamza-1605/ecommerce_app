@@ -14,9 +14,7 @@ class OrderRemoteDatasource {
       '${ApiConstants.ordersEndpoint}?filters[user][id][\$eq]=$userId&populate[orderItems][populate]=product&sort=createdAt:desc',
       (json) {
         final List<dynamic> items = json['data'];
-        // print('ORDERS RAWWWWWWW: $items');
         return items.map((item) { 
-          // print('PARSING ORDER: $item'); 
           return OrderModel.fromJson(item); 
         }).toList();
       },

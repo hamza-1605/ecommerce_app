@@ -10,11 +10,14 @@ class OrderItemModel extends OrderItemEntity {
 
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) {
-    final product = ( json['product'] as List<dynamic> ).first;
+    final productList = json['product'] as List<dynamic>;
+    final product = productList.isNotEmpty 
+        ? productList.first as Map<String, dynamic>
+        : null; // 👈 guard against empty/deleted product
 
     return OrderItemModel(
-      productDocumentId: product['documentId'],
-      productName:       product['itemName'],
+      productDocumentId: product?['documentId'] ?? '',
+      productName:       product?['itemName']    ?? 'Deleted Product',
       price:             (json['price'] as num).toInt(),
       quantity:          json['quantity'],
     );

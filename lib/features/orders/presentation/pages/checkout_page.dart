@@ -65,10 +65,10 @@ class CheckoutPage extends GetView<OrderController> {
           
           GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(bottom: bottomInset),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: bottomInset),
                 
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
