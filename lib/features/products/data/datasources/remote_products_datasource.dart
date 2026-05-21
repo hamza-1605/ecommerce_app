@@ -84,20 +84,6 @@ class RemoteProductsDatasource {
     );
   }
 
-  Future<ProductModel> getProductById(String documentId) async {
-    final apiResponse = await apiServices.getCall(
-      '${ApiConstants.productsEndpoint}/$documentId', 
-      (json) {
-        final item = json['data'];        
-        return ProductModel.fromJson(item);
-      },
-    );
-
-    if(!apiResponse.success) throw Exception("Couldn't get Product");
-    return apiResponse.data! ;
-  }
-
-
   // remote_products_datasource.dart
   Future<void> updateStock({
     required String documentId,

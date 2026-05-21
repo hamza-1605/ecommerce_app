@@ -4,7 +4,6 @@ import 'package:ekart/features/products/domain/repository/product_repository.dar
 import 'package:ekart/features/products/domain/usecases/add_product_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/delete_product_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/edit_product_usecase.dart';
-import 'package:ekart/features/products/domain/usecases/get_product_by_id_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/get_products_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/update_stock_usecase.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
@@ -24,7 +23,6 @@ class ProductBinding extends Bindings {
 
     // Usecases
     Get.lazyPut(() => GetProductsUsecase( Get.find() ), fenix: true);
-    Get.lazyPut(() => GetProductByIdUsecase( Get.find() ), fenix: true);
     Get.lazyPut(() => AddProductUsecase( Get.find() ), fenix: true);
     Get.lazyPut(() => EditProductUsecase( Get.find() ), fenix: true);
     Get.lazyPut(() => DeleteProductUsecase( Get.find() ), fenix: true);
@@ -33,7 +31,6 @@ class ProductBinding extends Bindings {
     // Controller
     Get.lazyPut(() => ProductController(
       getProductsUsecase: Get.find(),
-      getProductByIdUsecase: Get.find(),
       createProductUsecase: Get.find(),
       updateProductUsecase: Get.find(),
       deleteProductUsecase: Get.find(),

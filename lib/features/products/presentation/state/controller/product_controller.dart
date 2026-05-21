@@ -6,7 +6,6 @@ import 'package:ekart/features/products/domain/entities/product_entity.dart';
 import 'package:ekart/features/products/domain/usecases/add_product_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/delete_product_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/edit_product_usecase.dart';
-import 'package:ekart/features/products/domain/usecases/get_product_by_id_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/get_products_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/update_stock_usecase.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class ProductController extends GetxController {
   final AddProductUsecase createProductUsecase;
   final EditProductUsecase updateProductUsecase;
   final DeleteProductUsecase deleteProductUsecase;
-  final GetProductByIdUsecase getProductByIdUsecase;
   final UpdateStockUsecase updateStockUsecase;
 
   ProductController({
@@ -26,7 +24,6 @@ class ProductController extends GetxController {
     required this.createProductUsecase,
     required this.updateProductUsecase,
     required this.deleteProductUsecase,
-    required this.getProductByIdUsecase,
     required this.updateStockUsecase,
   });
 
@@ -99,28 +96,6 @@ class ProductController extends GetxController {
     }
   }
 
-
-  // ── READ BY ID ───────────────────────────────────────────
-  Future<void> fetchProductById( String documentId ) async {
-    isLoading.value = true;
-    errorMessage.value = '';
-
-    try {
-      final result = await getProductByIdUsecase.call( documentId );
-      selectedProduct.value = result;
-    } 
-    catch (e) {
-      HelperFunctions.showSnackbar(
-        title: 'Error', 
-        message: HelperFunctions().msg(e), 
-        isError: true, 
-        duration: Duration(seconds: 10)
-      );
-    } 
-    finally {
-      isLoading.value = false;
-    }
-  }
 
 
   // ── CREATE ─────────────────────────────────────────
@@ -278,7 +253,7 @@ class ProductController extends GetxController {
           itemName:    existing.itemName,
           category:    existing.category,
           price:       existing.price,
-          quantity:    newQuantity,             // ✅ updated
+          quantity:    newQuantity,
           description: existing.description,
           salePercent: existing.salePercent,
           imagesUrl:   existing.imagesUrl,

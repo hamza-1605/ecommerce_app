@@ -49,12 +49,6 @@ class ProductRepositoryImpl implements ProductRepository {
 
 
   @override
-  Future<ProductEntity> getProductById({ required String documentId }) async {
-    return await remoteProductsDatasource.getProductById(documentId);
-  }
-
-
-  @override
   Future<List<ProductEntity>> getProducts() async{
     return await remoteProductsDatasource.readProducts();
   }
