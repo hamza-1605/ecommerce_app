@@ -68,12 +68,16 @@ class Validators {
     required String itemName,
     required int? price,
     required int? stock,
+    required int? percent,
   }){
     if(itemName.isEmpty) return 'Item name is required';
     if(price == null) return 'Price is required.';
     if(price < 1) return 'Price cannot be 0 or negative.';
     if(stock == null) return 'Stock is required';
     if(stock < 0) return 'Stock cannot be negative';
+    if(percent != null){
+      if(percent < 1 || percent > 100) return 'Sale percent must be between 1 and 100.';
+    }
     return null;
   }
 }

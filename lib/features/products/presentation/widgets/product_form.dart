@@ -111,6 +111,7 @@ class _ProductFormState extends State<ProductForm> {
       itemNameController.text.trim(), 
       int.tryParse(priceController.text.trim()), 
       int.tryParse(quantityController.text.trim()),
+      int.tryParse(salePercentController.text.trim()),
     );
 
     if(validationError) return;

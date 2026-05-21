@@ -128,7 +128,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       if (product.salePercent != null)
                       Text(
-                        'Rs. ${discountedPrice.toInt()}',
+                        'Rs. ${product.price.toInt()}',
                         style: const TextStyle(
                           fontSize: 11,
                           decoration: TextDecoration.lineThrough,

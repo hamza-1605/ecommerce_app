@@ -61,8 +61,8 @@ class ProductController extends GetxController {
     fetchProducts();
   }
 
-  bool validateProduct(String itemName, int? price, int? stock){
-    final validationError = Validators.validateProduct(itemName: itemName, price: price, stock: stock);
+  bool validateProduct(String itemName, int? price, int? stock, int? percent){
+    final validationError = Validators.validateProduct(itemName: itemName, price: price, stock: stock, percent: percent);
     
     if(validationError != null){
       HelperFunctions.showSnackbar(
