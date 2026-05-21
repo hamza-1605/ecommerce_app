@@ -1,5 +1,6 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class ProductDetailPage extends GetView<ProductController> {
   const ProductDetailPage({super.key});
@@ -197,6 +199,37 @@ class ProductDetailPage extends GetView<ProductController> {
               
                             const SizedBox(height: 14),
               
+                            // Stock status
+                            Row(
+                              children: [
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: product.quantity > 0
+                                        ? const Color(0xFF4CAF50)
+                                        : const Color(0xFFE53935),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  isAdmin
+                                      ? 'Stock: ${product.quantity} units'
+                                      : product.quantity > 0
+                                          ? 'In Stock'
+                                          : 'Out of Stock',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+              
+                            const SizedBox(height: 24),
+
                             // Price section
                             if (hasSale) ...[
                               Row(
@@ -246,43 +279,12 @@ class ProductDetailPage extends GetView<ProductController> {
                               ),
                             ],
               
-                            const SizedBox(height: 16),
-              
-                            // Stock status
-                            Row(
-                              children: [
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: BoxDecoration(
-                                    color: product.quantity > 0
-                                        ? const Color(0xFF4CAF50)
-                                        : const Color(0xFFE53935),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  isAdmin
-                                      ? 'Stock: ${product.quantity} units'
-                                      : product.quantity > 0
-                                          ? 'In Stock'
-                                          : 'Out of Stock',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                              ],
-                            ),
-              
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 10),
               
                             // Divider
                             const Divider(color: Color(0xFFEAE8E5), thickness: 1),
               
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 10),
               
                             // Description
                             const Text(
@@ -319,110 +321,84 @@ class ProductDetailPage extends GetView<ProductController> {
 
         // ── Bottom Bar ────────────────────────────────────────────
         bottomNavigationBar: !isAdmin
-            ? SafeArea(
-                top: false,
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.07),
-                        blurRadius: 16,
-                        offset: const Offset(0, -4),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      // Wishlist button
-                      Obx(() {
-                        final isWishlisted =
-                            wishlistController.isWishlisted(product.documentId ?? '');
-                        return GestureDetector(
-                          onTap: () => wishlistController.toggleWishlist(product),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                              color: isWishlisted
-                                  ? const Color(0xFFFFEBEE)
-                                  : const Color(0xFFF2F0ED),
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: Icon(
-                              isWishlisted
-                                  ? Icons.favorite_rounded
-                                  : Icons.favorite_border_rounded,
-                              color: isWishlisted
-                                  ? const Color(0xFFE53935)
-                                  : const Color(0xFF888888),
-                              size: 22,
-                            ),
-                          ),
-                        );
-                      }),
-
-                      const SizedBox(width: 12),
-
-                      // Add to Cart button
-                      Expanded(
-                        child: Obx(() => SizedBox(
-                              height: 52,
-                              child: ElevatedButton(
-                                onPressed: Get.find<CartController>().isSubmitting.value
-                                    ? null
-                                    : () => Get.find<CartController>().addToCart(
-                                          item: CartItemEntity(
-                                            documentId: '',
-                                            productDocumentId: product.documentId!,
-                                            productName: product.itemName,
-                                            price: discountedPrice.toInt(),
-                                            quantity: 1,
-                                          ),
-                                        ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF1A1A1A),
-                                  foregroundColor: Colors.white,
-                                  elevation: 0,
-                                  disabledBackgroundColor:
-                                      const Color(0xFF1A1A1A).withValues(alpha: 0.4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                ),
-                                child: Get.find<CartController>().isSubmitting.value
-                                    ? const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    : const Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.shopping_bag_outlined, size: 20),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            'Add to Cart',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w700,
-                                              letterSpacing: -0.2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                              ),
-                            )),
-                      ),
-                    ],
-                  ),
+          ? SafeArea(
+              top: false,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.07),
+                      blurRadius: 16,
+                      offset: const Offset(0, -4),
+                    ),
+                  ],
                 ),
-              )
-            : null,
+                child: Row(
+                  children: [
+                    // Wishlist button
+                    Obx(() {
+                      final isWishlisted =
+                          wishlistController.isWishlisted(product.documentId ?? '');
+                      return GestureDetector(
+                        onTap: () => wishlistController.toggleWishlist(product),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF2F0ED),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Icon(
+                            isWishlisted
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
+                            color: isWishlisted
+                              ? const Color(0xFFE53935)
+                              : const Color(0xFF888888),
+                            size: 22,
+                          ),
+                        ),
+                      );
+                    }),
+
+                    const SizedBox(width: 12),
+
+                    // Add to Cart button
+                    Expanded(
+                      child: Obx(() => SizedBox(
+                        height: 52,
+                        child: GradientElevatedButton.icon(
+                          onPressed: Get.find<CartController>().isSubmitting.value
+                              ? null
+                              : () => Get.find<CartController>().addToCart(
+                                    item: CartItemEntity(
+                                      documentId: '',
+                                      productDocumentId: product.documentId!,
+                                      productName: product.itemName,
+                                      price: discountedPrice.toInt(),
+                                      quantity: 1,
+                                    ),
+                                  ),
+                          label: Get.find<CartController>().isSubmitting.value
+                              ? const ButtonLoader()
+                              : const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.shopping_bag_outlined, size: 20),
+                                    SizedBox(width: 8),
+                                    Text('Add to Cart'),
+                                  ],
+                                ),
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : null,
       );
     });
   }

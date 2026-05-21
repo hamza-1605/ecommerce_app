@@ -200,11 +200,11 @@ class ProductController extends GetxController {
     // ── SORTING ─────────────────────────────
     switch (sortOption.value) {
       case 'price_low_high':
-        result.sort((a, b) => a.price.compareTo(b.price));
+        result.sort((a, b) => _effectivePrice(a).compareTo(_effectivePrice(b))); // 👈
         break;
 
       case 'price_high_low':
-        result.sort((a, b) => b.price.compareTo(a.price));
+        result.sort((a, b) => _effectivePrice(b).compareTo(_effectivePrice(a))); // 👈
         break;
 
       case 'name_az':
@@ -215,7 +215,7 @@ class ProductController extends GetxController {
         result.sort((a, b) => a.itemName.compareTo(b.itemName));
         break;
     }
-
+    
     return result;
   }
 
@@ -244,7 +244,7 @@ class ProductController extends GetxController {
         newQuantity: newQuantity,
       );
 
-      // ✅ Update locally so UI reflects immediately
+      // Update locally so UI reflects immediately
       final index = products.indexWhere((p) => p.documentId == documentId);
       if (index != -1) {
         final existing = products[index];
@@ -318,12 +318,12 @@ class ProductController extends GetxController {
         description:      product.description,
         salePercent:      product.salePercent,
         imagesUrl:        updatedImages,
-        uploadedImageIds: remainingIds,       // ✅ send remaining ids
+        uploadedImageIds: remainingIds,       // send remaining ids
       ));
 
       await fetchProducts();
 
-      // ✅ Update selectedProduct
+      // Update selectedProduct
       final updated = products.firstWhereOrNull(
         (p) => p.documentId == product.documentId,
       );
@@ -358,6 +358,14 @@ class ProductController extends GetxController {
 
   void sortProducts(String option) {
     sortOption.value = option;
+  }
+
+  // ── Helper to get effective price ───────────
+  double _effectivePrice(ProductEntity p) {
+    final hasSale = p.salePercent != null && p.salePercent! > 0;
+    return hasSale
+        ? p.price * (1 - p.salePercent! / 100)
+        : p.price.toDouble();
   }
 
 }

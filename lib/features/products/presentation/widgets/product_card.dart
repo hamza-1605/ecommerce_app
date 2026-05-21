@@ -1,23 +1,32 @@
 import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/themes/app_colors.dart';
 import 'package:ekart/features/products/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
-  final VoidCallback  onTap;
+  final VoidCallback onTap;
+  final VoidCallback? onAddToCart; // optional — pass null to hide button
 
-  const ProductCard({super.key, required this.product, required this.onTap});
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.onTap,
+    this.onAddToCart,
+  });
 
   @override
   Widget build(BuildContext context) {
     final imageUrl = product.imagesUrl != null && product.imagesUrl!.isNotEmpty
-                    ? ApiConstants.baseUrl + (product.imagesUrl!.first['url'] as String)
-                    : null;
+        ? ApiConstants.baseUrl + (product.imagesUrl!.first['url'] as String)
+        : null;
 
-    final hasSale =  product.salePercent != null && product.salePercent! > 0;
+    final hasSale = product.salePercent != null && product.salePercent! > 0;
     final discountedPrice = hasSale
         ? product.price * (1 - product.salePercent! / 100)
-        : product.price;
+        : product.price.toDouble();
+
+    final inStock = product.quantity > 0;
 
     return GestureDetector(
       onTap: onTap,
@@ -37,84 +46,98 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            // ── Image placeholder ─────────────────
-            Expanded(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Container(
-                    // width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F6F3),
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(16),
-                      ),
-                    ),
+            // ── Image ─────────────────────────────
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  child: AspectRatio(
+                    aspectRatio: 1,
                     child: imageUrl != null
-                      ? ClipRRect(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(16),
-                          ),
-                          child: Image.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => const Icon(
-                              Icons.image_not_supported_outlined,
-                              color: Color(0xFFBBBBBB),
-                              size: 40,
-                            ),
-                          ),
+                      ? Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => const _ImagePlaceholder(),
                         )
-                      : const Center(
-                          child: Icon(
-                            Icons.inventory_2_outlined,
-                            color: Color(0xFFBBBBBB),
-                            size: 40,
-                          ),
-                        ),
-                  ),
-                  if (product.salePercent != null)
-                    Positioned(
-                      top: 6,
-                      right: 6,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.red.shade700,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          '${product.salePercent}% off',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                      : const _ImagePlaceholder(),
+                  )
+                ),
+            
+                // Sale badge
+                if (hasSale)
+                  Positioned(
+                    top: 8, right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE53935),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        '${product.salePercent}% off',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
 
             // ── Info ──────────────────────────────
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  // Category
+                  Text(
+                    product.category.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.appMainColor,
+                      letterSpacing: 0.6,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+
+                  // Name
                   Text(
                     product.itemName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF1A1A1A),
                     ),
                   ),
                   const SizedBox(height: 4),
+
+                  // Stock indicator
+                  Row(
+                    children: [
+                      Container(
+                        width: 6, height: 6,
+                        decoration: BoxDecoration(
+                          color: inStock ? const Color.fromARGB(255, 40, 168, 36) : const Color(0xFFE53935),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        inStock ? 'In stock' : 'Out of stock',
+                        style: const TextStyle(fontSize: 10, color: AppColors.fadedIconColor),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+
+                  // Price row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -126,16 +149,17 @@ class ProductCard extends StatelessWidget {
                           color: Color(0xFF1A1A1A),
                         ),
                       ),
-                      if (product.salePercent != null)
-                      Text(
-                        'Rs. ${product.price.toInt()}',
-                        style: const TextStyle(
-                          fontSize: 11,
-                          decoration: TextDecoration.lineThrough,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 128, 128, 128),
+                      if (hasSale)
+                        Text(
+                          'Rs. ${product.price}',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFFAAAAAA),
+                            decoration: TextDecoration.lineThrough,
+                            decorationColor: Color(0xFFAAAAAA),
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ],
@@ -143,6 +167,20 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ImagePlaceholder extends StatelessWidget {
+  const _ImagePlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFF8F6F3),
+      child: const Center(
+        child: Icon(Icons.inventory_2_outlined, color: Color(0xFFBBBBBB), size: 40),
       ),
     );
   }

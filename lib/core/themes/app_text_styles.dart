@@ -28,6 +28,7 @@ class AppTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w700,
     letterSpacing: 0.3,
+    color: Colors.white
   );
 
   static const TextStyle authBottomText = TextStyle(

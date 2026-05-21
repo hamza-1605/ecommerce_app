@@ -21,6 +21,13 @@ class ProductGrid extends GetView<ProductController> {
                             .where( (p) => p.category == category)
                             .toList();
 
+                            
+      final screenWidth = MediaQuery.of(context).size.width;
+      final itemWidth = (screenWidth - 16 * 2 - 15) / 2; // padding + spacing
+      final itemHeight = itemWidth + 120; // 1:1 image + ~130px for info section
+      final ratio = itemWidth / itemHeight;
+
+
       if (products.isEmpty) {
         return RefreshIndicator(
           onRefresh: controller.fetchProducts,
@@ -48,11 +55,11 @@ class ProductGrid extends GetView<ProductController> {
         onRefresh: controller.fetchProducts,
         child: GridView.builder(
           padding: const EdgeInsets.all(16),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount:   2,
-            childAspectRatio: 0.75,
-            crossAxisSpacing: 12,
-            mainAxisSpacing:  12,
+            crossAxisSpacing: 15,
+            mainAxisSpacing:  15,
+            childAspectRatio: ratio,
           ),
           itemCount: products.length,
           itemBuilder: (_, i) => ProductCard(
