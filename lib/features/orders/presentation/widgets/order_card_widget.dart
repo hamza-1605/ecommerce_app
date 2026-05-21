@@ -1,4 +1,3 @@
-// ── Order Card Widget ──────────────────────────────────
 import 'package:ekart/core/utils/custom_divider.dart';
 import 'package:ekart/features/orders/domain/entities/order_entity.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
@@ -17,10 +16,11 @@ class OrderCard extends StatelessWidget {
     final status = order.orderStatus.toLowerCase();
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
+        border: BoxBorder.all(color: Colors.black26, width: 0.5),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -36,7 +36,7 @@ class OrderCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
             decoration: const BoxDecoration(
-              color: Color(0xFF1A1A1A),
+              color: Color.fromARGB(255, 235, 235, 235),
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: Row(
@@ -44,14 +44,14 @@ class OrderCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.receipt_long_outlined, color: Colors.white, size: 16),
+                    const Icon(Icons.receipt_long_outlined, color: Colors.black, size: 16),
                     const SizedBox(width: 7),
                     Text(
                       '$index) Order #${order.documentId.substring(0, 8).toUpperCase()}',
                       style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
                         letterSpacing: 0.3,
                       ),
                     ),

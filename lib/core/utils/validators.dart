@@ -76,7 +76,7 @@ class Validators {
     if(stock == null) return 'Stock is required';
     if(stock < 0) return 'Stock cannot be negative';
     if(percent != null){
-      if(percent < 1 || percent > 100) return 'Sale percent must be between 1 and 100.';
+      if(percent < 1 || percent > 99) return 'Sale percent must be between 1 and 99.';
     }
     return null;
   }

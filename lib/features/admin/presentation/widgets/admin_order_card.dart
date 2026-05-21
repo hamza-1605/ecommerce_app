@@ -1,9 +1,11 @@
+import 'package:ekart/core/utils/custom_divider.dart';
 import 'package:ekart/core/widgets/status_badge_widget.dart';
 import 'package:ekart/features/admin/presentation/widgets/admin_orders/receipt_sheet.dart';
 import 'package:ekart/features/orders/domain/entities/order_entity.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class AdminOrderCard extends StatelessWidget {
   final String orderDocumentId;
@@ -38,7 +40,7 @@ class AdminOrderCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
             decoration: const BoxDecoration(
-              color: Color(0xFF1A1A1A),
+              color: Color.fromARGB(255, 235, 235, 235),
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: Column(
@@ -49,11 +51,11 @@ class AdminOrderCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.receipt_long_outlined, color: Colors.white, size: 16),
+                        const Icon(Icons.receipt_long_outlined, color: Colors.black, size: 16),
                         const SizedBox(width: 7),
                         Text(
                           '$index) Order #${order.documentId.substring(0, 8).toUpperCase()}',
-                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: 0.3),
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Colors.black, letterSpacing: 0.3),
                         ),
                       ],
                     ),
@@ -63,11 +65,11 @@ class AdminOrderCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    const Icon(Icons.person_outline_rounded, color: Color(0xFFAAAAAA), size: 14),
+                    const Icon(Icons.person_outline_rounded, color: Color.fromARGB(255, 0, 0, 0), size: 14),
                     const SizedBox(width: 6),
                     Text(
                       '${order.user?['username'] ?? 'Unknown'} · #${order.user?['id'] ?? '—'}',
-                      style: const TextStyle(fontSize: 12, color: Color(0xFFAAAAAA), fontWeight: FontWeight.w500),
+                      style: const TextStyle(fontSize: 12, color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -108,7 +110,7 @@ class AdminOrderCard extends StatelessWidget {
             ),
           ),
 
-          const Divider(height: 1, color: Color(0xFFF0EEEB)),
+          const CustomDivider(),
 
           // ── Footer ─────────────────────────────
           Padding(
@@ -118,21 +120,14 @@ class AdminOrderCard extends StatelessWidget {
               children: [
 
                 // View Order button
-                GestureDetector(
-                  onTap: () => _showReceiptSheet(context, order, orderController),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1A1A1A),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.receipt_outlined, color: Colors.white, size: 15),
-                        SizedBox(width: 6),
-                        Text('View order', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
-                      ],
-                    ),
+                GradientElevatedButton(
+                  onPressed: () => _showReceiptSheet(context, order, orderController),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.receipt_outlined, color: Colors.white, size: 15),
+                      SizedBox(width: 6),
+                      Text('View order', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
+                    ],
                   ),
                 ),
 
