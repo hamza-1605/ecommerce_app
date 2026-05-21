@@ -77,7 +77,7 @@ class ForgotPasswordPage extends GetView<AuthController> {
                   : () => controller.forgotPassword(email: emailController.text),
                 child: controller.isLoading.value
                   ? const ButtonLoader()
-                  : const Text('Send Reset Link'),
+                  : const Text('Send Reset Code'),
               ),
             )),
           ],

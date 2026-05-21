@@ -24,7 +24,7 @@ class ProductGrid extends GetView<ProductController> {
                             
       final screenWidth = MediaQuery.of(context).size.width;
       final itemWidth = (screenWidth - 16 * 2 - 15) / 2; // padding + spacing
-      final itemHeight = itemWidth + 120; // 1:1 image + ~130px for info section
+      final itemHeight = itemWidth + 110; // 1:1 image + ~130px for info section
       final ratio = itemWidth / itemHeight;
 
 

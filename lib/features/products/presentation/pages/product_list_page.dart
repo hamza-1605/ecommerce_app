@@ -172,7 +172,7 @@ class _ProductListViewState extends State<_ProductListView> with TickerProviderS
         floatingActionButton: widget.isAdmin
           ? FloatingActionButton(
               onPressed: () => Get.toNamed(AppRoutes.createProduct),
-              child: const Icon(Icons.add),
+              child: const Icon(Icons.library_add),
             )
           : null,
       ),

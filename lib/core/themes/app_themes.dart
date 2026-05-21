@@ -12,6 +12,11 @@ class AppThemes {
       surfaceTintColor: Colors.transparent,
     ),
 
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.appMainColor,
+      foregroundColor: Colors.white
+    ),
+
     tabBarTheme: TabBarThemeData(
       tabAlignment: TabAlignment.start,
       labelColor: Colors.white,

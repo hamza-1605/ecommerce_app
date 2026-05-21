@@ -131,7 +131,7 @@ class ProductCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         inStock ? 'In stock' : 'Out of stock',
-                        style: const TextStyle(fontSize: 10, color: AppColors.fadedIconColor),
+                        style: TextStyle(fontSize: 10, color: inStock ? AppColors.fadedIconColor : const Color(0xFFE53935)),
                       ),
                     ],
                   ),

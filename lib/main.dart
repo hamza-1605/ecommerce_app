@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'ekart',
+      debugShowCheckedModeBanner: false,
       theme: AppThemes.lightMode,
       initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
