@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:ekart/core/network/api_services.dart';
 import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/core/utils/validators.dart';
 import 'package:ekart/features/products/domain/entities/product_entity.dart';
 import 'package:ekart/features/products/domain/usecases/add_product_usecase.dart';
 import 'package:ekart/features/products/domain/usecases/delete_product_usecase.dart';
@@ -58,6 +59,20 @@ class ProductController extends GetxController {
   void onInit() {
     super.onInit();
     fetchProducts();
+  }
+
+  bool validateProduct(String itemName, int? price, int? stock){
+    final validationError = Validators.validateProduct(itemName: itemName, price: price, stock: stock);
+    
+    if(validationError != null){
+      HelperFunctions.showSnackbar(
+        title: "Validation Error", 
+        message: validationError,
+        isError: true
+      );
+      return true;
+    }
+    return false;
   }
 
   // ── READ ───────────────────────────────────────────

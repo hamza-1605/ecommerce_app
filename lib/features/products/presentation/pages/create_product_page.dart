@@ -1,5 +1,6 @@
 // pages/create_product_page.dart
 
+import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:ekart/features/products/presentation/widgets/product_form.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,10 @@ class CreateProductPage extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Product')),
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, 70), 
+        child: CustomizedAppbar(title: "Create Product", backButton: true,),
+      ),
       body: ProductForm(
         onSubmit: (product) => controller.createProduct(product),
         isSubmitting: controller.isSubmitting,

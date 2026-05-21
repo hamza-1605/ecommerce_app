@@ -63,4 +63,17 @@ class Validators {
 
     return null;
   }
+
+  static String? validateProduct({
+    required String itemName,
+    required int? price,
+    required int? stock,
+  }){
+    if(itemName.isEmpty) return 'Item name is required';
+    if(price == null) return 'Price is required.';
+    if(price < 1) return 'Price cannot be 0 or negative.';
+    if(stock == null) return 'Stock is required';
+    if(stock < 0) return 'Stock cannot be negative';
+    return null;
+  }
 }
