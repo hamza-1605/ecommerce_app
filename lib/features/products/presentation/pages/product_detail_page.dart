@@ -4,7 +4,7 @@ import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
-import 'package:ekart/features/products/presentation/widgets/edit_delete_product_button.dart';
+import 'package:ekart/features/products/presentation/widgets/product-form/edit_delete_product_button.dart';
 import 'package:ekart/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
