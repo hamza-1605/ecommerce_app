@@ -82,7 +82,7 @@ class AppThemes {
           shape: RoundedRectangleBorder( borderRadius: BorderRadiusGeometry.circular(16)),
           iconColor: Colors.white,
           foregroundColor: Colors.white,
-          textStyle: AppTextStyles.gradientButtonText,
+          textStyle: AppTextStyles.labelLarge,
           backgroundGradient: const LinearGradient(
             colors: [
               AppColors.appMainColor, 

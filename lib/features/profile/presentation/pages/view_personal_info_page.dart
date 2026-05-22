@@ -15,7 +15,6 @@ class ViewPersonalInfoPage extends GetView<UserProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F6F3),
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 70.0), 
         child: CustomizedAppbar( backButton: true, title: "View Profile"),
@@ -60,7 +59,7 @@ class ViewPersonalInfoPage extends GetView<UserProfileController> {
                     SectionContainer(
                       title: 'Address',
                       rows: [
-                        InfoRow(icon: Icons.location_on_outlined, label: 'Address',  value: profile.address ?? ''),
+                        InfoRow(icon: Icons.location_on_outlined, label: 'Street/Area',  value: profile.address ?? ''),
                         InfoRow(icon: Icons.location_city_outlined, label: 'City',  value: profile.city ?? ''),
                         InfoRow(icon: Icons.map_outlined, label: 'Country',  value: profile.country ?? ''),
                         InfoRow(icon: Icons.pin_outlined, label: 'Postal Code',  value: profile.postalCode ?? ''),

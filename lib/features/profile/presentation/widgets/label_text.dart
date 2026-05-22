@@ -1,3 +1,4 @@
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/widgets.dart';
 
 class LabelText extends StatelessWidget {
@@ -8,12 +9,7 @@ class LabelText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-        color: Color(0xFF1A1A1A),
-        letterSpacing: 0.3,
-      ),
+      style: AppTextStyles.titleSmall
     );
   }
 }

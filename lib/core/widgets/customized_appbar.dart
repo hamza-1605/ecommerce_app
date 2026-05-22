@@ -19,7 +19,7 @@ class CustomizedAppbar extends StatelessWidget {
 
       title: Text(
         title,
-        style: AppTextStyles.appbar,
+        style: AppTextStyles.displayMedium,
       ),
     
       actions: anyWidget != null ? [

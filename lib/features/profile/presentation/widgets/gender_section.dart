@@ -23,14 +23,11 @@ class GenderSection extends StatelessWidget {
                     onTap: () => onTap(gender),
                     child: Container(
                       margin: const EdgeInsets.only(right: 10),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
+                      padding: const EdgeInsets.symmetric( horizontal: 20, vertical: 10),
                       decoration: BoxDecoration(
                         color: selectedGender.value == gender
-                            ? AppColors.appMainColor
-                            : Colors.white,
+                          ? AppColors.appMainColor
+                          : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color: const Color(0xFFE0E0E0),
@@ -54,8 +51,6 @@ class GenderSection extends StatelessWidget {
             
           // ── Clear Selection Button ─────────────
           if (selectedGender.value != null) ...[
-            const SizedBox(height: 8),
-            
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

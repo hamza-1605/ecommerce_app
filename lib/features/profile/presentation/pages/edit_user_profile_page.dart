@@ -1,5 +1,8 @@
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
+import 'package:ekart/core/widgets/clear_button.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
 import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
@@ -133,27 +136,10 @@ class _EditUserProfileViewState extends State<_EditUserProfileView> {
                             horizontal: 16,
                             vertical: 16,
                           ),
-                            
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(14),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.05),
-                                blurRadius: 10,
-                              )
-                            ],
-                          ),
-                            
+                          decoration: AppDecorations.containerDecoration,
                           child: Row(
                             children: [
-                            
-                              const Icon(
-                                Icons.cake_outlined,
-                                color: Color(0xFF888888),
-                                size: 20,
-                              ),
-                            
+                              const Icon(Icons.cake_outlined),
                               const SizedBox(width: 12),
                             
                               Expanded(
@@ -164,8 +150,8 @@ class _EditUserProfileViewState extends State<_EditUserProfileView> {
                             
                                   style: TextStyle(
                                     color: selectedDob.value != null
-                                        ? const Color(0xFF1A1A1A)
-                                        : const Color(0xFFBBBBBB),
+                                        ? AppColors.textPrimary
+                                        : AppColors.hintTextColor,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -173,26 +159,7 @@ class _EditUserProfileViewState extends State<_EditUserProfileView> {
                             
                               // ── Clear Button ─────────────────────
                               if (selectedDob.value != null)
-                                GestureDetector(
-                                  onTap: () {
-                                    selectedDob.value = null;
-                                  },
-                            
-                                  child: Container(
-                                    padding: const EdgeInsets.all(4),
-                            
-                                    decoration: BoxDecoration(
-                                      color: Colors.red.shade50,
-                                      shape: BoxShape.circle,
-                                    ),
-                            
-                                    child: Icon(
-                                      Icons.close_rounded,
-                                      size: 14,
-                                      color: Colors.red.shade400,
-                                    ),
-                                  ),
-                                ),
+                                ClearButton( onTap: () => selectedDob.value = null ),
                             ],
                           ),
                         ),

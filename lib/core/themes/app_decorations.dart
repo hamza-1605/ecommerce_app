@@ -18,6 +18,32 @@ class AppDecorations {
   );
 
   // Add more as needed
+  static BoxDecoration get addProfileImageButton => BoxDecoration(
+    color: const Color(0xFF1A1A1A),
+    shape: BoxShape.circle,
+    border: Border.all(
+      color: Colors.white,
+      width: 2,
+    ),
+  );
+
+  static BoxDecoration get containerDecoration => BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(16),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.05),
+        blurRadius: 10,
+        offset: const Offset(0, 2),
+      ),
+    ],
+  );
+
+  static BoxDecoration get tileIconDecoration => BoxDecoration(
+    color: Colors.black12,
+    borderRadius: BorderRadius.circular(12),
+  );
+  
   // static BoxDecoration get card => BoxDecoration(
   //   color: Colors.white,
   //   borderRadius: BorderRadius.circular(16),

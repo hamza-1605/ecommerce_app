@@ -1,4 +1,4 @@
-import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class TitleSection extends StatelessWidget {
@@ -11,11 +11,7 @@ class TitleSection extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-          color: AppColors.appMainColor,
-        ),
+        style: AppTextStyles.titleLargeColored,
         textAlign: TextAlign.center,
       ),
     );
