@@ -1,16 +1,22 @@
-# ekart
+# E-Kart
 
-A new Flutter project.
+An E-commerce Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## To run backend, run the following command
+`cd backend_ecommerce`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+`npm run dev`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+## To set the IP address, go to:
+lib &rarr; app &rarr; constants &rarr; api_constants.dart &rarr; baseUrl
+
+
+
+## To access Admin panel:
+email: admin@gmail.com
+
+password: admin123
