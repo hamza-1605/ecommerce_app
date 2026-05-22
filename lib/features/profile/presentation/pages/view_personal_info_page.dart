@@ -1,11 +1,11 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/core/widgets/info_row.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
 import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 import 'package:ekart/features/profile/presentation/widgets/section_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
@@ -25,14 +25,7 @@ class ViewPersonalInfoPage extends GetView<UserProfileController> {
         fit: StackFit.expand,
         alignment: AlignmentGeometry.center,
         children: [
-          Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/svg/ecommerce_wallpaper.svg',
-              fit: BoxFit.cover,
-              alignment: AlignmentGeometry.center,
-            ),
-          ),
+          BackgroundSvg(),
           
           Padding(
             padding: EdgeInsets.all(24),

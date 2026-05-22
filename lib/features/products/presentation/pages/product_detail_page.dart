@@ -1,5 +1,6 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
@@ -8,7 +9,6 @@ import 'package:ekart/features/products/presentation/state/controller/product_co
 import 'package:ekart/features/products/presentation/widgets/product-form/edit_delete_product_button.dart';
 import 'package:ekart/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
@@ -148,14 +148,7 @@ class ProductDetailPage extends GetView<ProductController> {
                 Stack(
                   children: [
                     Positioned.fill(
-                      child: Opacity(
-                        opacity: 0.2,
-                        child: SvgPicture.asset(
-                          'assets/svg/ecommerce_wallpaper.svg',
-                          fit: BoxFit.cover,
-                          alignment: AlignmentGeometry.center,
-                        ),
-                      ),
+                      child: BackgroundSvg(opacity: 0.2),
                     ),
                     SizedBox(
                       width: double.infinity,

@@ -1,3 +1,4 @@
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/auth/presentation/widgets/label_text.dart';
@@ -6,7 +7,6 @@ import 'package:ekart/features/profile/presentation/widgets/edit_profile_field.d
 import 'package:ekart/features/profile/presentation/widgets/gender_section.dart';
 import 'package:ekart/features/profile/presentation/widgets/title_section.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
@@ -81,14 +81,7 @@ class _EditUserProfileViewState extends State<_EditUserProfileView> {
         fit: StackFit.expand,
         alignment: AlignmentGeometry.center,
         children: [
-          Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/svg/ecommerce_wallpaper.svg',
-              fit: BoxFit.cover,
-              alignment: AlignmentGeometry.center,
-            ),
-          ),
+          BackgroundSvg(),
           
           GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),

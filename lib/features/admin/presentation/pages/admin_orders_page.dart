@@ -1,9 +1,9 @@
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/blur_button.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/admin/presentation/widgets/admin_order_card.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AdminOrdersPage extends GetView<OrderController> {
@@ -27,14 +27,7 @@ class AdminOrdersPage extends GetView<OrderController> {
         fit: StackFit.expand,
         alignment: AlignmentGeometry.center,
         children: [
-          Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/svg/ecommerce_wallpaper.svg',
-              fit: BoxFit.cover,
-              alignment: AlignmentGeometry.center,
-            ),
-          ),
+          BackgroundSvg(),
           
           Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),

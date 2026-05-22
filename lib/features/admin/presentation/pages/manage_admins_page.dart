@@ -1,8 +1,8 @@
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/admin/presentation/controllers/manage_admins_controller.dart';
 import 'package:ekart/features/admin/presentation/widgets/dialog_manage_admins.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ManageAdminsPage extends StatelessWidget {
@@ -25,14 +25,7 @@ class ManageAdminsPage extends StatelessWidget {
           fit: StackFit.expand,
           alignment: AlignmentGeometry.center,
           children: [
-            Opacity(
-              opacity: 0.3,
-              child: SvgPicture.asset(
-                'assets/svg/ecommerce_wallpaper.svg',
-                fit: BoxFit.cover,
-                alignment: AlignmentGeometry.center,
-              ),
-            ),
+            BackgroundSvg(opacity: 0.3),
             
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12.0),

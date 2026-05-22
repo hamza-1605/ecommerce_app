@@ -1,3 +1,4 @@
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/blur_button.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/admin/presentation/widgets/admin_order_card.dart';
@@ -7,7 +8,6 @@ import 'package:ekart/features/orders/presentation/state/controller/order_contro
 import 'package:ekart/features/products/presentation/pages/product_detail_page.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AdminDashboardPage extends StatelessWidget {
@@ -38,14 +38,7 @@ class AdminDashboardPage extends StatelessWidget {
         fit: StackFit.expand,
         alignment: AlignmentGeometry.center,
         children: [
-          Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/svg/ecommerce_wallpaper.svg',
-              fit: BoxFit.cover,
-              alignment: AlignmentGeometry.center,
-            ),
-          ),
+          BackgroundSvg(),
           
           SingleChildScrollView(
           padding: const EdgeInsets.all(24),

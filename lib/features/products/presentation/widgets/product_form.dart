@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:ekart/core/constants/api_constants.dart';
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/features/products/domain/entities/product_entity.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
@@ -8,7 +9,6 @@ import 'package:ekart/features/products/presentation/widgets/product-form/image_
 import 'package:ekart/features/products/presentation/widgets/product-form/new_images_preview.dart';
 import 'package:ekart/features/products/presentation/widgets/product-form/product_editing_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -154,14 +154,7 @@ class _ProductFormState extends State<ProductForm> {
         // alignment: AlignmentGeometry.center,
         children: [
           Positioned.fill(
-            child: Opacity(
-              opacity: 0.4,
-              child: SvgPicture.asset(
-                'assets/svg/ecommerce_wallpaper.svg',
-                fit: BoxFit.cover,
-                // alignment: AlignmentGeometry.center,
-              ),
-            ),
+            child: BackgroundSvg(),
           ),
           
           SingleChildScrollView(

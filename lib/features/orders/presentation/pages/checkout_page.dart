@@ -1,13 +1,13 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/utils/custom_divider.dart';
 import 'package:ekart/core/utils/helper_functions.dart';
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:ekart/features/profile/presentation/state/controller/user_profile_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
@@ -54,14 +54,7 @@ class CheckoutPage extends GetView<OrderController> {
         fit: StackFit.expand,
         alignment: AlignmentGeometry.center,
         children: [
-          Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/svg/ecommerce_wallpaper.svg',
-              fit: BoxFit.cover,
-              alignment: AlignmentGeometry.center,
-            ),
-          ),
+          BackgroundSvg(),
           
           GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),

@@ -1,9 +1,9 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:ekart/features/products/presentation/widgets/filter_popup_menu.dart';
 import 'package:ekart/features/products/presentation/widgets/product_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -152,14 +152,7 @@ class _ProductListViewState extends State<_ProductListView> with TickerProviderS
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Opacity(
-              opacity: 0.5,
-              child: SvgPicture.asset(
-                'assets/svg/ecommerce_wallpaper.svg',
-                fit: BoxFit.cover,
-                alignment: AlignmentGeometry.center,
-              ),
-            ),
+            BackgroundSvg(),
             TabBarView(
               controller: _tabController,
               children: widget.categories

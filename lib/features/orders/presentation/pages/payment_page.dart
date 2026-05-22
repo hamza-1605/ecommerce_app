@@ -1,10 +1,10 @@
 import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/orders/presentation/state/controller/order_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
@@ -33,14 +33,7 @@ class PaymentPage extends GetView<OrderController> {
         fit: StackFit.expand,
         alignment: AlignmentGeometry.center,
         children: [
-          Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/svg/ecommerce_wallpaper.svg',
-              fit: BoxFit.cover,
-              alignment: AlignmentGeometry.center,
-            ),
-          ),
+          BackgroundSvg(),
           
           SingleChildScrollView(
           padding: const EdgeInsets.all(24),
