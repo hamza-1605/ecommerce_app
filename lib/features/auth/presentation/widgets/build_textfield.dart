@@ -1,3 +1,5 @@
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class BuildTextfield extends StatelessWidget {
@@ -21,22 +23,12 @@ class BuildTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(14),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.1),
-          blurRadius: 10,
-          offset: const Offset(0, 2),
-        ),
-      ],
-    ),
+    decoration: AppDecorations.inputField,
     child: TextField(
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscure,
-      style: const TextStyle(fontSize: 15),
+      style: AppTextStyles.bodyLarge,
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: Icon(prefixIconData),

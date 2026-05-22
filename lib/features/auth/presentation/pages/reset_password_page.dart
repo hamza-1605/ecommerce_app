@@ -33,13 +33,13 @@ class ResetPasswordPage extends GetView<AuthController> {
             // ── Header ──────────────────────────
             const Text(
               resetPasswordTitle,
-              style: AppTextStyles.authPageHeading
+              style: AppTextStyles.displayLarge
             ),
               
             const SizedBox(height: 12),
             const Text(
               resetPasswordMessage,
-              style: AppTextStyles.authPageMessage
+              style: AppTextStyles.bodyMedium
             ),
               
             const SizedBox(height: 40),
@@ -60,7 +60,7 @@ class ResetPasswordPage extends GetView<AuthController> {
             const SizedBox(height: 8),
             Obx(() => BuildTextfield(
               controller: passwordController,
-              hint: '••••••••',
+              hint: '••••••',
               prefixIconData: Icons.lock_outline_rounded,
               obscure: obscurePassword.value,
               suffixIcon: IconButton(
@@ -68,8 +68,6 @@ class ResetPasswordPage extends GetView<AuthController> {
                   obscurePassword.value
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
-                  color: const Color(0xFF888888),
-                  size: 20,
                 ),
                 onPressed: () => obscurePassword.value = !obscurePassword.value,
               ),
@@ -82,7 +80,7 @@ class ResetPasswordPage extends GetView<AuthController> {
             const SizedBox(height: 8),
             Obx(() => BuildTextfield(
               controller: confirmPasswordController,
-              hint: '••••••••',
+              hint: '••••••',
               prefixIconData: Icons.lock_outline_rounded,
               obscure: obscureConfirm.value,
               suffixIcon: IconButton(
@@ -90,8 +88,6 @@ class ResetPasswordPage extends GetView<AuthController> {
                   obscureConfirm.value
                       ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined,
-                  color: const Color(0xFF888888),
-                  size: 20,
                 ),
                 onPressed: () => obscureConfirm.value = !obscureConfirm.value,
               ),

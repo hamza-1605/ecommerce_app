@@ -40,7 +40,7 @@ class LoginPage extends GetView<AuthController> {
                     // const SizedBox(height: 15),
                     const Text(
                       loginMessage,
-                      style: AppTextStyles.authPageMessage,
+                      style: AppTextStyles.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -66,10 +66,11 @@ class LoginPage extends GetView<AuthController> {
             // ── Password Field ──────────────────────
             LabelText(text: 'Password'),
             const SizedBox(height: 8),
+            
             Obx(() => GestureDetector(
               child: BuildTextfield(
                 controller: passwordController,
-                hint: '••••••••',
+                hint: '••••••',
                 obscure: obscurePassword.value,
                 prefixIconData: Icons.lock_outline_rounded,
                 suffixIcon: IconButton(
@@ -77,8 +78,6 @@ class LoginPage extends GetView<AuthController> {
                     obscurePassword.value
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
-                    color: const Color(0xFF888888),
-                    size: 20,
                   ),
                   onPressed: () => obscurePassword.value = !obscurePassword.value,
                 ),
@@ -93,7 +92,7 @@ class LoginPage extends GetView<AuthController> {
                 alignment: Alignment.centerRight,
                 child: Text(
                   'Forgot Password?',
-                  style: AppTextStyles.authForgotPassword
+                  style: AppTextStyles.underlineLabel
                 ),
               ),
             ),
@@ -125,13 +124,13 @@ class LoginPage extends GetView<AuthController> {
               children: [
                 const Text(
                   noAccount,
-                  style: AppTextStyles.authBottomText,
+                  style: AppTextStyles.bodyMedium,
                 ),
                 GestureDetector(
                   onTap: () => Get.toNamed(
                     AppRoutes.register,
                   ),
-                  child: const Text(
+                  child: Text(
                     'Register',
                     style: AppTextStyles.authBottomLink
                   ),

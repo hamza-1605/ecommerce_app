@@ -24,7 +24,6 @@ class AppThemes {
       indicatorColor: Colors.white
     ),
 
-
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: AppColors.bottomNavbar,
       elevation: 0,
@@ -57,9 +56,9 @@ class AppThemes {
 
 
     inputDecorationTheme: InputDecorationThemeData(
-      hintStyle: const TextStyle(color: AppColors.hintTextColor, fontSize: 15),
-      prefixIconColor: AppColors.fadedIconColor,
-      suffixIconColor: AppColors.fadedIconColor,
+      hintStyle: const TextStyle(color: AppColors.textHint, fontSize: 15),
+      prefixIconColor: AppColors.textSecondary,
+      suffixIconColor: AppColors.textSecondary,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
@@ -69,6 +68,10 @@ class AppThemes {
       contentPadding: const EdgeInsets.all(18),
     ),
 
+    iconTheme: IconThemeData(
+      color: AppColors.textSecondary,
+      size: 20
+    ),
 
 
 

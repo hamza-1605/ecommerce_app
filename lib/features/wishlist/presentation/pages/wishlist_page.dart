@@ -79,7 +79,7 @@ class WishlistPage extends GetView<WishlistController> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
-                                    color: AppColors.fadedIconColor,
+                                    color: AppColors.textSecondary,
                                   )),
                                 const SizedBox(height: 8),
                                 const Text('Tap the heart on any product to save it',
@@ -132,12 +132,12 @@ class WishlistPage extends GetView<WishlistController> {
                                               fit: BoxFit.cover,
                                               errorBuilder: (context, error, stackTrace) => const Icon(
                                                 Icons.inventory_2_outlined,
-                                                color: AppColors.fadedIconColor,
+                                                color: AppColors.textSecondary,
                                               ),
                                             )
                                           : const Icon(
                                               Icons.inventory_2_outlined,
-                                              color: Color(0xFFBBBBBB),
+                                              color: AppColors.textSecondary,
                                             ),
                                     ),
                                   ),

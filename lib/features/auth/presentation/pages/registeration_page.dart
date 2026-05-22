@@ -47,12 +47,12 @@ class RegisterationPage extends GetView<AuthController> {
                 children: [
                   const Text(
                     'Create Account',
-                    style: AppTextStyles.authPageHeading
+                    style: AppTextStyles.displayLarge
                   ),
                   const SizedBox(height: 12),
                   const Text(
                     signUpMessage,
-                    style: AppTextStyles.authPageMessage,
+                    style: AppTextStyles.bodyMedium,
                   ),
                 ]
               ),
@@ -88,7 +88,7 @@ class RegisterationPage extends GetView<AuthController> {
             const SizedBox(height: 8),
             Obx(() => BuildTextfield(
               controller: passwordController,
-              hint: '••••••••',
+              hint: '••••••',
               obscure: obscurePassword.value,
               prefixIconData: Icons.lock_outline_rounded,
               suffixIcon: IconButton(
@@ -96,7 +96,6 @@ class RegisterationPage extends GetView<AuthController> {
                   obscurePassword.value
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined,
-                  size: 20,
                 ),
                 onPressed: () => obscurePassword.value = !obscurePassword.value,
               ),
@@ -120,11 +119,7 @@ class RegisterationPage extends GetView<AuthController> {
                   ? const ButtonLoader()
                   : const Text(
                       'Create Account',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.3,
-                      ),
+                      style: AppTextStyles.labelLarge
                     ),
               ),
             )),
@@ -137,11 +132,11 @@ class RegisterationPage extends GetView<AuthController> {
               children: [
                 const Text(
                   haveAccount,
-                  style: TextStyle(color: Color(0xFF888888), fontSize: 14),
+                  style: AppTextStyles.bodyMedium,
                 ),
                 GestureDetector(
                   onTap: () => Get.back(),
-                  child: const Text(
+                  child: Text(
                     'Sign In',
                     style: AppTextStyles.authBottomLink
                   ),

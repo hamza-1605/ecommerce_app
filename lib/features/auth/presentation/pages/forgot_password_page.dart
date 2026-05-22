@@ -29,13 +29,13 @@ class ForgotPasswordPage extends GetView<AuthController> {
             // ── Header ──────────────────────────
             const Text(
               forgotPasswordTitle ,
-              style: AppTextStyles.authPageHeading
+              style: AppTextStyles.displayLarge
             ),
             
             const SizedBox(height: 12),
             const Text(
               forgotPasswordMessage,
-              style: AppTextStyles.authPageMessage
+              style: AppTextStyles.bodyMedium
             ),
       
             const SizedBox(height: 30),
@@ -45,24 +45,11 @@ class ForgotPasswordPage extends GetView<AuthController> {
               text: 'Email',
             ),
             const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: BuildTextfield(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                hint: 'you@example.com',
-                prefixIconData: Icons.mail_outline_rounded,
-              ),
+            BuildTextfield(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              hint: 'you@example.com',
+              prefixIconData: Icons.mail_outline_rounded,
             ),
       
             const SizedBox(height: 32),
