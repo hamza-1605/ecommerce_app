@@ -1,4 +1,7 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
@@ -40,7 +43,7 @@ class CartPage extends GetView<CartController> {
             children: [
               if (!controller.isEmpty)
               ClearCartButton(controller: controller),
-        
+
               // ── Empty State ─────────────────────────
               if (controller.isEmpty)
                 Expanded(
@@ -80,42 +83,25 @@ class CartPage extends GetView<CartController> {
                     },
                   ),
                 ),
-        
-        
+
                 // ── Summary & Checkout ──────────────
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.06),
-                        blurRadius: 16,
-                        offset: const Offset(0, -4),
-                      ),
-                    ],
-                  ),
+                  decoration: AppDecorations.containerDecoration,
                   child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Total',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF888888),
+                            style: AppTextStyles.titleLarge.copyWith(
+                              color: AppColors.textSecondary
                             ),
                           ),
                           Text(
                             'Rs. ${controller.cartTotal}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                              color: Color(0xFF1A1A1A),
-                            ),
+                            style: AppTextStyles.titleLarge,
                           ),
                         ],
                       ),
@@ -141,7 +127,8 @@ class CartPage extends GetView<CartController> {
                   ),
                 ),
               ],
-            ],
+            ] 
+            ,
           );
         }),
       ])

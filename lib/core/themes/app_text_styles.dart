@@ -70,9 +70,10 @@ class AppTextStyles {
     fontSize: 14, 
     fontWeight: FontWeight.w500, 
     color: AppColors.textSecondary, 
-    height: 1.6
+    height: 1.3
   );
 
+  // ✅
   static const TextStyle bodySmall = TextStyle(
     fontSize: 12, 
     fontWeight: FontWeight.w400, 
@@ -95,6 +96,7 @@ class AppTextStyles {
     letterSpacing: 0.3,
   );
 
+  // ✅
   static const TextStyle labelMedium = TextStyle(
     fontSize: 13, 
     fontWeight: FontWeight.w600, 

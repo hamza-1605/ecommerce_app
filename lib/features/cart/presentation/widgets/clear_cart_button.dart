@@ -1,6 +1,6 @@
 import 'package:ekart/core/themes/app_colors.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
-import 'package:ekart/features/cart/presentation/widgets/clear_cart.dart';
+import 'package:ekart/features/cart/presentation/widgets/dialog_clear_cart.dart';
 import 'package:flutter/material.dart';
 
 class ClearCartButton extends StatelessWidget {
@@ -24,7 +24,7 @@ class ClearCartButton extends StatelessWidget {
               onPressed: () { 
                 showDialog(
                   context: context, 
-                  builder: (context) => ClearCart(controller: controller),
+                  builder: (context) => DialogClearCart(controller: controller),
                 );
               },
               icon: const Icon(Icons.delete_outline, color: Colors.red, size: 18),

@@ -1,3 +1,5 @@
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:ekart/features/cart/presentation/state/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,20 +16,9 @@ class CartItemCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+      decoration: AppDecorations.containerDecoration,
       child: Row(
         children: [
-
           // ── Product Info ───────────────────────────
           Expanded(
             child: Column(
@@ -35,42 +26,29 @@ class CartItemCard extends StatelessWidget {
               children: [
                 Text(
                   item.productName,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF1A1A1A),
-                  ),
+                  style: AppTextStyles.titleMedium,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Rs. ${item.price}',
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF888888),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: AppTextStyles.bodyMedium,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Subtotal: Rs. ${item.subtotal}',
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF1A1A1A),
-                  ),
+                  style: AppTextStyles.titleSmall,
                 ),
               ],
             ),
           ),
+
 
           // ── Quantity Controls ──────────────────────
           Column(
             children: [
               // Remove button
               GestureDetector(
-                onTap: () => cartController.removeItem(
-                  itemDocumentId: item.documentId,
-                ),
+                onTap: () => cartController.removeItem( itemDocumentId: item.documentId ),
                 child: Container(
                   padding: const EdgeInsets.all(4),
                   child: const Icon(Icons.delete_outline, color: Colors.red, size: 20),
@@ -81,15 +59,12 @@ class CartItemCard extends StatelessWidget {
 
               // Quantity stepper
               Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF8F6F3),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: AppDecorations.containerDecoration.copyWith(border: Border.all(color: Colors.black12, width: 0.5)),
                 child: Row(
                   children: [
                     IconButton(
                       onPressed: () => cartController.updateQuantity(
-                        item:        item,
+                        item: item,
                         newQuantity: item.quantity - 1,
                       ),
                       icon: const Icon(Icons.remove, size: 16),
@@ -100,10 +75,7 @@ class CartItemCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
                         '${item.quantity}',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: AppTextStyles.titleMedium,
                       ),
                     ),
                     IconButton(
