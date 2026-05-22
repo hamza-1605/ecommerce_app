@@ -11,4 +11,5 @@ lib &rarr; app &rarr; constants &rarr; api_constants.dart &rarr; baseUrl
 
 ## To access Admin panel:
 email: admin@gmail.com
+
 password: admin123
