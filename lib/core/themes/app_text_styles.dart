@@ -60,7 +60,7 @@ class AppTextStyles {
   // ✅
   static const TextStyle bodyLarge = TextStyle(
     fontSize: 15, 
-    fontWeight: FontWeight.w400, 
+    fontWeight: FontWeight.w500, 
     color: AppColors.textPrimary, 
     height: 1.2
   );
@@ -77,6 +77,14 @@ class AppTextStyles {
     fontSize: 12, 
     fontWeight: FontWeight.w400, 
     color: AppColors.textSecondary
+  );
+
+  // ✅
+  static const TextStyle labelLargeRed = TextStyle(
+    fontSize: 15, 
+    fontWeight: FontWeight.w700, 
+    color: Colors.red,
+    letterSpacing: 0.3,
   );
 
   // ✅

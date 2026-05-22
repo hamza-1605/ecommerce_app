@@ -1,5 +1,3 @@
-// lib/core/themes/app_decorations.dart
-
 import 'package:flutter/material.dart';
 
 class AppDecorations {
@@ -42,6 +40,11 @@ class AppDecorations {
   static BoxDecoration get tileIconDecoration => BoxDecoration(
     color: Colors.black12,
     borderRadius: BorderRadius.circular(12),
+  );
+
+  static BoxDecoration get favIconDecoration => BoxDecoration(
+    color: Colors.red.shade50,
+    borderRadius: BorderRadius.circular(10),
   );
   
   // static BoxDecoration get card => BoxDecoration(
