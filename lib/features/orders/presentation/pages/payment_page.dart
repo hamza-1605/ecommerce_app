@@ -1,4 +1,6 @@
 import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
@@ -45,9 +47,7 @@ class PaymentPage extends GetView<OrderController> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
+                decoration: AppDecorations.containerDecoration.copyWith(
                   border: Border.all(
                     color: AppColors.appMainColor,
                     width: 2
@@ -57,20 +57,12 @@ class PaymentPage extends GetView<OrderController> {
                   children: [
                     const Text(
                       'Total Amount',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13,
-                      ),
+                      style: AppTextStyles.titleSmall,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Rs. $total',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 36,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -1,
-                      ),
+                      style: AppTextStyles.displayLargeBlack,
                     ),
                   ],
                 ),
@@ -81,11 +73,7 @@ class PaymentPage extends GetView<OrderController> {
               // ── Payment Method Selection ────────────
               const Text(
                 'Select Payment Method',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF1A1A1A),
-                ),
+                style: AppTextStyles.titleMedium,
               ),
 
               const SizedBox(height: 16),
@@ -193,20 +181,11 @@ class _PaymentOptionCard extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+        decoration: AppDecorations.containerDecoration.copyWith(
           border: Border.all(
             color: isSelected ? AppColors.appMainColor : Colors.transparent,
             width: 2,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
         ),
         child: Row(
           children: [
@@ -215,12 +194,12 @@ class _PaymentOptionCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? AppColors.appMainColor
-                    : const Color(0xFFF8F6F3),
+                    : AppColors.bottomNavbar ,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
                 icon,
-                color: isSelected ? Colors.white : const Color(0xFF888888),
+                color: isSelected ? Colors.white : AppColors.textSecondary,
                 size: 22,
               ),
             ),
@@ -231,9 +210,7 @@ class _PaymentOptionCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
+                    style: AppTextStyles.titleMedium.copyWith(
                       color: isSelected
                           ? const Color(0xFF1A1A1A)
                           : const Color(0xFF555555),
@@ -242,10 +219,7 @@ class _PaymentOptionCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF888888),
-                    ),
+                    style: AppTextStyles.labelSmall,
                   ),
                 ],
               ),

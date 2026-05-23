@@ -1,3 +1,4 @@
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/blur_button.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
@@ -12,7 +13,6 @@ class OrdersPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F6F3),
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 70.0), 
         child: CustomizedAppbar( 
@@ -49,16 +49,12 @@ class OrdersPage extends GetView<OrderController> {
                           const SizedBox(height: 16),
                           const Text(
                             'No orders yet',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF888888),
-                            ),
+                            style: AppTextStyles.labelLarge
                           ),
                           const SizedBox(height: 8),
                           const Text(
                             'Your order history will appear here',
-                            style: TextStyle(color: Color(0xFFBBBBBB)),
+                            style: AppTextStyles.labelMedium,
                           ),
                         ],
                       ),

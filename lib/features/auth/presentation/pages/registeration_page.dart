@@ -119,7 +119,6 @@ class RegisterationPage extends GetView<AuthController> {
                   ? const ButtonLoader()
                   : const Text(
                       'Create Account',
-                      style: AppTextStyles.labelLarge
                     ),
               ),
             )),

@@ -1,4 +1,6 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/utils/custom_divider.dart';
 import 'package:ekart/core/utils/helper_functions.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
@@ -24,7 +26,6 @@ class CheckoutPage extends GetView<OrderController> {
 
     // Pre-fill address from profile
     final addressController = TextEditingController();
-    // text: HelperFunctions().buildAddressFromProfile(profileController.profile.value),
 
     // Getting Address from profile
     if (profileController.profile.value == null) {
@@ -70,17 +71,7 @@ class CheckoutPage extends GetView<OrderController> {
                     // ── Order Summary ───────────────────────
                     HelperFunctions().buildSectionTitle('Order Summary'),
                     Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
+                      decoration: AppDecorations.containerDecoration,
                       child: ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -100,27 +91,18 @@ class CheckoutPage extends GetView<OrderController> {
                                     children: [
                                       Text(
                                         item.productName,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                        ),
+                                        style: AppTextStyles.titleSmall,
                                       ),
                                       Text(
                                         'Qty: ${item.quantity}  ×  Rs. ${item.price}',
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF888888),
-                                        ),
+                                        style: AppTextStyles.labelMedium,
                                       ),
                                     ],
                                   ),
                                 ),
                                 Text(
                                   'Rs. ${item.subtotal}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                  ),
+                                  style: AppTextStyles.titleMedium,
                                 ),
                               ],
                             ),
@@ -134,37 +116,18 @@ class CheckoutPage extends GetView<OrderController> {
                     // ── Delivery Address ────────────────────
                     HelperFunctions().buildSectionTitle('Delivery Address'),
                     Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
+                      decoration: AppDecorations.containerDecoration,
                       
                       child: TextField(
                         controller: addressController,
                         maxLines: 3,
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF1A1A1A)),
+                        style: AppTextStyles.titleSmall,
                         decoration: InputDecoration(
                           hintText: 'Enter your delivery address',
-                          hintStyle: const TextStyle(color: Color(0xFFBBBBBB)),
                           prefixIcon: const Padding(
                             padding: EdgeInsets.only(bottom: 40),
-                            child: Icon(Icons.location_on_outlined,
-                                color: Color(0xFF888888), size: 20),
+                            child: Icon(Icons.location_on_outlined),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide.none,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.all(16),
                         ),
                       ),
                     ),
@@ -175,17 +138,7 @@ class CheckoutPage extends GetView<OrderController> {
                     HelperFunctions().buildSectionTitle('Price Breakdown'),
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
+                      decoration: AppDecorations.containerDecoration,
                       child: Column(
                         children: [
                           HelperFunctions().buildPriceRow('Subtotal',  'Rs. ${cartController.cartTotal}'),
@@ -212,27 +165,26 @@ class CheckoutPage extends GetView<OrderController> {
                       height: 56,
                       child: GradientElevatedButton(
                         onPressed: controller.isSubmitting.value
-                            ? null
-                            : () {
-                                if (addressController.text.trim().isEmpty) {
-                                  HelperFunctions.showSnackbar(
-                                    title:   'Address Required',
-                                    message: 'Please enter a delivery address',
-                                    isError: true,
-                                  );
-                                  return;
-                                }
-                                Get.toNamed(
-                                  AppRoutes.payment,
-                                  arguments: {
-                                    'cartItems':       cartController.cart.value!.cartItems,
-                                    'deliveryAddress': addressController.text.trim(),
-                                    'total':           cartController.cartTotal,
-                                  },
+                          ? null
+                          : () {
+                              if (addressController.text.trim().isEmpty) {
+                                HelperFunctions.showSnackbar(
+                                  title:   'Address Required',
+                                  message: 'Please enter a delivery address',
+                                  isError: true,
                                 );
-                                
-                              },
-                        
+                                return;
+                              }
+                              Get.toNamed(
+                                AppRoutes.payment,
+                                arguments: {
+                                  'cartItems':       cartController.cart.value!.cartItems,
+                                  'deliveryAddress': addressController.text.trim(),
+                                  'total':           cartController.cartTotal,
+                                },
+                              );
+                              
+                            },
                         child: controller.isSubmitting.value
                             ? const ButtonLoader()
                             : const Text( 'Continue to Payment' ),

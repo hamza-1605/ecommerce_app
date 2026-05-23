@@ -1,3 +1,5 @@
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/features/profile/domain/entities/user_profile_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,7 @@ class HelperFunctions {
       title, 
       message,
       snackPosition: SnackPosition.TOP,
+      colorText: AppColors.textPrimary,
       backgroundColor: isError ? Colors.red[100] : Colors.green[100],
       icon: Icon(
         isError ? Icons.error : Icons.check_circle,
@@ -63,11 +66,7 @@ class HelperFunctions {
       padding: const EdgeInsets.only(bottom: 12),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          color: Colors.black,
-        ),
+        style: AppTextStyles.titleMedium,
       ),
     );
   }
@@ -82,7 +81,7 @@ class HelperFunctions {
           style: TextStyle(
             fontSize: bold ? 15 : 14,
             fontWeight: bold ? FontWeight.w700 : FontWeight.w400,
-            color: bold ? const Color(0xFF1A1A1A) : const Color(0xFF888888),
+            color: bold ? AppColors.textPrimary : AppColors.textSecondary,
           ),
         ),
         Text(
@@ -90,7 +89,7 @@ class HelperFunctions {
           style: TextStyle(
             fontSize: bold ? 18 : 14,
             fontWeight: bold ? FontWeight.w800 : FontWeight.w600,
-            color: const Color(0xFF1A1A1A),
+            color: AppColors.textPrimary,
           ),
         ),
       ],

@@ -21,6 +21,14 @@ class AppTextStyles {
   );
 
   // ✅
+  static const TextStyle displayLargeBlack = TextStyle(
+    fontSize: 34, 
+    fontWeight: FontWeight.w800, 
+    color: AppColors.textPrimary, 
+    letterSpacing: -0.5
+  );
+
+  // ✅
   static const TextStyle displayMedium = TextStyle(
     fontSize: 28, 
     fontWeight: FontWeight.w800, 
@@ -38,14 +46,14 @@ class AppTextStyles {
   // ✅
   static const TextStyle titleLarge = TextStyle(
     fontSize: 18, 
-    fontWeight: FontWeight.w700, 
+    fontWeight: FontWeight.w800, 
     color: AppColors.textPrimary
   );
 
   // ✅
   static const TextStyle titleMedium = TextStyle(
     fontSize: 15, 
-    fontWeight: FontWeight.w600, 
+    fontWeight: FontWeight.w700, 
     color: AppColors.textPrimary
   );
 
@@ -59,7 +67,7 @@ class AppTextStyles {
 
   // ✅
   static const TextStyle bodyLarge = TextStyle(
-    fontSize: 15, 
+    fontSize: 16, 
     fontWeight: FontWeight.w500, 
     color: AppColors.textPrimary, 
     height: 1.2
@@ -92,7 +100,7 @@ class AppTextStyles {
   static const TextStyle labelLarge = TextStyle(
     fontSize: 15, 
     fontWeight: FontWeight.w700, 
-    color: Colors.white,
+    color: AppColors.textSecondary,
     letterSpacing: 0.3,
   );
 
@@ -104,9 +112,16 @@ class AppTextStyles {
   );
 
   static const TextStyle labelSmall = TextStyle(
-    fontSize: 10, 
-    fontWeight: FontWeight.w600, 
+    fontSize: 11, 
+    fontWeight: FontWeight.w500, 
     color: AppColors.textSecondary, 
+    letterSpacing: 0.6
+  );
+
+  static const TextStyle labelSmallBlack = TextStyle(
+    fontSize: 11, 
+    fontWeight: FontWeight.w600, 
+    color: AppColors.textPrimary, 
     letterSpacing: 0.6
   );
 

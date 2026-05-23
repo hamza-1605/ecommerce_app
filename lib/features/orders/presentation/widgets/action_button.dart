@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
-  const ActionButton({super.key, required this.label, required this.icon, required this.color, required this.bgColor, required this.onTap});
+  const ActionButton({super.key, required this.label, required this.icon, required this.onTap, required this.isDelete});
   final String label;
   final IconData icon;
-  final Color color;
-  final Color bgColor;
+  final bool isDelete;
   final VoidCallback onTap;
 
   @override
@@ -15,19 +14,19 @@ class ActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: bgColor,
+          color: isDelete ? const Color(0xFFE53935) : const Color(0xFFFFEBEE) ,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 15, color: color),
+            Icon(icon, size: 15, color: isDelete ? const Color(0xFFFFEBEE) : const Color(0xFFE53935)),
             const SizedBox(width: 5),
             Text(
               label,
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
-                color: color,
+                color: isDelete ? const Color(0xFFFFEBEE) : const Color(0xFFE53935),
               ),
             ),
           ],

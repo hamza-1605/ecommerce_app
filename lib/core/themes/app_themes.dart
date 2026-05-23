@@ -80,9 +80,9 @@ class AppThemes {
       GradientButtonThemeExtension(
         style: GradientElevatedButton.styleFrom(
           shape: RoundedRectangleBorder( borderRadius: BorderRadiusGeometry.circular(16)),
+          textStyle: AppTextStyles.labelLarge,
           iconColor: Colors.white,
           foregroundColor: Colors.white,
-          textStyle: AppTextStyles.labelLarge,
           backgroundGradient: const LinearGradient(
             colors: [
               AppColors.appMainColor, 
