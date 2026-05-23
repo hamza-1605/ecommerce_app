@@ -155,6 +155,32 @@ class OrderController extends GetxController {
   }
 
 
+  
+  Future<void> handlePayment({
+    required String              selectedMethod,
+    required List<CartItemEntity> cartItems,
+    required String              deliveryAddress,
+    required int                 total,
+  }) async {
+    if (selectedMethod == 'cod') {
+      // ── Cash on Delivery — place order directly ──
+      await createOrder(
+        cartItems:       cartItems,
+        deliveryAddress: deliveryAddress,
+        total:           total,
+        paymentMethod:   'cod',
+      );
+    } else {
+      // ── Card — Stripe payment first ──────────────
+      
+      await processStripePayment(
+        cartItems:       cartItems,
+        deliveryAddress: deliveryAddress,
+        total:           total,
+      );
+    }
+  }
+
   // ── Stripe Payment ──────────────────────────────────
   Future<void> processStripePayment({
     required List<CartItemEntity> cartItems,
