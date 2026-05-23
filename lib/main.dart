@@ -3,6 +3,7 @@ import 'package:ekart/app/routes/app_pages.dart';
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,7 +16,13 @@ void main() async {
   await Stripe.instance.applySettings();
   
   AppBinding.init();
-  runApp(const MyApp());
+  
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
