@@ -1,5 +1,5 @@
 import 'package:ekart/app/routes/app_routes.dart';
-import 'package:ekart/core/themes/app_text_styles.dart';
+import 'package:ekart/core/themes/app_colors.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:ekart/features/products/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +33,7 @@ class ProductGrid extends GetView<ProductController> {
         return RefreshIndicator(
           onRefresh: controller.fetchProducts,
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey.shade300),
-                const SizedBox(height: 12),
-                Text(
-                  'No $category products found',
-                  style: AppTextStyles.bodyLarge,
-                ),
-              ],
-            ),
+            child: CircularProgressIndicator(strokeWidth: 3, color: AppColors.appMainColor),
           ),
         );
       }

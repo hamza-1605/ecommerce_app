@@ -14,7 +14,8 @@ class AppThemes {
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.appMainColor,
-      foregroundColor: Colors.white
+      foregroundColor: Colors.white,
+      elevation: 20
     ),
 
     tabBarTheme: TabBarThemeData(
@@ -100,10 +101,12 @@ class AppThemes {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
+          disabledForegroundColor: Colors.white,
+          disabledIconColor: Colors.white,
           disabledBackgroundGradient: LinearGradient(
             colors: [
-              const Color.fromARGB(249, 245, 133, 72),
-              const Color.fromARGB(249, 245, 133, 72)
+              const Color.fromARGB(255, 253, 153, 95), 
+              const Color.fromARGB(255, 253, 153, 95), 
             ]
           )
         ),

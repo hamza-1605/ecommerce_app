@@ -33,8 +33,6 @@ class ProductDetailPage extends GetView<ProductController> {
           : originalPrice;
 
       return Scaffold(
-        backgroundColor: const Color(0xFFF8F6F3),
-
         // ── AppBar ────────────────────────────────────────────────
         appBar: PreferredSize(
           preferredSize: Size(double.infinity, 70.0), 
@@ -88,7 +86,6 @@ class ProductDetailPage extends GetView<ProductController> {
                               child: Icon(
                                 Icons.inventory_2_outlined,
                                 size: 90,
-                                color: Color(0xFFBBBBBB),
                               ),
                             ),
                     ),
@@ -363,7 +360,7 @@ class ProductDetailPage extends GetView<ProductController> {
                       child: Obx(() => SizedBox(
                         height: 52,
                         child: GradientElevatedButton.icon(
-                          onPressed: Get.find<CartController>().isSubmitting.value
+                          onPressed: Get.find<CartController>().isSubmitting.value || product.quantity == 0
                               ? null
                               : () => Get.find<CartController>().addToCart(
                                     item: CartItemEntity(
