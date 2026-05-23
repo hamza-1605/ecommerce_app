@@ -87,7 +87,7 @@ class CartPage extends GetView<CartController> {
                 // ── Summary & Checkout ──────────────
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-                  decoration: AppDecorations.containerDecoration,
+                  decoration: AppDecorations.containerDecoration.copyWith( borderRadius: BorderRadius.vertical(bottom: Radius.zero, top: Radius.circular(24))),
                   child: Column(
                     children: [
                       Row(

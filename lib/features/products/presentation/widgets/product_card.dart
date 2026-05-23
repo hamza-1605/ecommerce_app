@@ -1,6 +1,9 @@
 import 'package:ekart/core/constants/api_constants.dart';
 import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/features/products/domain/entities/product_entity.dart';
+import 'package:ekart/features/products/presentation/widgets/image_placeholder.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
@@ -31,21 +34,10 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
+        decoration: AppDecorations.containerDecoration,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // ── Image ─────────────────────────────
             Stack(
               children: [
@@ -57,9 +49,9 @@ class ProductCard extends StatelessWidget {
                       ? Image.network(
                           imageUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => const _ImagePlaceholder(),
+                          errorBuilder: (context, error, stackTrace) => const ImagePlaceholder(),
                         )
-                      : const _ImagePlaceholder(),
+                      : const ImagePlaceholder(),
                   )
                 ),
             
@@ -69,16 +61,11 @@ class ProductCard extends StatelessWidget {
                     top: 8, right: 8,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE53935),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
+                      decoration: AppDecorations.saleTag,
                       child: Text(
                         '${product.salePercent}% off',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        style: AppTextStyles.labelSmall.copyWith(
+                          color: Colors.white
                         ),
                       ),
                     ),
@@ -92,15 +79,11 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   // Category
                   Text(
                     product.category.toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.appMainColor,
-                      letterSpacing: 0.6,
+                    style: AppTextStyles.labelSmall.copyWith(
+                      color: AppColors.appMainColor
                     ),
                   ),
                   const SizedBox(height: 3),
@@ -110,11 +93,7 @@ class ProductCard extends StatelessWidget {
                     product.itemName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF1A1A1A),
-                    ),
+                    style: AppTextStyles.titleSmall,
                   ),
                   const SizedBox(height: 4),
 
@@ -124,14 +103,14 @@ class ProductCard extends StatelessWidget {
                       Container(
                         width: 6, height: 6,
                         decoration: BoxDecoration(
-                          color: inStock ? const Color.fromARGB(255, 40, 168, 36) : const Color(0xFFE53935),
+                          color: inStock ? AppColors.success : AppColors.error ,
                           shape: BoxShape.circle,
                         ),
                       ),
                       const SizedBox(width: 5),
                       Text(
                         inStock ? 'In stock' : 'Out of stock',
-                        style: TextStyle(fontSize: 10, color: inStock ? AppColors.textSecondary : const Color(0xFFE53935)),
+                        style: TextStyle(fontSize: 10, color: inStock ? AppColors.textSecondary : AppColors.error),
                       ),
                     ],
                   ),
@@ -143,22 +122,12 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         'Rs. ${discountedPrice.toInt()}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF1A1A1A),
-                        ),
+                        style: AppTextStyles.titleSmall,
                       ),
                       if (hasSale)
                         Text(
                           'Rs. ${product.price}',
-                          style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFAAAAAA),
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: Color(0xFFAAAAAA),
-                          ),
+                          style: AppTextStyles.oldPrice
                         ),
                     ],
                   ),
@@ -167,20 +136,6 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _ImagePlaceholder extends StatelessWidget {
-  const _ImagePlaceholder();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFFF8F6F3),
-      child: const Center(
-        child: Icon(Icons.inventory_2_outlined, color: Color(0xFFBBBBBB), size: 40),
       ),
     );
   }

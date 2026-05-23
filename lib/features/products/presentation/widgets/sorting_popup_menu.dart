@@ -1,8 +1,8 @@
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 
-class FilterPopupMenu extends StatelessWidget {
-  const FilterPopupMenu({super.key, required this.controller});
+class SortingPopupMenu extends StatelessWidget {
+  const SortingPopupMenu({super.key, required this.controller});
   final ProductController controller;
 
   @override
@@ -22,6 +22,10 @@ class FilterPopupMenu extends StatelessWidget {
         const PopupMenuItem(
           value: 'name_az',
           child: Text('Name: A-Z'),
+        ),
+        const PopupMenuItem(
+          value: 'name_za',
+          child: Text('Name: Z-A'),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
 import 'package:ekart/features/products/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class ProductGrid extends GetView<ProductController> {
         return const Center(child: CircularProgressIndicator());
       }
 
-      final products = category == 'All'
+      final products = (category == 'All')
                         ? controller.filteredProducts
                         : controller.filteredProducts
                             .where( (p) => p.category == category)
@@ -39,11 +40,7 @@ class ProductGrid extends GetView<ProductController> {
                 const SizedBox(height: 12),
                 Text(
                   'No $category products found',
-                  style: const TextStyle(
-                    color: Color(0xFF888888),
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: AppTextStyles.bodyLarge,
                 ),
               ],
             ),

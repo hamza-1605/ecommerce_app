@@ -25,7 +25,7 @@ class EditProfileField extends StatelessWidget {
             child: TextField(
               controller: controller,
               keyboardType: keyboard,
-              style: AppTextStyles.titleMedium,
+              style: AppTextStyles.bodyLarge,
               decoration: InputDecoration(
                 prefixIcon: Icon(icon),
                 hintText: hintText,

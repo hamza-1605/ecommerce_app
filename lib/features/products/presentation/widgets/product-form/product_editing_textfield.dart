@@ -1,4 +1,7 @@
 // Add this helper method inside _ProductFormState
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ProductTextfield extends StatelessWidget {
@@ -26,40 +29,19 @@ class ProductTextfield extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF1A1A1A),
-              letterSpacing: 0.3,
-            ),
+            style: AppTextStyles.titleSmall,
           ),
           const SizedBox(height: 8),
           Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
+            decoration: AppDecorations.containerDecoration,
             child: TextField(
               controller:   controller,
               keyboardType: keyboard,
               maxLines:     maxLines,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Color(0xFF1A1A1A),
-              ),
+              style: AppTextStyles.labelLarge.copyWith(color: AppColors.textPrimary),
               decoration: InputDecoration(
                 hintText:  hint ?? 'Enter $label',
-                hintStyle: const TextStyle(
-                  color: Color(0xFFBBBBBB),
-                  fontSize: 14,
-                ),
+                hintStyle: AppTextStyles.labelMedium,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                   borderSide:   BorderSide.none,
@@ -74,12 +56,6 @@ class ProductTextfield extends StatelessWidget {
                     color: Color(0xFF1A1A1A),
                     width: 1.5,
                   ),
-                ),
-                filled:          true,
-                fillColor:       Colors.white,
-                contentPadding:  const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical:   16,
                 ),
               ),
             ),

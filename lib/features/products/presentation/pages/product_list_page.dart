@@ -1,7 +1,7 @@
 import 'package:ekart/app/routes/app_routes.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/features/products/presentation/state/controller/product_controller.dart';
-import 'package:ekart/features/products/presentation/widgets/filter_popup_menu.dart';
+import 'package:ekart/features/products/presentation/widgets/sorting_popup_menu.dart';
 import 'package:ekart/features/products/presentation/widgets/product_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -91,7 +91,6 @@ class _ProductListViewState extends State<_ProductListView> with TickerProviderS
     return GestureDetector(
       onTap: () => widget.controller.searchFocusNode.unfocus(),
       child: Scaffold(
-        backgroundColor: const Color(0xFFF8F6F3),
         appBar: AppBar(
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(65),
@@ -126,7 +125,7 @@ class _ProductListViewState extends State<_ProductListView> with TickerProviderS
                         ),
                       ),
                       const SizedBox(width: 10),
-                      FilterPopupMenu(controller: widget.controller),
+                      SortingPopupMenu(controller: widget.controller),
                     ],
                   ),
                 ),

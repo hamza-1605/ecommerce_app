@@ -132,5 +132,12 @@ class AppTextStyles {
     color: AppColors.textSecondary,
     decoration: TextDecoration.underline,
     decorationColor: AppColors.fadedBlack,
-  );   
+  );
+
+  static TextStyle oldPrice = labelSmall.copyWith(
+    decoration: TextDecoration.lineThrough,
+    letterSpacing: 0.6,
+    color: AppColors.textMuted
+  );
+
 }

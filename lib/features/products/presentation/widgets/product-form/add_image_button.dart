@@ -1,3 +1,5 @@
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AddImageButton extends StatelessWidget {
@@ -11,28 +13,14 @@ class AddImageButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: const Color(0xFFE0E0E0),
-            width: 1.5,
-          ),
-        ),
+        decoration: AppDecorations.addImageBox,
         child: const Column(
           children: [
-            Icon(
-              Icons.add_photo_alternate_outlined,
-              size: 32,
-              color: Color.fromARGB(255, 116, 116, 116),
-            ),
+            Icon(Icons.add_photo_alternate_outlined, size: 32,),
             SizedBox(height: 6),
             Text(
               'Tap to add images',
-              style: TextStyle(
-                color: Color.fromARGB(255, 116, 116, 116),
-                fontSize: 13,
-              ),
+              style: AppTextStyles.bodySmall,
             ),
           ],
         ),

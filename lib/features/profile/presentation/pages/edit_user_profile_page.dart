@@ -1,5 +1,6 @@
 import 'package:ekart/core/themes/app_colors.dart';
 import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/button_loader.dart';
 import 'package:ekart/core/widgets/clear_button.dart';
@@ -148,7 +149,7 @@ class _EditUserProfileViewState extends State<_EditUserProfileView> {
                                       ? '${selectedDob.value!.day}/${selectedDob.value!.month}/${selectedDob.value!.year}'
                                       : 'Select date of birth',
                             
-                                  style: TextStyle(
+                                  style: AppTextStyles.bodyLarge.copyWith(
                                     color: selectedDob.value != null
                                         ? AppColors.textPrimary
                                         : AppColors.hintTextColor,

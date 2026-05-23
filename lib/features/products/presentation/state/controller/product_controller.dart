@@ -211,6 +211,10 @@ class ProductController extends GetxController {
         result.sort((a, b) => a.itemName.compareTo(b.itemName));
         break;
 
+      case 'name_za':
+        result.sort((a, b) => b.itemName.compareTo(a.itemName));
+        break;
+
       default:
         result.sort((a, b) => a.itemName.compareTo(b.itemName));
         break;

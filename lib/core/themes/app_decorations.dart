@@ -28,6 +28,7 @@ class AppDecorations {
   static BoxDecoration get containerDecoration => BoxDecoration(
     color: Colors.white,
     borderRadius: BorderRadius.circular(16),
+    border: BoxBorder.all(width: 0.5, color: Colors.black12),
     boxShadow: [
       BoxShadow(
         color: Colors.black.withValues(alpha: 0.05),
@@ -70,15 +71,19 @@ class AppDecorations {
     borderRadius: BorderRadius.circular(6),
   );
   
-  // static BoxDecoration get card => BoxDecoration(
-  //   color: Colors.white,
-  //   borderRadius: BorderRadius.circular(16),
-  //   boxShadow: [
-  //     BoxShadow(
-  //       color: Colors.black.withValues(alpha: 0.05),
-  //       blurRadius: 10,
-  //       offset: const Offset(0, 2),
-  //     ),
-  //   ],
-  // );
+  static BoxDecoration get saleTag => BoxDecoration(
+    color: const Color(0xFFE53935),
+    borderRadius: BorderRadius.circular(6),
+  );
+
+  static BoxDecoration get addImageBox => BoxDecoration(
+    color: Colors.transparent,
+    borderRadius: BorderRadius.circular(14),
+    border: Border.all(
+      color: const Color(0xFFE0E0E0),
+      width: 1.5,
+    ),
+  );
+  
+
 }

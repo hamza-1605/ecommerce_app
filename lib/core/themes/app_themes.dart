@@ -74,6 +74,15 @@ class AppThemes {
     ),
 
 
+    popupMenuTheme: PopupMenuThemeData(
+      iconColor: Colors.white,
+      iconSize: 26,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(16)),
+      menuPadding: EdgeInsets.only(right: 10),
+      color: AppColors.bottomNavbar,
+    ),
+
+
 
 
     extensions: <ThemeExtension<dynamic>>[

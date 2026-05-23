@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class NewImagesPreview extends StatelessWidget {
@@ -14,7 +15,7 @@ class NewImagesPreview extends StatelessWidget {
         const SizedBox(height: 8),
         const Text(
           'New Images',
-          style: TextStyle(fontSize: 12, color: Color(0xFF888888)),
+          style: AppTextStyles.labelMedium,
         ),
         const SizedBox(height: 8),
         SizedBox(

@@ -1,3 +1,4 @@
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ImageUploadingProgress extends StatelessWidget {
@@ -17,10 +18,7 @@ class ImageUploadingProgress extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Uploading images...',
-            style: TextStyle(
-              color: Color(0xFF888888),
-              fontSize: 13,
-            ),
+            style: AppTextStyles.bodySmall,
           ),
         ],
       ),
