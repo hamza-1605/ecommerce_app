@@ -16,7 +16,7 @@ void main() async {
   await Stripe.instance.applySettings();
   
   AppBinding.init();
-  
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
-      title: 'ekart',
+      title: 'E-Kart',
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightMode,
       initialRoute: AppRoutes.splash,
