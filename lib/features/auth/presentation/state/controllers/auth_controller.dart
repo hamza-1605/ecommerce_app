@@ -1,4 +1,6 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/network/api_services.dart';
+import 'package:ekart/core/services/notification_service.dart';
 import 'package:ekart/core/utils/helper_functions.dart';
 import 'package:ekart/core/utils/validators.dart';
 import 'package:ekart/features/auth/domain/entities/auth_user_entity.dart';
@@ -113,6 +115,8 @@ class AuthController extends GetxController {
       final user = await loginAuthUserUsecase.call(email, password);
       currentUser.value = user;
       await _saveUserData(user);
+      await _saveFcmToken();          // token for notification
+
       HelperFunctions.showSnackbar(
         title: 'Log in', 
         message: 'Successfully Logged In!', 
@@ -257,5 +261,33 @@ class AuthController extends GetxController {
 
   String? getToken() {
     return GetStorage().read('jwt_token');
+  }
+
+
+
+  Future<void> _saveFcmToken() async {
+    try {
+      final token = await NotificationService.getToken();
+      print('=== FCM TOKEN SAVE ===');
+      print('Token: $token');
+
+      if (token == null) return;
+
+      final userId = GetStorage().read('user_id');
+      print('User ID: $userId');
+
+      final response = await ApiServices().putCall(
+        '/api/users/$userId',         // 👈 use existing users endpoint
+        {'deviceToken': token},
+        (json) {},
+      );
+
+      print('Response success: ${response.success}');
+      print('Response message: ${response.message}');
+
+    } catch (e, stack) {
+      print('FCM token save failed: $e');
+      print('Stack: $stack');
+    }
   }
 }

@@ -87,6 +87,9 @@
     "isAdmin": {
       "type": "boolean",
       "default": false
+    },
+    "deviceToken": {
+      "type": "string"
     }
   }
 }

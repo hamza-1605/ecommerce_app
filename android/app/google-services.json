@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "514470068822",
+    "project_id": "ekart-844d3",
+    "storage_bucket": "ekart-844d3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514470068822:android:fd18f06e2f2378a31271f7",
+        "android_client_info": {
+          "package_name": "com.example.ekart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHxCTK-JV7KoYFLBBQCdydLygFjWkkado"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
