@@ -18,6 +18,11 @@ class AdminDashboardPage extends StatelessWidget {
     final orderController   = Get.find<OrderController>();
     final productController = Get.find<ProductController>();
 
+    Future<void> refreshPage() async{
+      await orderController.fetchAllOrders();
+      await productController.fetchProducts();
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 70), 
@@ -26,134 +31,134 @@ class AdminDashboardPage extends StatelessWidget {
           backButton: false, 
           anyWidget: BlurButton(
             buttonIconData: Icons.refresh, 
-            onPressed: (){
-              orderController.fetchAllOrders();
-              productController.fetchProducts();
-            } 
+            onPressed: refreshPage
           ),
         ),
       ),
       
-      body: Stack( 
-        fit: StackFit.expand,
-        alignment: AlignmentGeometry.center,
-        children: [
-          BackgroundSvg(),
-          
-          SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Welcome, ${Get.find<AuthController>().currentUser.value?.username}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF888888),
+      body: RefreshIndicator(
+        onRefresh: refreshPage,
+        child: Stack( 
+          fit: StackFit.expand,
+          alignment: AlignmentGeometry.center,
+          children: [
+            BackgroundSvg(),
+            
+            SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Welcome, ${Get.find<AuthController>().currentUser.value?.username}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF888888),
+                  ),
                 ),
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // ── Orders Section ──────────────────────
-              const Text('Orders Overview',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-              const SizedBox(height: 12),
-              
-              Obx(() {
-                final orders = orderController.allOrders;
                 
-                return Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DashboardStatCard(
-                            title:  'Pending',
-                            count:  orders.where((o) => o.orderStatus.toLowerCase() == 'pending').length,
-                            icon:   Icons.hourglass_empty_rounded,
-                            color:  Colors.orange,
-                            onTap:  () => _openFilteredOrders(context, 'Pending', orderController),
+                const SizedBox(height: 32),
+                
+                // ── Orders Section ──────────────────────
+                const Text('Orders Overview',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                const SizedBox(height: 12),
+                
+                Obx(() {
+                  final orders = orderController.allOrders;
+                  
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: DashboardStatCard(
+                              title:  'Pending',
+                              count:  orders.where((o) => o.orderStatus.toLowerCase() == 'pending').length,
+                              icon:   Icons.hourglass_empty_rounded,
+                              color:  Colors.orange,
+                              onTap:  () => _openFilteredOrders(context, 'Pending', orderController),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: DashboardStatCard(
-                            title:  'Processing',
-                            count:  orders.where((o) => o.orderStatus.toLowerCase() == 'processing').length,
-                            icon:   Icons.settings_outlined,
-                            color:  Colors.blue,
-                            onTap:  () => _openFilteredOrders(context, 'Processing', orderController),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: DashboardStatCard(
+                              title:  'Processing',
+                              count:  orders.where((o) => o.orderStatus.toLowerCase() == 'processing').length,
+                              icon:   Icons.settings_outlined,
+                              color:  Colors.blue,
+                              onTap:  () => _openFilteredOrders(context, 'Processing', orderController),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DashboardStatCard(
-                            title:  'Delivered',
-                            count:  orders.where((o) => o.orderStatus.toLowerCase() == 'delivered').length,
-                            icon:   Icons.check_circle_outline_rounded,
-                            color:  Colors.green,
-                            onTap:  () => _openFilteredOrders(context, 'Delivered', orderController),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: DashboardStatCard(
+                              title:  'Delivered',
+                              count:  orders.where((o) => o.orderStatus.toLowerCase() == 'delivered').length,
+                              icon:   Icons.check_circle_outline_rounded,
+                              color:  Colors.green,
+                              onTap:  () => _openFilteredOrders(context, 'Delivered', orderController),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: DashboardStatCard(
-                            title:  'Cancelled',
-                            count:  orders.where((o) => o.orderStatus.toLowerCase() == 'cancelled').length,
-                            icon:   Icons.cancel_outlined,
-                            color:  Colors.red,
-                            onTap:  () => _openFilteredOrders(context, 'Cancelled', orderController),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: DashboardStatCard(
+                              title:  'Cancelled',
+                              count:  orders.where((o) => o.orderStatus.toLowerCase() == 'cancelled').length,
+                              icon:   Icons.cancel_outlined,
+                              color:  Colors.red,
+                              onTap:  () => _openFilteredOrders(context, 'Cancelled', orderController),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              }),
-              
-              const SizedBox(height: 32),
-              
-              // ── Products Section ────────────────────
-              const Text('Inventory Alerts',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-              const SizedBox(height: 12),
-              
-              Obx(() {
-                final products = productController.products;
-                final outOfStock  = products.where((p) => p.quantity == 0).toList();
-                final lowStock    = products.where((p) => p.quantity > 0 && p.quantity < 20).toList();
-              
-                return Column(
-                  children: [
-                    DashboardStatCard(
-                      title:    'Out of Stock',
-                      count:    outOfStock.length,
-                      icon:     Icons.remove_shopping_cart_outlined,
-                      color:    Colors.red,
-                      fullWidth: true,
-                      onTap:    () => _openProductList(context, outOfStock, 'Out of Stock'),
-                    ),
-                    const SizedBox(height: 12),
-                    DashboardStatCard(
-                      title:    'Low Stock (< 20)',
-                      count:    lowStock.length,
-                      icon:     Icons.warning_amber_rounded,
-                      color:    Colors.orange,
-                      fullWidth: true,
-                      onTap:    () => _openProductList(context, lowStock, 'Low Stock'),
-                    ),
-                  ],
-                );
-              }),
-            ],
+                        ],
+                      ),
+                    ],
+                  );
+                }),
+                
+                const SizedBox(height: 32),
+                
+                // ── Products Section ────────────────────
+                const Text('Inventory Alerts',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                const SizedBox(height: 12),
+                
+                Obx(() {
+                  final products = productController.products;
+                  final outOfStock  = products.where((p) => p.quantity == 0).toList();
+                  final lowStock    = products.where((p) => p.quantity > 0 && p.quantity < 20).toList();
+                
+                  return Column(
+                    children: [
+                      DashboardStatCard(
+                        title:    'Out of Stock',
+                        count:    outOfStock.length,
+                        icon:     Icons.remove_shopping_cart_outlined,
+                        color:    Colors.red,
+                        fullWidth: true,
+                        onTap:    () => _openProductList(context, outOfStock, 'Out of Stock'),
+                      ),
+                      const SizedBox(height: 12),
+                      DashboardStatCard(
+                        title:    'Low Stock (< 20)',
+                        count:    lowStock.length,
+                        icon:     Icons.warning_amber_rounded,
+                        color:    Colors.orange,
+                        fullWidth: true,
+                        onTap:    () => _openProductList(context, lowStock, 'Low Stock'),
+                      ),
+                    ],
+                  );
+                }),
+              ],
+            ),
           ),
-        ),
-      ])
+        ]),
+      )
     );
   }
 
