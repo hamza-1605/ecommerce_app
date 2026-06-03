@@ -38,4 +38,9 @@ class AuthUserRepositoryImpl implements AuthUserRepository {
     );
   }
 
+  @override
+  Future<void> logout({required int userId}) async {
+    return await authRemoteDatasource.logout(userId: userId);
+  }
+
 }

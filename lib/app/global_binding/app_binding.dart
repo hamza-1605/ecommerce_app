@@ -3,6 +3,7 @@ import 'package:ekart/features/auth/data/datasources/remote/auth_remote_datasour
 import 'package:ekart/features/auth/data/repository/auth_user_repository_impl.dart';
 import 'package:ekart/features/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:ekart/features/auth/domain/usecases/login_auth_user_usecase.dart';
+import 'package:ekart/features/auth/domain/usecases/logout_auth_usecase.dart';
 import 'package:ekart/features/auth/domain/usecases/register_auth_user_usecase.dart';
 import 'package:ekart/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
@@ -33,6 +34,7 @@ class AppBinding {
         RegisterAuthUserUsecase(authRepo),
         ForgotPasswordUsecase(authRepo),
         ResetPasswordUsecase(authRepo),
+        LogoutAuthUsecase(authRepo),
       ),
       permanent: true,
     );

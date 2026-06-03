@@ -9,4 +9,6 @@ abstract class AuthUserRepository {
   Future<void> forgotPassword({required String email});
   
   Future<void> resetPassword({required String code, required String password, required String passwordConfirmation});
+
+  Future<void> logout({required int userId});
 }

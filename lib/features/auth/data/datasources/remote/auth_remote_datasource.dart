@@ -83,4 +83,16 @@ class AuthRemoteDatasource {
     }
   }
 
+  Future<void> logout({required int userId}) async {
+    final apiResponse = await ApiServices().putCall(
+      '/api/users/$userId',
+      {'deviceToken': null},
+      (json) {},
+    );
+    
+    if (!apiResponse.success) {
+      throw Exception(apiResponse.message);
+    }
+  }
+
 }

@@ -273,10 +273,12 @@ class OrderController extends GetxController {
       orders.refresh();
       allOrders.refresh();
 
-      HelperFunctions.showSnackbar(
-        title:   'Updated',
-        message: 'Order status changed to $orderStatus',
-      );
+      if (orderStatus.toLowerCase() != 'cancelled') {
+        HelperFunctions.showSnackbar(
+          title:   'Updated',
+          message: 'Order status changed to $orderStatus',
+        );
+      }
     } 
     catch (e) {
       HelperFunctions.showSnackbar(

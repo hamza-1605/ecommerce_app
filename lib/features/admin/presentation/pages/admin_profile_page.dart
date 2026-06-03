@@ -5,6 +5,7 @@ import 'package:ekart/features/auth/presentation/state/controllers/auth_controll
 import 'package:ekart/core/widgets/info_row.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 
 class AdminProfilePage extends StatelessWidget {
@@ -166,7 +167,10 @@ class AdminProfilePage extends StatelessWidget {
                   width: double.infinity,
                   height: 52,
                   child: GradientElevatedButton.icon(
-                    onPressed: () => auth.logout(),
+                    onPressed: () {
+                      final userId = GetStorage().read('user_id');
+                      Get.find<AuthController>().logout(userId: userId);
+                    },
                     icon: const Icon(Icons.logout_rounded) ,
                     label: const Text('Logout') 
                   ),

@@ -10,6 +10,7 @@ import 'package:ekart/features/profile/presentation/widgets/profile_tile.dart';
 import 'package:ekart/features/wishlist/presentation/state/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -131,13 +132,16 @@ class UserProfilePage extends GetView<UserProfileController> {
                   
                   // ── Logout Button ─────────────────────
                   SizedBox(
-                      width: double.infinity,
-                      height: 56,
-                      child: GradientElevatedButton.icon(
-                        icon: Icon(Icons.logout_outlined),
-                        label: Text("Log Out"),
-                        onPressed: () => Get.find<AuthController>().logout(), 
-                      ),
+                    width: double.infinity,
+                    height: 56,
+                    child: GradientElevatedButton.icon(
+                      icon: Icon(Icons.logout_outlined),
+                      label: Text("Log Out"),
+                      onPressed: () {
+                        final userId = GetStorage().read('user_id');
+                        Get.find<AuthController>().logout(userId: userId);
+                      }, 
+                    ),
                   ),
                 ],
               ),
