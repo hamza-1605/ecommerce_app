@@ -84,6 +84,10 @@ class AppDecorations {
       width: 1.5,
     ),
   );
+
+  static BoxDecoration get pillContainer => BoxDecoration(
+    borderRadius: BorderRadius.circular(30),
+  );
   
 
 }
