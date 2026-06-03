@@ -68,7 +68,7 @@ class OrdersPage extends GetView<OrderController> {
                       itemCount: controller.orders.length,
                       itemBuilder: (_, index) {
                         final order = controller.orders[index];
-                        return OrderCard(order: order, index: index+1);
+                        return OrderCard(order: order, index: controller.orders.length - index);
                       },
                     ),
                   );

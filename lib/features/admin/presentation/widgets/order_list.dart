@@ -44,7 +44,7 @@ class OrderList extends GetView<OrderController> {
           itemCount: orders.length,
           itemBuilder: (_, i) => AdminOrderCard(
             orderDocumentId: orders[i].documentId,
-            index: i + 1,
+            index: orders.length - i,
           ),
         ),
       );
