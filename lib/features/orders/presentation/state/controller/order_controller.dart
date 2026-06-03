@@ -250,7 +250,6 @@ class OrderController extends GetxController {
       // Helper to update an order in a list
       void updateInList(RxList<OrderEntity> list,String listName) {
         final index = list.indexWhere((o) => o.documentId == documentId);
-        print('$listName — index found: $index');   // ✅
  
         if (index != -1) {
           final existing = list[index];
@@ -259,9 +258,10 @@ class OrderController extends GetxController {
             orderItems:      existing.orderItems,
             deliveryAddress: existing.deliveryAddress,
             total:           existing.total,
-            orderStatus:     orderStatus,       // updated status
+            orderStatus:     orderStatus,             // updated status
             paymentMethod:   existing.paymentMethod,
             createdAt:       existing.createdAt,
+            user:            existing.user
           );
         }
       }
