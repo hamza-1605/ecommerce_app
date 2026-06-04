@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use strict';
 
 const { GoogleAuth } = require('google-auth-library');
@@ -9,7 +10,6 @@ const auth = new GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/firebase.messaging'],
 });
 
-// @ts-ignore
 async function sendNotification({ deviceToken, title, body }) {
     try {
         const client = await auth.getClient();
@@ -17,7 +17,8 @@ async function sendNotification({ deviceToken, title, body }) {
 
         const projectId = process.env.FIREBASE_PROJECT_ID;
 
-        const response = await fetch(`https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`,
+        const response = await fetch(
+            `https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`,
             {
                 method: 'POST',
                 headers: {
@@ -37,8 +38,26 @@ async function sendNotification({ deviceToken, title, body }) {
         console.log('FCM v1 response:', response.status, result);
     }
     catch (e) {
-        console.error('sendNotification error:', e);
+        console.error('sendNotification error:', e.message);
     }
+}
+
+async function saveNotification({ userId, title, message, orderId, type }) {
+  try {
+    await strapi.documents('api::notification.notification').create({
+      data: {
+        title,
+        message,
+        orderId,
+        type,
+        isRead: false,
+        user: userId,
+        publishedAt: new Date().toISOString(), // 👈 required for Strapi v5 to make it findable
+      },
+    });
+  } catch (e) {
+    console.error('saveNotification error:', e.message);
+  }
 }
 
 
@@ -72,15 +91,23 @@ module.exports = {
                     title: '🛒 New Order Received',
                     body: `Order #${result.documentId.substring(0, 8).toUpperCase()} has been placed`,
                 });
+
+                // 👇 save notification for each admin
+                await saveNotification({
+                    userId:  admin.id,
+                    title:   '🛒 New Order Received',
+                    message:    `Order #${result.documentId.substring(0, 8).toUpperCase()} has been placed`,
+                    orderId: result.documentId,
+                    type:    'order_created',
+                });
             }
         } 
         catch (e) {
-            console.error('afterCreate notification error:', e);
+            console.error('afterCreate notification error:', e.message);
         }
     },
 
     // ──────────── Order Status Changed → notify user ────────────────────
-    // @ts-ignore
     async afterUpdate(event) {
         try {
             const { result, params } = event;
@@ -109,12 +136,21 @@ module.exports = {
                         title: '❌ Order Cancelled by User',
                         body: `Order #${result.documentId.substring(0, 8).toUpperCase()} was cancelled by the customer`,
                     });
+
+                    // 👇 save for admin
+                    await saveNotification({
+                        userId:  admin.id,
+                        title:   '❌ Order Cancelled by User',
+                        message:    `Order #${result.documentId.substring(0, 8).toUpperCase()} was cancelled by the customer`,
+                        orderId: result.documentId,
+                        type:    'cancelled',
+                    });
                 }
             }
 
-            // notify user of status change
-            const deviceToken = order?.user?.deviceToken;
-            if (!deviceToken) return;
+            // ── Notify user of status change ───────────────
+            const userDeviceToken = order?.user?.deviceToken;
+            const userId = order?.user?.id;
 
             const messages = {
                 processing: { title: '⏳ Order Processing', body: `Your order #${result.documentId.substring(0, 8).toUpperCase()} is being processed` },
@@ -122,14 +158,27 @@ module.exports = {
                 cancelled:  { title: '❌ Order Cancelled',  body: `Your order #${result.documentId.substring(0, 8).toUpperCase()} has been cancelled` },
             };
 
-            // @ts-ignore
             const message = messages[status];
             if (!message) return;
 
-            await sendNotification({ deviceToken, ...message });
+            if (userDeviceToken) {
+                await sendNotification({ deviceToken: userDeviceToken, ...message });
+            }
 
-        } catch (e) {
-            console.error('afterUpdate notification error:', e);
+            // 👇 save for user regardless of whether they have a device token
+            if (userId) {
+                await saveNotification({
+                    userId,
+                    title:   message.title,
+                    message: message.body,
+                    orderId: result.documentId,
+                    type:    'status_changed',
+                });
+            }
+
+        } 
+        catch (e) {
+            console.error('afterUpdate notification error:', e.message);
         }
     },
 };

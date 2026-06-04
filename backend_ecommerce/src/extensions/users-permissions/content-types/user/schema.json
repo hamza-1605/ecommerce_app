@@ -90,6 +90,12 @@
     },
     "deviceToken": {
       "type": "string"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
+      "mappedBy": "user"
     }
   }
 }

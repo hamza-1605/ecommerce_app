@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "isRead": {
+      "type": "boolean",
+      "default": false
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "notifications"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "order_created",
+        "status_changed",
+        "cancelled"
+      ]
+    }
+  }
+}
