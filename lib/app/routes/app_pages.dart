@@ -9,6 +9,8 @@ import 'package:ekart/features/home/presentation/pages/home_page.dart';
 import 'package:ekart/features/auth/presentation/pages/login_page.dart';
 import 'package:ekart/features/auth/presentation/pages/registeration_page.dart';
 import 'package:ekart/features/home/presentation/state/binding/home_binding.dart';
+import 'package:ekart/features/notifications/presentation/pages/notifications_page.dart';
+import 'package:ekart/features/notifications/presentation/state/bindings/notification_bindings.dart';
 import 'package:ekart/features/orders/presentation/pages/checkout_page.dart';
 import 'package:ekart/features/orders/presentation/pages/payment_page.dart';
 import 'package:ekart/features/orders/presentation/state/binding/orders_binding.dart';
@@ -83,6 +85,13 @@ class AppPages {
 
     // Wishlist
     GetPage(name: AppRoutes.wishlist, page: () => const WishlistPage()),
+
+    // Notification
+    GetPage(
+      name: AppRoutes.notifications,
+      page: () => const NotificationsPage(),
+      binding: NotificationBindings(),
+    ),
 
   ];
 }
