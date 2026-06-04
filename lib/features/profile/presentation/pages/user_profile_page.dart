@@ -127,6 +127,16 @@ class UserProfilePage extends GetView<UserProfileController> {
                       subtitle: '${Get.find<WishlistController>().items.length} items'
                     )
                   ),
+
+                  const SizedBox(height: 24),
+                  
+                  // ── Settings ──────────────────────────
+                  ProfileTile(
+                    onTap: () => Get.toNamed( AppRoutes.settings ),
+                    iconData: Icons.settings, 
+                    title: 'Settings', 
+                    subtitle: 'Set your preferences.'
+                  ),
                   
                   const SizedBox(height: 42),
                   

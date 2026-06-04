@@ -18,6 +18,7 @@ import 'package:ekart/features/products/presentation/pages/product_detail_page.d
 import 'package:ekart/features/products/presentation/pages/create_product_page.dart';
 import 'package:ekart/features/profile/presentation/pages/edit_user_profile_page.dart';
 import 'package:ekart/features/products/presentation/state/bindings/product_binding.dart';
+import 'package:ekart/features/profile/presentation/pages/profile_settings_page.dart';
 import 'package:ekart/features/profile/presentation/pages/view_personal_info_page.dart';
 import 'package:ekart/features/profile/presentation/state/bindings/user_profile_binding.dart';
 import 'package:ekart/features/wishlist/presentation/pages/wishlist_page.dart';
@@ -43,11 +44,11 @@ class AppPages {
       name: AppRoutes.home,   
       page: () => const HomePage(),
       bindings: [
-        HomeBinding(),
         ProductBinding(), 
         CartBinding(),
         OrderBinding(),
         UserProfileBinding(),
+        HomeBinding(),
       ]),
 
 
@@ -67,6 +68,7 @@ class AppPages {
     // Profile Relevant Pages
     GetPage( name: AppRoutes.editProfile,   page: () => const EditUserProfilePage(), binding: UserProfileBinding() ),
     GetPage( name: AppRoutes.viewProfileDetails,  page: () => ViewPersonalInfoPage(), binding: UserProfileBinding() ),
+    GetPage( name: AppRoutes.settings,  page: () => ProfileSettingsPage() ),
     
     
     // Products Relevant Pages

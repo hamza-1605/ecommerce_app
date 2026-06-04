@@ -22,6 +22,7 @@ class AppRoutes {
   static const payment   = '/payment';
 
   static const wishlist  = '/wishlist';
+  static const settings  = '/settings';
 
   static const manageAdmins  = '/admin/manage-admins'; 
 }
