@@ -1,4 +1,7 @@
 import 'package:ekart/app/routes/app_routes.dart';
+import 'package:ekart/core/themes/app_colors.dart';
+import 'package:ekart/core/themes/app_decorations.dart';
+import 'package:ekart/core/themes/app_text_styles.dart';
 import 'package:ekart/core/widgets/background_svg.dart';
 import 'package:ekart/core/widgets/customized_appbar.dart';
 import 'package:ekart/features/auth/presentation/state/controllers/auth_controller.dart';
@@ -18,7 +21,13 @@ class AdminProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 70), 
-        child: CustomizedAppbar(title: "Admin Profile"),
+        child: CustomizedAppbar(
+          title: "Admin Profile",
+          anyWidget: IconButton(
+            onPressed: () => Get.toNamed( AppRoutes.notifications ), 
+            icon: Icon(Icons.notifications, size: 30, color: Colors.white)
+          ),
+        ),
       ),
 
       body: Stack( 
@@ -37,38 +46,25 @@ class AdminProfilePage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 48,
-                        backgroundColor: const Color(0xFF1A1A1A),
+                        backgroundColor: AppColors.textHint,
                         child: Text(
                           auth.currentUser.value?.username
                               .substring(0, 1).toUpperCase() ?? 'A',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 36,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: AppTextStyles.displayLarge.copyWith(color: Colors.black),
                         ),
                       ),
                       const SizedBox(height: 12),
                       Text(
                         auth.currentUser.value?.username ?? '',
-                        style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w700),
+                        style: AppTextStyles.titleLarge,
                       ),
                       const SizedBox(height: 4),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1A1A1A),
-                          borderRadius: BorderRadius.circular(20),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        decoration: AppDecorations.pillContainer.copyWith(color: Colors.black),
+                        child: Text('ADMIN',
+                          style: AppTextStyles.titleSmall.copyWith(color: Colors.white)
                         ),
-                        child: const Text('ADMIN',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 1,
-                          )),
                       ),
                     ],
                   ),

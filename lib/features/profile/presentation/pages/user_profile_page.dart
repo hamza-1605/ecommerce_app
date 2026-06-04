@@ -22,7 +22,13 @@ class UserProfilePage extends GetView<UserProfileController> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 70.0), 
-        child: CustomizedAppbar( title: "My Profile"),
+        child: CustomizedAppbar(
+          title: "My Profile", 
+          anyWidget: IconButton(
+            onPressed: () => Get.toNamed( AppRoutes.notifications ), 
+            icon: Icon(Icons.notifications, size: 30, color: Colors.white)
+          ),
+        ),
       ),
       
       body: Stack( 

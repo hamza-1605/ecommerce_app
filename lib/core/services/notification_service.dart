@@ -1,5 +1,8 @@
+import 'package:ekart/app/routes/app_routes.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 
 class NotificationService {
   static final _fcm = FirebaseMessaging.instance;
@@ -17,7 +20,14 @@ class NotificationService {
     // 2. Setup local notifications (for foreground)
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initSettings = InitializationSettings(android: androidSettings);
-    await _localNotifications.initialize(initSettings);
+    await _localNotifications.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (details) {
+        // 👈 fired when user taps foreground notification
+        Get.toNamed(AppRoutes.notifications);
+      }
+    );
+
 
     // 3. Create notification channel (Android 8+)
     const channel = AndroidNotificationChannel(
@@ -51,9 +61,20 @@ class NotificationService {
       }
     });
 
-    // 5. Get and print FCM token (we'll save this to Strapi in the next step)
-    final token = await _fcm.getToken();
-    print('FCM Token: $token');
+    // 5. Handle background/terminated notification tap
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      // 👈 fired when user taps background notification
+      Get.toNamed(AppRoutes.notifications);
+    });
+
+    // 6. Handle terminated state tap
+    final initialMessage = await _fcm.getInitialMessage();
+    if (initialMessage != null) {
+      // 👈 app was opened from a notification while terminated
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.toNamed(AppRoutes.notifications);
+      });
+    }
   }
 
   // Call this after login to get the token

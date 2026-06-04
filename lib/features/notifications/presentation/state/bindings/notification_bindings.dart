@@ -28,6 +28,6 @@ class NotificationBindings extends Bindings{
       getNotificationsUsecase: Get.find(), 
       markAsReadUsecase: Get.find(), 
       markAllAsReadUsecase: Get.find()
-    ) );
+    ), fenix: true );
   }
 }

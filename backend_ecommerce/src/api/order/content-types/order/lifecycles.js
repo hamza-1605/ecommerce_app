@@ -45,15 +45,15 @@ async function sendNotification({ deviceToken, title, body }) {
 async function saveNotification({ userId, title, message, orderId, type }) {
   try {
     await strapi.documents('api::notification.notification').create({
-      data: {
-        title,
-        message,
-        orderId,
-        type,
-        isRead: false,
-        user: userId,
-        publishedAt: new Date().toISOString(), // 👈 required for Strapi v5 to make it findable
-      },
+        data: {
+            title,
+            message,
+            orderId,
+            type,
+            isRead: false,
+            user: userId,
+        },
+        status:'published',
     });
   } catch (e) {
     console.error('saveNotification error:', e.message);
@@ -101,6 +101,24 @@ module.exports = {
                     type:    'order_created',
                 });
             }
+            
+            // ── Notify user (in-app only, no push) ──────
+            // 👇 fetch order with user populated since result doesn't have it
+            const order = await strapi.db.query('api::order.order').findOne({
+                where: { id: result.id },
+                populate: ['user'],
+            });
+    
+            const userId = order?.user?.id;
+            if(userId) {
+                await saveNotification({
+                    userId:  userId,
+                    title:   "Your order has been placed",
+                    message: `Order #${result.documentId.substring(0, 8).toUpperCase()} is now waiting to be processed`,
+                    orderId: result.documentId,
+                    type:    'order_created',
+                });
+            }
         } 
         catch (e) {
             console.error('afterCreate notification error:', e.message);
@@ -141,7 +159,7 @@ module.exports = {
                     await saveNotification({
                         userId:  admin.id,
                         title:   '❌ Order Cancelled by User',
-                        message:    `Order #${result.documentId.substring(0, 8).toUpperCase()} was cancelled by the customer`,
+                        message: `Order #${result.documentId.substring(0, 8).toUpperCase()} was cancelled by the customer`,
                         orderId: result.documentId,
                         type:    'cancelled',
                     });
@@ -167,13 +185,24 @@ module.exports = {
 
             // 👇 save for user regardless of whether they have a device token
             if (userId) {
-                await saveNotification({
-                    userId,
-                    title:   message.title,
-                    message: message.body,
-                    orderId: result.documentId,
-                    type:    'status_changed',
-                });
+                if (status === 'cancelled'){
+                    await saveNotification({
+                        userId,
+                        title:   message.title,
+                        message: message.body,
+                        orderId: result.documentId,
+                        type:    'cancelled',
+                    });
+                }
+                else {
+                    await saveNotification({
+                        userId,
+                        title:   message.title,
+                        message: message.body,
+                        orderId: result.documentId,
+                        type:    'status_changed',
+                    });
+                }
             }
 
         } 
